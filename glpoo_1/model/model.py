@@ -45,6 +45,19 @@ class Member_license(Base):#association entre member et licence
             self.id, self.id_licence, self.id_member,self.statut)
 
 
+class Licence(Base):
+    __tablename__='licence'
+    id_licence = Column(Integer,primary_key=True)
+    id_club = Column(int)
+    name = Column(String)
+    prix = Column(float)
+    nb_seance = Column(int)
+    avantage = Column(String)
+
+    def __repr__(self):
+        return "(ID='%s',ID_club='%s', name='%s', prix='%s', nb_seance='%s', avantage='%s')" % (
+            self.id_licence,self.id_club,self.name, self.prix, self.nb_seance,self.avantage)
+
 Base.metadata.create_all(engine)
 
 
@@ -77,7 +90,30 @@ def modify_name(ida,name=None,fullname=None,user=None,password=None):
         mod.password=password
 
 
+def add_licence(add_id_club, add_name, add_prix, add_nb_sceance,add_avantage):
+    add_licenc = Licence(id_club=add_id_club, name=add_name, prix=add_prix, nb_seance=add_nb_sceance,avantage=add_avantage)
+
+    session.add(add_licenc)
+    session.commit()
 
 
+def list_licence():
+    for licence in session.query(Licence):
+        print(licence)
 
 
+def del_licence(ida):
+    session.delete(session.query(Licence).filter_by(id=ida).one())
+    session.commit()
+
+
+def modify_licence(ida, name=None, prix=None, nb_licence=None, avantage=None):
+    mod=session.query(Licence).filter_by(id=ida).one()
+    if name:
+        mod.name = name
+    if prix:
+        mod.prix = prix
+    if nb_licence:
+        mod.nb_licence = nb_licence
+    if avantage:
+        mod.avantage = avantage

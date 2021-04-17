@@ -1,4 +1,6 @@
 from model import *
+
+
 class User():
 
     def __init__(self,id,name,fullname,user,password,clubs):
