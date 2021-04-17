@@ -45,7 +45,7 @@ class Member_license(Base):#association entre member et licence
             self.id, self.id_licence, self.id_member,self.statut)
 
 
-class Licence(Base):
+class Licence_bdd(Base):
     __tablename__='licence'
     id_licence = Column(Integer,primary_key=True)
     id_club = Column(int)
