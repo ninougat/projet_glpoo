@@ -1,13 +1,12 @@
 from evenement_class import Evenement
 
 class Club:
-    def __init__(self):
-        self.id = 0
-        self.nom = ""
-        self.adresse = ""
-        self.logo = ""
-        self.description = ""
-        self.chef = 0
+    def __init__(self, id, nom, adresse, description, id_chef):
+        self.id = id
+        self.nom = nom
+        self.adresse = adresse
+        self.description = description
+        self.chef = id_chef
         self.membres_bureau = []
         self.membres = []
         self.calendrier_evenements = []
@@ -26,10 +25,6 @@ class Club:
 
     def changer_description(self):
         self.description = input("Entrez la nouvelle description")
-
-    def afficher_logo(self):
-        #TODO
-        pass
 
     def modifier_logo(self, logo):
         self.logo = logo
@@ -54,8 +49,8 @@ class Club:
         for evenement in self.calendrier_evenements:
             evenement.afficher_evenement()
 
-    def ajouter_evenement(self):
-        evenement = Evenement()
+    def ajouter_evenement(self, nom, lieu, date, horraire):
+        evenement = Evenement(nom, lieu, date, horraire)
         print("Entrez la description de l'événement :")
         evenement.nom = input("Nom :")
         evenement.lieu = input("Lieu :")
