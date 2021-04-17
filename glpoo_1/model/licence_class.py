@@ -22,6 +22,13 @@ class Licence:
             self.avantage = avantage
         modify_licence(self.id, name=name, prix=prix, nb_sceance=nb_sceance, avantage=avantage)
 
+    def afficher_licence(self):
+        print(" "+self.id+"\n")
+        print(" " + self.name + "\n")
+        print(" " + self.prix + "\n")
+        print(" " + self.nb_sceance + "\n")
+        print(" " + self.avantage + "\n")
+
     def supprimer_license(self):
         del_licence(id)
 
