@@ -1,5 +1,5 @@
 from evenement_class import Evenement
-
+from member_class import *
 class Club:
     def __init__(self, id, nom, adresse, description, id_chef):
         self.id = id
@@ -29,13 +29,28 @@ class Club:
     def modifier_logo(self, logo):
         self.logo = logo
 
-    def rechercher_membre(self):
-        pass
-        #TODO requète bdd sur nom prenom
+    def rechercher_membre(self,name,fullname):
+
+        licenses = session.query(Licence_bdd).filter_by(id=self.id)  # on récupère toute les licences du clubs
+        for i in licenses:  # pour chaque licence du club
+            mem_lic = session.query(Member_licence).filter_by(
+                id_licence=i.id)  # on récupère la table intermédiaire entre membre et licence
+            for j in mem_lic:  # pour chaque ligne de la table
+                mem=None
+                mem = session.query(Member).filter_by(id=j.id,name=name,fullname=fullname)  # on récupère le membre
+                if mem :
+                    return Membre(mem.id,mem.name,mem.fullname,mem.user,mem.password,j.statut,j.id)
+        return None
+
 
     def afficher_membres(self):
-        #TODO requète BDD
-        pass
+        licenses=session.query(Licence_bdd).filter_by(id=self.id)#on récupère toute les licences du clubs
+        for i in licenses : #pour chaque licence du club
+            mem_lic=session.query(Member_licence).filter_by(id_licence=i.id)#on récupère la table intermédiaire entre membre et licence
+            for j in mem_lic :#pour chaque ligne de la table
+                mem=session.query(Member).filter_by(id=j.id)#on récupère le membre
+                print(mem.name,mem.fullname,j.statut)#et on l'affiche
+
 
     def ajouter_membre(self, membre):
         self.membres.append(membre)

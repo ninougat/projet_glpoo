@@ -29,34 +29,60 @@ class Member(Base):
             self.id, self.name, self.fullname, self.user,self.password,self.right)
 
 
-class Member_license(Base):#association entre member et licence
+class Member_licence(Base):#association entre member et licence
     __tablename__ = 'members_license'
     id = Column(Integer, primary_key=True)
-    #id_licence=Column(Integer,ForeignKey('id_licence'))
-    #license = relationship("Club",back_populates="L_licence")
+    id_licence=Column(Integer,ForeignKey('licences.id'))
+    license = relationship("licences",back_populates="id_licence")
     id_member=Column(Integer,ForeignKey('members.id'))
-    member=relationship("members",back_populates="id_members")#creer relation entre cette table et la table membre
+    member=relationship("members",back_populates="id_member")#creer relation entre cette table et la table membre
     statut= Column(Integer)#membre(0), bureau(1),chef(2)
     #jointure avec une table pour trouver les clubs
 
 
     def __repr__(self):
-        return "(ID='%s', id_club='%s', id_member='%s')" % (
+        return "(ID='%s', id_licence='%s', id_member='%s', id_statut='%s')" % (
             self.id, self.id_licence, self.id_member,self.statut)
 
 
 class Licence_bdd(Base):
-    __tablename__='licence'
-    id_licence = Column(Integer,primary_key=True)
-    id_club = Column(int)
+    __tablename__='licences'
+    id = Column(Integer,primary_key=True)
+    id_club = Column(Integer)
+
     name = Column(String)
-    prix = Column(float)
-    nb_seance = Column(int)
+    prix = Column(Integer)
+    nb_seance = Column(Integer)
     avantage = Column(String)
 
     def __repr__(self):
         return "(ID='%s',ID_club='%s', name='%s', prix='%s', nb_seance='%s', avantage='%s')" % (
-            self.id_licence,self.id_club,self.name, self.prix, self.nb_seance,self.avantage)
+            self.id,self.id_club,self.name, self.prix, self.nb_seance,self.avantage)
+
+class Club_bdd(Base):
+    __tablename__='club'
+    id = Column(Integer,primary_key=True)
+    nom = Column(String)
+    adresse = Column(String)
+    description = Column(String)
+    chef = Column(Integer)
+
+    def __repr__(self):
+        return "(ID='%s',nom='%s', adresse='%s', ID_Chef='%s', description='%s')" % (
+            self.id,self.nom,self.adresse,self.adresse,self.description)
+
+class Evenement_bdd(Base):
+    __tablename__ = 'evenement'
+    id = Column(Integer, primary_key=True)
+    nom = Column(String)
+    lieu = Column(String)
+    date = Column(String)
+    horaire = Column(String)
+
+    def __repr__(self):
+        return "(ID='%s',nom='%s', lieu='%s', date='%s', horaire='%s')" % (
+            self.id, self.nom, self.lieu, self.date, self.horaire)
+
 
 Base.metadata.create_all(engine)
 
@@ -91,24 +117,24 @@ def modify_name(ida,name=None,fullname=None,user=None,password=None):
 
 
 def add_licence(add_id_club, add_name, add_prix, add_nb_sceance,add_avantage):
-    add_licenc = Licence(id_club=add_id_club, name=add_name, prix=add_prix, nb_seance=add_nb_sceance,avantage=add_avantage)
+    add_licenc = Licence_bdd(id_club=add_id_club, name=add_name, prix=add_prix, nb_seance=add_nb_sceance,avantage=add_avantage)
 
     session.add(add_licenc)
     session.commit()
 
 
 def list_licence():
-    for licence in session.query(Licence):
+    for licence in session.query(Licence_bdd):
         print(licence)
 
 
 def del_licence(ida):
-    session.delete(session.query(Licence).filter_by(id=ida).one())
+    session.delete(session.query(Licence_bdd).filter_by(id=ida).one())
     session.commit()
 
 
 def modify_licence(ida, name=None, prix=None, nb_licence=None, avantage=None):
-    mod=session.query(Licence).filter_by(id=ida).one()
+    mod=session.query(Licence_bdd).filter_by(id=ida).one()
     if name:
         mod.name = name
     if prix:

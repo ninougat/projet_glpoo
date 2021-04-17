@@ -3,7 +3,7 @@ from model import *
 
 class User():
 
-    def __init__(self,id,name,fullname,user,password,clubs):
+    def __init__(self,id,name,fullname,user,password,clubs=None):
         self.id=id
         self.name=name
         self.fullname=fullname
@@ -37,12 +37,8 @@ class User():
 
 
 class Membre(User):
-    def __init__(self,member,type,licence):
-        self.id=member.id
-        self.name=member.name
-        self.fullname=member.fullname
-        self.user=member.user
-        self.password=member.password
+    def __init__(self,id,name,fullname,user,password,type,licence):
+        User.__init__(id,name,fullname,user,password)
         self.type=type
         self.licence=licence
 
