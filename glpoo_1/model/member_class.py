@@ -11,7 +11,7 @@ class User():
         self.password=password
         self.clubs=clubs
 
-    def Modifier_Profil(self,name=None,fullname=None,user=None,password=None):
+    def modifier_Profil(self,name=None,fullname=None,user=None,password=None):
         if name:
             self.name = name
         if fullname:
@@ -23,11 +23,11 @@ class User():
         modify_name(self.id,name=name,fullname=fullname,user=user,password=password)
 
 
-    def Inscription(self,club):
+    def inscription(self,club):
         pass
-    def Desinscription(self,club):
+    def desinscription(self,club):
         pass
-    def Consulter(self,club):
+    def consulter(self,club):
         pass
     def supprimer(self):
         del_member(id)
@@ -46,25 +46,25 @@ class Membre(User):
         self.type=type
         self.licence=licence
 
-    def Changer_license(self):
+    def changer_license(self):
         pass
 
-    def Modifier_Club(self):
+    def modifier_Club(self):
         pass
 
-    def Modifier_license(self):
+    def modifier_license(self):
         pass
 
-    def Lister_Membres(self):
+    def lister_Membres(self):
         pass
 
-    def Desinscrire_Membre(self,membre):
+    def desinscrire_Membre(self,membre):
         pass
 
-    def Promouvoir(self,membre):
+    def promouvoir(self,membre):
         pass
 
-    def Desinscrire_Membre(self,membre):
+    def desinscrire_Membre(self,membre):
         pass
 
     def supprimer_Club(self):
@@ -73,9 +73,9 @@ class Membre(User):
 
 class Admin(User):
 
-    def Supprimer_Club(self,club):
+    def supprimer_Club(self, club):
         pass
 
-    def Supprimer_Utilisateur(self,user):
+    def supprimer_Utilisateur(self, user):
         session.delete(session.query(Member).filter_by(user=user).one())
         session.commit()
