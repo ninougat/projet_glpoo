@@ -1,32 +1,5 @@
 import pygame as pg
 
-class Utilisateur:
-    nom = "PAJON"
-    prenom = "Quentin"
-    age = 21
-    licences = []
-
-    def __init__(self):
-        pass
-
-    def ajoutLicence(self, idx, droits):
-        self.licences.append({idx: idx, droits: droits})
-
-    def droitsLicence(self, idx):
-        for licence in self.licences:
-            if licence.idx == idx:
-                return licence.droits
-        return 0
-
-
-class Club:
-    nom = None
-    description = None
-
-    def __init__(self, nom, description):
-        self.nom = nom
-        self.description = description
-
 
 class Button:
     content = None
@@ -36,8 +9,7 @@ class Button:
     pos = [0, 0]
     isPressed = 0
 
-    def __init__(self, button_size, button_position, text="", background=[128, 128, 128],
-                 backgroundWhenPressed=[64, 64, 64]):
+    def __init__(self, button_size, button_position, text="", background=[128, 128, 128], backgroundWhenPressed=[64, 64, 64]):
         self.size = button_size
         self.pos = button_position
         if text != "":
@@ -55,8 +27,7 @@ class Button:
         return False
 
     def afficher(self, screen, font):
-        if (self.pos[0] < screen.get_width() or self.pos[0] + self.size[0] > 0) and (
-                self.pos[1] < screen.get_height() or self.pos[1] + self.size[1] > 0):
+        if (self.pos[0] < screen.get_width() or self.pos[0] + self.size[0] > 0) and (self.pos[1] < screen.get_height() or self.pos[1] + self.size[1] > 0):
             if self.isPressed:
                 pg.draw.rect(screen, self.bg_color_Pressed, pg.Rect(self.pos, self.size))
             else:
@@ -68,3 +39,66 @@ class Button:
                                 self.pos[1] + self.size[1] / 2 - rect.height / 2]
                 screen.blit(img, rect)
 
+
+class ZoneText:
+    title = ""
+    content = ""
+    posCursor = 0
+    size = [320, 50]
+    pos = [0, 0]
+    isIn = False
+    sizeLimit = 22
+
+    def __init__ (self, title=None, text=None, textSize=None, textPos=None):
+        if title:
+            self.title = title
+            self.sizeLimit -= len (self.title)
+        if text:
+            self.content = text[:self.sizeLimit]
+            self.posCursor = len (self.content)
+        if textPos:
+            self.pos = textPos
+        if textSize:
+            self.size = textSize
+
+
+    def clickIn (self):
+        x, y = pg.mouse.get_pos()
+        if self.pos[0] < x < self.pos[0] + self.size[0] and self.pos[1] < y < self.pos[1] + self.size[1]:
+            self.isIn = True
+        else:
+            self.isIn = False
+
+
+    def handleKeyDown (self, event):
+        if event.key == pg.K_BACKSPACE:
+            self.content = self.content[:max (self.posCursor - 1, 0)] + self.content[self.posCursor:]
+            self.posCursor = max (self.posCursor - 1, 0)
+        elif event.key == pg.K_DELETE:
+            self.content = self.content[:self.posCursor] + self.content[self.posCursor + 1:]
+            self.posCursor = min (len (self.content), self.posCursor)
+        elif event.key == pg.K_RIGHT:
+            self.posCursor = min (len (self.content), self.posCursor + 1)
+        elif event.key == pg.K_LEFT:
+            self.posCursor = max (0, self.posCursor - 1)
+        elif self.posCursor < self.sizeLimit:
+            self.content = self.content[:self.posCursor] + event.unicode + self.content[self.posCursor:]
+            self.posCursor += 1
+
+
+    def afficher (self, screen, font):
+        if (self.pos[0] < screen.get_width () or self.pos[0] + self.size[0] > 0) and (self.pos[1] < screen.get_width () or self.pos[1] + self.size[1] > 0):
+            pg.draw.rect(screen, [52, 189, 52], pg.Rect(self.pos, self.size))
+
+            img_title = font.render (self.title + " :", True, [0, 0, 0])
+            rect_title = img_title.get_rect ()
+            rect_title.topleft = [self.pos[0], self.pos[1] + self.size[1] / 2 - rect_title.height / 2]
+            screen.blit (img_title, rect_title)
+
+            img = font.render(self.content, True, [0, 0, 0])
+            if self.isIn:
+                curseur = pg.Surface ((int (font.get_height () / 20 + 1), font.get_height ()))
+                img.blit (curseur, (font.render (self.content[:self.posCursor], True, [0, 0, 0]).get_width () - 0.5, 0))
+            rect = img.get_rect()
+            rect.topleft = [self.pos[0] + rect_title.width + (self.size[0] - rect_title.width) / 2 - rect.width / 2, self.pos[1] + self.size[1] / 2 - rect.height / 2]
+            screen.blit(img, rect)
