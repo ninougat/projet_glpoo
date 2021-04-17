@@ -20,7 +20,7 @@ class User():
             self.user = user
         if password:
             self.password = password
-        modify_name(self.id,name=name,fullname=fullname,user=user,password=password)
+        modify_member(self.id, name=name, fullname=fullname, user=user, password=password)
 
 
     def inscription(self,club):
