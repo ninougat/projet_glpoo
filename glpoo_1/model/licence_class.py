@@ -3,7 +3,7 @@ from model import *
 
 class Licence:
 
-    def __init__(self, id, id_club, name, prix, nb_seances, avantage):
+    def __init__(self, id_club, name, prix, nb_seances, avantage, id=None):
         self.id = id
         self.id_club = id_club
         self.name = name
@@ -30,8 +30,9 @@ class Licence:
         print(" " + self.avantage + "\n")
 
     def supprimer_licence(self):
-        del_licence(id)
+        del_licence(self.id)
 
 
 def creer_License(id_club, name, prix, nb_seance, avantage):
-    add_licence(id_club, name, prix, nb_seance, avantage)
+    licence = Licence(id_club, name, prix, nb_seance, avantage)
+    add_licence(licence)

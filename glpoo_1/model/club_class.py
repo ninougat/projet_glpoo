@@ -3,7 +3,7 @@ from model.member_class import *
 
 
 class Club:
-    def __init__(self, id, nom, adresse, description, id_chef):
+    def __init__(self, nom, adresse, description, id_chef, id=None):
         self.id = id
         self.nom = nom
         self.adresse = adresse
@@ -53,7 +53,8 @@ class Club:
                 print(mem.name, mem.fullname, j.statut)  # et on l'affiche
 
     def ajouter_membre(self, membre):
-        self.membres.append(membre)
+        self.membres.append(membre.id)
+        membre.clubs.append(self.id)
 
     def supprimer_membre(self, membre):
         for i in range(len(self.membres)):
@@ -76,8 +77,6 @@ class Club:
         self.calendrier_evenements.append(evenement)
         # on ajoute l'évènement dans la base de données
         add_event(evenement)
-        # on récupère l'id de l'évènement dans la base de données
-        evenement.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
         print(f"L'énévement {evenement.nom} a bien été ajouté au calendrier.")
 
 

@@ -88,11 +88,12 @@ class Evenement_bdd(Base):
 Base.metadata.create_all(engine)
 
 
-def add_member(add_name, add_fullname, add_user, add_password, add_status):
-    add_user = Member(name=add_name, fullname=add_fullname, user=add_user, password=add_password, status=add_status)
-
+def add_member(membre):
+    add_user = Member(name=membre.name, fullname=membre.fullname, user=membre.user, password=membre.password, status=membre.status)
     session.add(add_user)
     session.commit()
+    # on récupère l'id de l'évènement dans la base de données
+    membre.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
 
 
 def list_members():
@@ -123,14 +124,17 @@ def modify_member(ida, name=None, fullname=None, user=None, password=None):
         print("L'id " + ida + " de la table members n'existe pas")
 
 
-def add_licence(add_id_club, add_name, add_prix, add_nb_sceances, add_avantage):
+def add_licence(licence):
     try:
-        session.query(Club_bdd).filter_by(id=add_id_club).one()
-        add_licenc = Licence_bdd(id_club=add_id_club, name=add_name, prix=add_prix, nb_seances=add_nb_sceances,
-                                 avantage=add_avantage)
+        session.query(Club_bdd).filter_by(id=licence.id_club).one()
+        add_licenc = Licence_bdd(id_club=licence.id_club, name=licence.name, prix=licence.prix, nb_seances=licence.nb_sceances,
+                                 avantage=licence.avantage)
 
         session.add(add_licenc)
         session.commit()
+        # on récupère l'id de la licence dans la base de données
+        licence.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
+
     except:
         print("Le club n'existe pas")
 
@@ -163,13 +167,15 @@ def modify_licence(ida, name=None, prix=None, nb_seances=None, avantage=None):
         print("L'id " + str(ida) + " de la table licences n'existe pas")
 
 
-def add_club(add_nom, add_adresse, add_description, add_chef):
+def add_club(club):
     try:
-        session.query(Member).filter_by(id=add_chef).one()  # on vérifie que l'ID passé en paramètre existe
-        add_user = Club_bdd(nom=add_nom, adresse=add_adresse, description=add_description, chef=add_chef)
+        session.query(Member).filter_by(id=club.chef).one()  # on vérifie que l'ID passé en paramètre existe
+        add_user = Club_bdd(nom=club.nom, adresse=club.adresse, description=club.description, chef=club.chef)
 
         session.add(add_user)
         session.commit()
+        # on récupère l'id du club dans la base de données
+        club.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
     except:
         print("Le chef n'existe pas")
 
@@ -206,10 +212,11 @@ def add_event(evenement):
         print("Le club n'existe pas")
         return
 
-    new_event = Evenement_bdd(nom=evenement.nom, lieu=evenement.lieu, date=evenement.date, horaire=evenement.horaire,id_club=evenement.id_club)
+    new_event = Evenement_bdd(nom=evenement.nom, lieu=evenement.lieu, date=evenement.date, horaire=evenement.horaire, id_club=evenement.id_club)
     session.add(new_event)
     session.commit()
-
+    # on récupère l'id de l'évènement dans la base de données
+    evenement.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
 
 def del_club(ida):
     try:

@@ -3,13 +3,13 @@ from model import *
 
 class User:
 
-    def __init__(self, id, name, fullname, user, password, clubs=None):
+    def __init__(self, name, fullname, user, password, clubs=None, id=None):
         self.id = id
         self.name = name
         self.fullname = fullname
         self.user = user
         self.password = password
-        if clubs is not None:
+        if clubs:
             self.clubs = clubs
         else:
             self.clubs = []
@@ -26,16 +26,16 @@ class User:
         modify_member(self.id, name=name, fullname=fullname, user=user, password=password)
 
     def inscription(self, club):
-        self.clubs.append(club)
+        self.clubs.append(club.id)
         club.ajouter_membre(self.id)
 
     def desinscription(self, club):
-        if club in self.clubs:
-            self.clubs.remove(club)
+        if club.id in self.clubs:
+            self.clubs.remove(club.id)
             club.supprimer_membre(self.id)
 
     def consulter(self, club):
-        pass
+        club.afficher_informations()
 
     def supprimer(self):
         del_member(self.id)
@@ -45,8 +45,8 @@ class User:
 
 
 class Membre(User):
-    def __init__(self, id, name, fullname, user, password, type, licence):
-        User.__init__(id, name, fullname, user, password, None)
+    def __init__(self, name, fullname, user, password, type, licence):
+        User.__init__(self, name=name, fullname=fullname, user=user, password=password)
         self.type = type
         self.licence = licence
 
