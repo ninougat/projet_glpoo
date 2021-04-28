@@ -32,5 +32,6 @@ class Licence:
     def supprimer_licence(self):
         del_licence(id)
 
+
 def creer_License(id_club, name, prix, nb_seance, avantage):
     add_licence(id_club, name, prix, nb_seance, avantage)
