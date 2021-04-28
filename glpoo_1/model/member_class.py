@@ -68,10 +68,7 @@ class Membre(User):
     def promouvoir(self, membre):
         pass
 
-    def desinscrire_membre(self, membre):
-        pass
-
-    def supprimer_club(self):
+    def supprimer_Club(self):
         pass
 
 
