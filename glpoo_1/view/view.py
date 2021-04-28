@@ -16,32 +16,20 @@ def vue():
 
 
     clubs = []
-    c = Club ()
-    c.id = 0
-    c.nom = "Club Chef"
-    c.description = "Ceci est un club dont vous etes le chef"
+    c = Club (0, "Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", util.id)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 3)
 
-    c = Club ()
-    c.id = 1
-    c.nom = "Club Bureau"
-    c.description = "Ceci est un club dont vous etes le membre du bureau"
+    c = Club (1, "Club Bureau", "Adresse Bureau", "Ceci est un club dont vous etes membre du bureau", 1)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 2)
 
-    c = Club()
-    c.id = 2
-    c.nom = "Club Membre"
-    c.description = "Ceci est un club dont vous etes un membre"
+    c = Club (2, "Club Membre", "Adresse Membre", "Ceci est un club dont vous etes un membre", 1)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 1)
 
     for i in range(10):
-        c = Club ()
-        c.id = 3 + i
-        c.nom = "Club %d" % i
-        c.description = "Ceci est le club n°%d" % i
+        c = Club (3 + i, "Club %d" % i, "Adresse club n°%d" % i, "Ceci est le club n°%d" % i, 1)
         clubs.append ([c, 0])
 
 

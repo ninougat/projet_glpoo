@@ -1,5 +1,5 @@
-from evenement_class import Evenement
-from member_class import *
+from model.evenement_class import Evenement
+from model.member_class import *
 class Club:
     def __init__(self, id, nom, adresse, description, id_chef):
         self.id = id
