@@ -71,13 +71,6 @@ class Club_bdd(Base):
         return "(ID='%s',nom='%s', adresse='%s', ID_Chef='%s', description='%s')" % (
             self.id, self.nom, self.adresse, self.chef, self.description)
 
-
-def add_club(add_nom, add_adresse, add_description, add_chef):
-    add_user = Member(nom=add_nom, adresse=add_adresse, description=add_description, chef=add_chef)
-    session.add(add_user)
-    session.commit()
-
-
 class Evenement_bdd(Base):
     __tablename__ = 'evenement'
     id = Column(Integer, primary_key=True)
@@ -213,7 +206,7 @@ def add_event(id_club,evenement):
         print("Le club n'existe pas")
         return
 
-    new_event = Evenement_bdd(nom=evenement.nom, lieu=evenement.lieu, date=evenement.date, horaire=evenement.horaire)
+    new_event = Evenement_bdd(nom=evenement.nom, lieu=evenement.lieu, date=evenement.date, horaire=evenement.horaire,id_club=evenement.id_club)
     session.add(new_event)
     session.commit()
 
