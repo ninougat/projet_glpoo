@@ -15,7 +15,7 @@ session = Session()
 class Member(Base):
     __tablename__ = 'members'
     id = Column(Integer, primary_key=True)
-    right = Column(String)  # user ou admin
+    status = Column(String)  # user ou admin
     name = Column(String)
     fullname = Column(String)
     user = Column(String)  # nom d'utilisateur
@@ -24,8 +24,8 @@ class Member(Base):
     # jointure avec une table pour trouver les clubs
 
     def __repr__(self):
-        return "(ID='%s', name='%s', fullname='%s', user='%s',password='%s',right='%s')" % (
-            self.id, self.name, self.fullname, self.user, self.password, self.right)
+        return "(ID='%s', name='%s', fullname='%s', user='%s',password='%s',status='%s')" % (
+            self.id, self.name, self.fullname, self.user, self.password, self.status)
 
 
 class Member_licence(Base):  # association entre member et licence
@@ -94,8 +94,8 @@ class Evenement_bdd(Base):
 Base.metadata.create_all(engine)
 
 
-def add_member(add_name, add_fullname, add_user, add_password, add_right):
-    add_user = Member(name=add_name, fullname=add_fullname, user=add_user, password=add_password, right=add_right)
+def add_member(add_name, add_fullname, add_user, add_password, add_status):
+    add_user = Member(name=add_name, fullname=add_fullname, user=add_user, password=add_password, status=add_status)
 
     session.add(add_user)
     session.commit()
