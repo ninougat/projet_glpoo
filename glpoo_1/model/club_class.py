@@ -45,12 +45,12 @@ class Club:
         return None
 
     def afficher_membres(self):
-        licenses = session.query(Licence_bdd).filter_by(id=self.id)#on récupère toute les licences du club
-        for i in licenses: #pour chaque licence du club
-            mem_lic = session.query(Member_licence).filter_by(id_licence=i.id)#on récupère la table intermédiaire entre membre et licence
-            for j in mem_lic:#pour chaque ligne de la table
-                mem = session.query(Member).filter_by(id=j.id)#on récupère le membre
-                print(mem.name, mem.fullname, j.statut)#et on l'affiche
+        licenses = session.query(Licence_bdd).filter_by(id=self.id)  # on récupère toute les licences du club
+        for i in licenses:  # pour chaque licence du club
+            mem_lic = session.query(Member_licence).filter_by(id_licence=i.id)  # on récupère la table intermédiaire entre membre et licence
+            for j in mem_lic:  # pour chaque ligne de la table
+                mem = session.query(Member).filter_by(id=j.id)  # on récupère le membre
+                print(mem.name, mem.fullname, j.statut)  # et on l'affiche
 
     def ajouter_membre(self, membre):
         self.membres.append(membre)

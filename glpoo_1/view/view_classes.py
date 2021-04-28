@@ -3,19 +3,21 @@ import pygame as pg
 
 class Button:
     content = None
-    bg_color = None
-    bg_color_Pressed = None
+    bg_color = [128, 128, 255]
+    bg_color_Pressed = [255, 128, 0]
     size = [200, 50]
     pos = [0, 0]
     isPressed = 0
 
-    def __init__(self, button_size, button_position, text="", background=[128, 128, 128], backgroundWhenPressed=[64, 64, 64]):
+    def __init__(self, button_size, button_position, text="", background=None, backgroundWhenPressed=None):
         self.size = button_size
         self.pos = button_position
         if text != "":
             self.content = text
-        self.bg_color = background
-        self.bg_color_Pressed = backgroundWhenPressed
+        if background:
+            self.bg_color = background
+        if backgroundWhenPressed:
+            self.bg_color_Pressed = backgroundWhenPressed
 
     def mouseInButton(self, pressed):
         x, y = pg.mouse.get_pos()
@@ -102,3 +104,41 @@ class ZoneText:
             rect = img.get_rect()
             rect.topleft = [self.pos[0] + rect_title.width + (self.size[0] - rect_title.width) / 2 - rect.width / 2, self.pos[1] + self.size[1] / 2 - rect.height / 2]
             screen.blit(img, rect)
+
+
+class Page:
+    def __init__ (self):
+        self.buttons = []
+        self.zoneTexts = []
+        self.links = {}
+
+    def addButton (self, button):
+        self.buttons.append (button)
+
+    def addZoneText (self, zonetext):
+        self.zoneTexts.append (zonetext)
+
+    def ScrollUp (self):
+        for button in self.buttons:
+            button.pos[1] += 10
+        for zone in self.zoneTexts:
+            zone.pos[1] += 10
+
+    def ScrollDown (self):
+        for button in self.buttons:
+            button.pos[1] -= 10
+        for zone in self.zoneTexts:
+            zone.pos[1] -= 10
+
+    def GetZone (self, name):
+        for zone in self.zoneTexts:
+            if zone.title == name:
+                return zone.content
+        return None
+
+    def afficher (self, screen, font):
+        screen.fill([255, 255, 255])
+        for zone in self.zoneTexts:
+            zone.afficher (screen, font)
+        for boutton in self.buttons:
+            boutton.afficher (screen, font)
