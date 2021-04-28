@@ -1,5 +1,6 @@
 class Evenement:
-    def __init__(self, nom, lieu, date, horaire):
+    def __init__(self, id, nom, lieu, date, horaire):
+        self.id = id
         self.nom = nom
         self.lieu = lieu
         self.date = date

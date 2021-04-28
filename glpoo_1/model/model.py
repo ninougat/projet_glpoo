@@ -188,7 +188,7 @@ def list_clubs():
         print(club)
 
 
-def modify_clubs(ida, nom=None, adresse=None, chef=None, description=None):
+def modify_club(ida, nom=None, adresse=None, chef=None, description=None):
 
     erreur=f"L'id ${ida} de la table clubs n'existe pas"
     try:
@@ -207,6 +207,18 @@ def modify_clubs(ida, nom=None, adresse=None, chef=None, description=None):
     except:
         print(erreur)
 
+
+def add_event(id_club, evenement):
+    try:
+        session.query(Club_bdd).filtre_by(id=id_club).one()
+
+    except:
+        print("Le club n'existe pas")
+        return
+
+    new_event = Evenement_bdd(nom=evenement.nom, lieu=evenement.lieu, date=evenement.date, horaire=evenement.horaire)
+    session.add(new_event)
+    session.commit()
 
 def del_Club(ida):
     try:

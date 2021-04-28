@@ -9,7 +9,10 @@ class User():
         self.fullname=fullname
         self.user=user
         self.password=password
-        self.clubs=clubs
+        if clubs is not None:
+            self.clubs=clubs
+        else:
+            self.clubs = []
 
     def modifier_Profil(self,name=None,fullname=None,user=None,password=None):
         if name:
@@ -23,12 +26,18 @@ class User():
         modify_member(self.id, name=name, fullname=fullname, user=user, password=password)
 
 
-    def inscription(self,club):
-        pass
-    def desinscription(self,club):
-        pass
+    def inscription(self, club):
+        self.clubs.append(club)
+        club.ajouter_membre(id)
+
+    def desinscription(self, club):
+        if club in self.clubs:
+            self.clubs.remove(club)
+            club.supprimer_membre(id)
+
     def consulter(self,club):
         pass
+
     def supprimer(self):
         del_member(id)
 
