@@ -46,7 +46,7 @@ class User:
 
 class Membre(User):
     def __init__(self, id, name, fullname, user, password, type, licence):
-        User.__init__(id, name, fullname, user, password)
+        User.__init__(id, name, fullname, user, password, None)
         self.type = type
         self.licence = licence
 

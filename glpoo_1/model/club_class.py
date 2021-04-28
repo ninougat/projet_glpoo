@@ -66,8 +66,8 @@ class Club:
         for evenement in self.calendrier_evenements:
             evenement.afficher_evenement()
 
-    def ajouter_evenement(self, id, nom, lieu, date, horaire):
-        evenement = Evenement(id, nom, lieu, date, horaire)
+    def ajouter_evenement(self, id_club):
+        evenement = Evenement(id_club=id_club)
         print("Entrez la description de l'événement :")
         evenement.nom = input("Nom :")
         evenement.lieu = input("Lieu :")
@@ -75,5 +75,13 @@ class Club:
         evenement.horraire = input("Horraire (HHhMM) :")
         self.calendrier_evenements.append(evenement)
         # on ajoute l'évènement dans la base de données
-        add_event(self.id, evenement)
+        add_event(evenement)
+        # on récupère l'id de l'évènement dans la base de données
+        evenement.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
         print(f"L'énévement {evenement.nom} a bien été ajouté au calendrier.")
+
+
+    def afficher_informations(self):
+        print(f"nom : ${self.nom}")
+        print(f"adresse : ${self.adresse}")
+        print(f"description : ${self.description}")

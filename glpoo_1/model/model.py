@@ -198,7 +198,7 @@ def modify_club(ida, nom=None, adresse=None, chef=None, description=None):
         print(erreur)
 
 
-def add_event(id_club,evenement):
+def add_event(evenement):
     try:
         session.query(Club_bdd).filtre_by(id=evenement.id_club).one()
 
