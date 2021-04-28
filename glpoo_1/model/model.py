@@ -16,7 +16,7 @@ session = Session()
 class Member(Base):
     __tablename__ = 'members'
     id = Column(Integer, primary_key=True)
-    right= Column(String)#user ou admin
+    status= Column(String)#user ou admin
     name = Column(String)
     fullname = Column(String)
     user= Column(String)#nom d'utilisateur
@@ -26,7 +26,7 @@ class Member(Base):
 
     def __repr__(self):
         return "(ID='%s', name='%s', fullname='%s', user='%s',password='%s',right='%s')" % (
-            self.id, self.name, self.fullname, self.user,self.password,self.right)
+            self.id, self.name, self.fullname, self.user,self.password,self.status)
 
 
 class Member_licence(Base):#association entre member et licence
@@ -59,6 +59,7 @@ class Licence_bdd(Base):
         return "(ID='%s',ID_club='%s', name='%s', prix='%s', nb_seance='%s', avantage='%s')" % (
             self.id,self.id_club,self.name, self.prix, self.nb_seances,self.avantage)
 
+
 class Club_bdd(Base):
     __tablename__='clubs'
     id = Column(Integer,primary_key=True)
@@ -71,11 +72,6 @@ class Club_bdd(Base):
         return "(ID='%s',nom='%s', adresse='%s', ID_Chef='%s', description='%s')" % (
             self.id,self.nom,self.adresse,self.chef,self.description)
 
-def add_club(add_nom, add_adresse, add_description,add_chef):
-    add_user = Member(nom=add_nom, adresse=add_adresse,description=add_description,chef=add_chef)
-
-    session.add(add_user)
-    session.commit()
 
 class Evenement_bdd(Base):
     __tablename__ = 'evenement'
@@ -93,8 +89,15 @@ class Evenement_bdd(Base):
 Base.metadata.create_all(engine)
 
 
-def add_member(add_name, add_fullname, add_user,add_password,add_right):
-    add_user = Member(name=add_name, fullname=add_fullname,user=add_user,password=add_password,right=add_right)
+def add_club(add_nom, add_adresse, add_description,add_chef):
+    add_user = Member(nom=add_nom, adresse=add_adresse,description=add_description,chef=add_chef)
+
+    session.add(add_user)
+    session.commit()
+
+
+def add_member(add_name, add_fullname, add_user,add_password,add_status):
+    add_user = Member(name=add_name, fullname=add_fullname,user=add_user,password=add_password,status=add_status)
 
     session.add(add_user)
     session.commit()
@@ -190,7 +193,7 @@ def list_clubs():
 
 def modify_club(ida, nom=None, adresse=None, chef=None, description=None):
 
-    erreur=f"L'id ${ida} de la table clubs n'existe pas"
+    erreur = f"L'id ${ida} de la table clubs n'existe pas"
     try:
         mod = session.query(Club_bdd).filter_by(id=ida).one()
         if chef:
