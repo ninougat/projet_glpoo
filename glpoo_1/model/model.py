@@ -85,6 +85,7 @@ class Evenement_bdd(Base):
     lieu = Column(String)
     date = Column(String)
     horaire = Column(String)
+    id_club = Column(Integer)
 
     def __repr__(self):
         return "(ID='%s',nom='%s', lieu='%s', date='%s', horaire='%s')" % (
@@ -204,9 +205,9 @@ def modify_club(ida, nom=None, adresse=None, chef=None, description=None):
         print(erreur)
 
 
-def add_event(id_club, evenement):
+def add_event(id_club,evenement):
     try:
-        session.query(Club_bdd).filtre_by(id=id_club).one()
+        session.query(Club_bdd).filtre_by(id=evenement.id_club).one()
 
     except:
         print("Le club n'existe pas")
