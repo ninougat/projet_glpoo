@@ -11,18 +11,18 @@ def vue():
     font = pg.font.SysFont(None, 20)
     screen.fill([255, 255, 255])
 
-    util = User (0, "Quentin", "PAJON", "Quentin", "12345", [])
+    util = User(0, "Quentin", "PAJON", "Quentin", "12345", [])
 
 
     clubs = []
-    c = Club ()
+    c = Club()
     c.id = 0
     c.nom = "Club Chef"
     c.description = "Ceci est un club dont vous etes le chef"
     clubs.append(c)
     # util.ajoutLicence(0, 3)
 
-    c = Club ()
+    c = Club()
     c.id = 1
     c.nom = "Club Bureau"
     c.description = "Ceci est un club dont vous etes le membre du bureau"
