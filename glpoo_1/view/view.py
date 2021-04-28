@@ -32,17 +32,18 @@ def vue():
         c = Club(3 + i, "Club %d" % i, "Adresse club n°%d" % i, "Ceci est le club n°%d" % i, 1)
         clubs.append([c, 0])
 
-    Accueil = Page()
-    Accueil.addButton(Button([320, 50], [0, 20], text="Votre profil"))
-    Accueil.addButton(Button([320, 50], [0, 80], text="Liste de vos Clubs"))
-    Accueil.addButton(Button([320, 50], [0, 140], text="Rechercher des Clubs"))
+    Accueil = Page("Accueil")
+    Accueil.addButton(Button([320, 50], [0, 30], text="Votre profil"))
+    Accueil.addButton(Button([320, 50], [0, 90], text="Liste de vos Clubs"))
+    Accueil.addButton(Button([320, 50], [0, 150], text="Rechercher des Clubs"))
 
     page = Accueil
     current = "Accueil"
 
     run = 1
     while run:
-        for event in pg.event.get():
+        events = pg.event.get()
+        for event in events:
             if event.type == pg.QUIT:
                 run = 0
             if event.type == pg.KEYDOWN:

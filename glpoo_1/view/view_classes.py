@@ -29,7 +29,7 @@ class Button:
         return False
 
     def afficher(self, screen, font):
-        if (self.pos[0] < screen.get_width() or self.pos[0] + self.size[0] > 0) and (self.pos[1] < screen.get_height() or self.pos[1] + self.size[1] > 0):
+        if (self.pos[0] < screen.get_width() or self.pos[0] + self.size[0] > 0) and (self.pos[1] < screen.get_height() or self.pos[1] + self.size[1] > 30):
             if self.isPressed:
                 pg.draw.rect(screen, self.bg_color_Pressed, pg.Rect(self.pos, self.size))
             else:
@@ -85,7 +85,7 @@ class ZoneText:
             self.posCursor += 1
 
     def afficher(self, screen, font):
-        if (self.pos[0] < screen.get_width() or self.pos[0] + self.size[0] > 0) and (self.pos[1] < screen.get_height() or self.pos[1] + self.size[1] > 0):
+        if (self.pos[0] < screen.get_width() or self.pos[0] + self.size[0] > 0) and (self.pos[1] < screen.get_height() or self.pos[1] + self.size[1] > 30):
             pg.draw.rect(screen, [52, 189, 52], pg.Rect(self.pos, self.size))
 
             img_title = font.render(self.title + " :", True, [0, 0, 0])
@@ -103,7 +103,8 @@ class ZoneText:
 
 
 class Page:
-    def __init__(self):
+    def __init__(self, title):
+        self.title = title
         self.buttons = []
         self.zoneTexts = []
         self.links = {}
@@ -117,12 +118,12 @@ class Page:
     def ScrollUp(self):
         canScroll = False
         for button in self.buttons:
-            if button.pos[1] - 20 < 0:
+            if button.pos[1] - 30 < 0:
                 canScroll = True
                 break
         if not canScroll:
             for zone in self.zoneTexts:
-                if zone.pos[1] - 20 < 0:
+                if zone.pos[1] - 30 < 0:
                     canScroll = True
                     break
         if not canScroll:
@@ -160,7 +161,15 @@ class Page:
 
     def afficher(self, screen, font):
         screen.fill([255, 255, 255])
+
         for zone in self.zoneTexts:
             zone.afficher(screen, font)
         for boutton in self.buttons:
             boutton.afficher(screen, font)
+
+        pg.draw.rect(screen, [128, 64, 255], pg.Rect(0, 0, screen.get_width(), 20))
+        img = font.render(self.title, True, [0, 0, 0])
+        rect = img.get_rect()
+        rect.topleft = [screen.get_width() / 2 - rect.width / 2, 10 - rect.height / 2]
+        screen.blit(img, rect)
+
