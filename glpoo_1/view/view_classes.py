@@ -115,12 +115,38 @@ class Page:
         self.zoneTexts.append(zonetext)
 
     def ScrollUp(self):
+        canScroll = False
+        for button in self.buttons:
+            if button.pos[1] - 20 < 0:
+                canScroll = True
+                break
+        if not canScroll:
+            for zone in self.zoneTexts:
+                if zone.pos[1] - 20 < 0:
+                    canScroll = True
+                    break
+        if not canScroll:
+            return
+
         for button in self.buttons:
             button.pos[1] += 10
         for zone in self.zoneTexts:
             zone.pos[1] += 10
 
-    def ScrollDown(self):
+    def ScrollDown(self, screenHeight):
+        canScroll = False
+        for button in self.buttons:
+            if button.pos[1] + button.size[1] + 10 > screenHeight:
+                canScroll = True
+                break
+        if not canScroll:
+            for zone in self.zoneTexts:
+                if zone.pos[1] + zone.size[1] + 10 > screenHeight:
+                    canScroll = True
+                    break
+        if not canScroll:
+            return
+
         for button in self.buttons:
             button.pos[1] -= 10
         for zone in self.zoneTexts:

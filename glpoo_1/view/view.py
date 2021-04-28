@@ -69,7 +69,7 @@ def vue():
                     if event.button == 4:
                         page.ScrollUp()
                     if event.button == 5:
-                        page.ScrollDown()
+                        page.ScrollDown(screen.get_height())
             if event.type == pg.MOUSEBUTTONUP:
                 if event.button == 1:
                     for idx, button in enumerate(page.buttons):
