@@ -1,5 +1,8 @@
-from glpoo_1.controller.licence_class import *
-from glpoo_1.controller.club_class import *
+
+from controller.member_class import *
+from controller.club_class import *
+from controller.licence_class import *
+from controller.evenement_class import *
 if __name__ == '__main__':
     add_member(User('Gégé', 'Accordéon', "essai@test.com", "azerty"),0)
     """add_member(User('Albert', 'helicopter', "essai@test.com", "azerty"),0)
