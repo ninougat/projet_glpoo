@@ -253,26 +253,26 @@ def add_event(evenement):
     # on récupère l'id de l'évènement dans la base de données
     evenement.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
 
+
 def del_club(ida):
     try:
-        club_to_delete=session.query(Club_bdd).filter_by(id=ida).one()#on récupère le club à supprimer
-        licences_to_delete=session.query(Licence_bdd).filter_by(id_club=ida)# on récupère les licenses lié au club
-        events_to_delete=session.query(Evenement_bdd).filter_by(id_club=ida)# on récupère les evenements lié au club
-        try :
-            for licence in licences_to_delete: #pour chaque licence
+        club_to_delete = session.query(Club_bdd).filter_by(id=ida).one()  # on récupère le club à supprimer
+        licences_to_delete = session.query(Licence_bdd).filter_by(id_club=ida)  # on récupère les licenses lié au club
+        events_to_delete = session.query(Evenement_bdd).filter_by(id_club=ida)  # on récupère les evenements lié au club
+        try:
+            for licence in licences_to_delete:  # pour chaque licence
                 del_licence(licence.id)
         except :
-            pass
-        try :
-            for event in events_to_delete :# pour chaque evenement
-                session.delete(event) # on le supprime
-
+            print("ERREUR: aucune licence supprimée")
+        try:
+            for event in events_to_delete:  # pour chaque evenement
+                session.delete(event)  # on le supprime
         except :
-            pass
-        session.delete(club_to_delete)#on supprime le club
+            print("ERREUR: aucune evenement supprimée")
+        session.delete(club_to_delete)  # on supprime le club
         session.commit()
     except:
         print("le club n'existe pas")
 
 
-    #TODO supprimer les licences associées au club, evenements, membres
+#TODO supprimer les licences associées au club, evenements, membres

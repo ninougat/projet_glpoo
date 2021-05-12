@@ -1,8 +1,6 @@
-from view_classes import *
 from utils import *
-from glpoo_1.model.club_class import *
-from glpoo_1.model.member_class import *
-from glpoo_1.model.licence_class import *
+from glpoo_1.controller.club_class import *
+from glpoo_1.controller.member_class import *
 
 
 def vue():
@@ -13,23 +11,23 @@ def vue():
     font = pg.font.SysFont(None, 20)
     screen.fill([255, 255, 255])
 
-    util = User(0, "Quentin", "PAJON", "Quentin", "12345", [])
+    util = User("Quentin", "PAJON", "Quentin", "12345", [], 1)
 
     clubs = []
-    c = Club(0, "Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", util.id)
+    c = Club("Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", util.id, 0)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 3)
 
-    c = Club(1, "Club Bureau", "Adresse Bureau", "Ceci est un club dont vous etes membre du bureau", 1)
+    c = Club("Club Bureau", "Adresse Bureau", "Ceci est un club dont vous etes membre du bureau", 1)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 2)
 
-    c = Club(2, "Club Membre", "Adresse Membre", "Ceci est un club dont vous etes un membre", 1)
+    c = Club("Club Membre", "Adresse Membre", "Ceci est un club dont vous etes un membre", 1, 2)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 1)
 
     for i in range(10):
-        c = Club(3 + i, "Club %d" % i, "Adresse club n°%d" % i, "Ceci est le club n°%d" % i, 1)
+        c = Club("Club %d" % i, "Adresse club n°%d" % i, "Ceci est le club n°%d" % i, 1, id=3 + i)
         clubs.append([c, 0])
 
     Accueil = Page("Accueil")
@@ -79,6 +77,9 @@ def vue():
                             if current == "Accueil":
                                 if button.content == "Votre profil":
                                     current = "Profil"
+                                    print(util.name)
+                                    print(util.fullname)
+                                    print(util.user)
                                     page = generateProfile(util)
                                 elif button.content == "Liste de vos Clubs":
                                     current = "Mes clubs"
