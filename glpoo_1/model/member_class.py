@@ -78,5 +78,5 @@ class Admin(User):
         pass
 
     def supprimer_utilisateur(self, user):
-        session.delete(session.query(Member).filter_by(user=user).one())
+        session.delete(session.query(Member_bdd).filter_by(user=user).one())
         session.commit()
