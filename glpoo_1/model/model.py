@@ -34,7 +34,7 @@ class Member_licence(Base):  # association entre member et licence
     id_licence = Column(Integer, ForeignKey('licences.id'))
     licence = relationship("Licence_bdd")
     id_member = Column(Integer, ForeignKey('members.id'))
-    member = relationship("Member")  # creer relation entre cette table et la table membre
+    member = relationship("Member_bdd")  # creer relation entre cette table et la table membre
     statut = Column(Integer)  # membre(0), bureau(1),chef(2)
 
     # jointure avec une table pour trouver les clubs
@@ -93,7 +93,7 @@ def add_member(membre,statut):
     session.add(add_user)
     session.commit()
     # on récupère l'id de l'évènement dans la base de données
-    membre.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
+    membre.id = session.query(Member_bdd).order_by(Member_bdd.id.desc()).first()
 
 
 def list_members():
@@ -127,6 +127,7 @@ def modify_member(ida, name=None, fullname=None, user=None, password=None):
     except:
         print("L'id " + ida + " de la table members n'existe pas")
 
+
 def add_member_licence(id_member,id_licence,statut):
     member=session.query(Member_bdd).filter_by(id=id_member).one()
     licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
@@ -140,6 +141,7 @@ def add_member_licence(id_member,id_licence,statut):
         session.add(add_ml)
         session.commit()
 
+
 def modify_membre_licence(ida,id_licence=None,statut=None):
      try:
          mod= session.query(Member_licence)
@@ -150,24 +152,25 @@ def modify_membre_licence(ida,id_licence=None,statut=None):
      except :
          print("cette colonne n'existe pas")
 
+
 def del_member_licence(ida) :
     try :
         session.delete(session.query(Member_licence).filter_by(id=ida).one())
     except :
         print("cet colonne n'existe pas")
+
+
 def add_licence(licence):
     try:
         session.query(Club_bdd).filter_by(id=licence.id_club).one()
-        add_licenc = Licence_bdd(id_club=licence.id_club, name=licence.name, prix=licence.prix, nb_seances=licence.nb_sceances,
-                                 avantage=licence.avantage)
+        add_licenc = Licence_bdd(id_club=licence.id_club, name=licence.name, prix=licence.prix, nb_seances=licence.nb_seances,avantage=licence.avantage)
 
         session.add(add_licenc)
         session.commit()
         # on récupère l'id de la licence dans la base de données
-        licence.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
-
+        licence.id = session.query(Licence_bdd).order_by(Licence_bdd.id.desc()).first()
     except:
-        print("Le club n'existe pas")
+        print(f"Le club {licence.id_club} n'existe pas")
 
 
 def list_licences():
@@ -176,9 +179,8 @@ def list_licences():
 
 
 def del_licence(ida):
-    licence_to_delete=session.query(Licence_bdd).filter_by(id=ida).one()
     try:
-
+        licence_to_delete = session.query(Licence_bdd).filter_by(id=ida).one()
         members_to_delete=session.query(Member_licence).filter_by(id_licence=ida) # on récupère les membres lié à la license
         try :
             for member in members_to_delete : #pour chaque membre
@@ -246,8 +248,8 @@ def modify_club(ida, nom=None, adresse=None, chef=None, description=None):
 
 def add_event(evenement):
     try:
-        session.query(Club_bdd).filtre_by(id=evenement.id_club).one()
 
+        session.query(Club_bdd).filter_by(id=evenement.id_club).one()
     except:
         print("Le club n'existe pas")
         return
@@ -257,6 +259,36 @@ def add_event(evenement):
     session.commit()
     # on récupère l'id de l'évènement dans la base de données
     evenement.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
+
+
+def modify_event(ida, nom=None, lieu=None, date=None, horaire=None):
+    erreur = f"L'id {ida} de la table Evenement n'existe pas"
+    try:
+        mod = session.query(Evenement_bdd).filter_by(id=ida).one()
+        if nom:
+            mod.nom = nom
+        if lieu:
+            mod.lieu = lieu
+        if date:
+            mod.date = date
+        if horaire:
+            mod.horaire = horaire
+    except:
+        print(erreur)
+
+
+def list_event():
+    for event in session.query(Evenement_bdd):
+        print(event)
+
+
+def del_event(ida):
+    try:
+        event_to_delete = session.query(Evenement_bdd).filter_by(id=ida).one()
+        session.delete(event_to_delete)
+        session.commit()
+    except:
+        print("l'evenement n'existe pas")
 
 
 def del_club(ida):
@@ -277,7 +309,7 @@ def del_club(ida):
         session.delete(club_to_delete)  # on supprime le club
         session.commit()
     except:
-        print("le club n'existe pas")
+        print(f"le club ${ida} n'existe pas ")
 
 
 #TODO supprimer les licences associées au club, evenements, membres
