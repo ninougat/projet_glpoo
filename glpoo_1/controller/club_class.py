@@ -1,5 +1,5 @@
-from glpoo_1.controller.evenement_class import *
-from glpoo_1.controller.member_class import *
+from controller.evenement_class import *
+from controller.member_class import *
 
 
 class Club:

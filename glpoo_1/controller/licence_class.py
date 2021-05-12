@@ -1,4 +1,4 @@
-from glpoo_1.model.model import *
+from model.model import *
 
 
 class Licence:

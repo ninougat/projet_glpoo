@@ -144,7 +144,7 @@ def add_member_licence(id_member,id_licence,statut):
 
 def modify_membre_licence(ida,id_licence=None,statut=None):
      try:
-         mod= session.query(Member_licence)
+         mod= session.query(Member_licence).filter_by(id=ida).one()
          if id_licence :
              mod.id_licence=id_licence
          if statut :
@@ -157,7 +157,7 @@ def del_member_licence(ida) :
     try :
         session.delete(session.query(Member_licence).filter_by(id=ida).one())
     except :
-        print("cet colonne n'existe pas")
+        print("cette colonne n'existe pas")
 
 
 def add_licence(licence):
