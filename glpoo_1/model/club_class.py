@@ -1,5 +1,5 @@
-from model.evenement_class import Evenement
-from model.member_class import *
+from evenement_class import Evenement
+from member_class import *
 
 
 class Club:

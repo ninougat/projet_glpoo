@@ -1,8 +1,8 @@
 from view_classes import *
 from utils import *
-from model.club_class import *
-from model.member_class import *
-from model.licence_class import *
+from glpoo_1.model.club_class import *
+from glpoo_1.model.member_class import *
+from glpoo_1.model.licence_class import *
 
 
 def vue():
