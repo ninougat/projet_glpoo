@@ -39,7 +39,7 @@ class Club:
                 id_licence=i.id)  # on récupère la table intermédiaire entre membre et licence
             for j in mem_lic:  # pour chaque ligne de la table
                 mem = None
-                mem = session.query(Member).filter_by(id=j.id,name=name,fullname=fullname)  # on récupère le membre
+                mem = session.query(Member_bdd).filter_by(id=j.id, name=name, fullname=fullname)  # on récupère le membre
                 if mem:
                     return Membre(mem.id, mem.name, mem.fullname, mem.user, mem.password, j.statut, j.id)
         return None
@@ -49,7 +49,7 @@ class Club:
         for i in licenses:  # pour chaque licence du club
             mem_lic = session.query(Member_licence).filter_by(id_licence=i.id)  # on récupère la table intermédiaire entre membre et licence
             for j in mem_lic:  # pour chaque ligne de la table
-                mem = session.query(Member).filter_by(id=j.id)  # on récupère le membre
+                mem = session.query(Member_bdd).filter_by(id=j.id)  # on récupère le membre
                 print(mem.name, mem.fullname, j.statut)  # et on l'affiche
 
     def ajouter_membre(self, membre):
