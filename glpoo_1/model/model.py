@@ -88,8 +88,8 @@ class Evenement_bdd(Base):
 Base.metadata.create_all(engine)
 
 
-def add_member(membre):
-    add_user = Member_bdd(name=membre.name, fullname=membre.fullname, user=membre.user, password=membre.password, status=membre.status)
+def add_member(membre,statut):
+    add_user = Member_bdd(name=membre.name, fullname=membre.fullname, user=membre.user, password=membre.password, status=statut)
     session.add(add_user)
     session.commit()
     # on récupère l'id de l'évènement dans la base de données
@@ -148,8 +148,13 @@ def modify_membre_licence(ida,id_licence=None,statut=None):
          if statut :
              mod.statut=statut
      except :
-         print("")
+         print("cette colonne n'existe pas")
 
+def del_member_licence(ida) :
+    try :
+        session.delete(session.query(Member_licence).filter_by(id=ida).one())
+    except :
+        print("cet colonne n'existe pas")
 def add_licence(licence):
     try:
         session.query(Club_bdd).filter_by(id=licence.id_club).one()
