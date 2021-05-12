@@ -1,4 +1,4 @@
-from model import *
+from glpoo_1.model.model import *
 
 
 class User:

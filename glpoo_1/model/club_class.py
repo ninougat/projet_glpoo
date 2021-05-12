@@ -1,5 +1,5 @@
-from evenement_class import Evenement
-from member_class import *
+from glpoo_1.model.evenement_class import *
+from glpoo_1.model.member_class import *
 
 
 class Club:
@@ -78,7 +78,6 @@ class Club:
         # on ajoute l'évènement dans la base de données
         add_event(evenement)
         print(f"L'énévement {evenement.nom} a bien été ajouté au calendrier.")
-
 
     def afficher_informations(self):
         print(f"nom : ${self.nom}")
