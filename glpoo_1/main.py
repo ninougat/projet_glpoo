@@ -1,11 +1,10 @@
-from model.model import *
-
+from glpoo_1.controller.member_class import *
 if __name__ == '__main__':
-    add_member('Gégé', 'Accordéon', "essai@test.com", "azerty", "0")
-    add_member('Albert', 'helicopter', "essai@test.com", "azerty", "0")
-    add_member('Robert', 'essai', "essai@test.com", "azerty", "0")
-    add_member('Gilbert', 'Commissaire', "essai@test.com", "azerty", "0")
-    add_member('Jean', '', "essai@test.com", "azerty", "1")
+    add_member(User('Gégé', 'Accordéon', "essai@test.com", "azerty", "0"))
+    add_member(User('Albert', 'helicopter', "essai@test.com", "azerty", "0"))
+    add_member(User('Robert', 'essai', "essai@test.com", "azerty", "0"))
+    add_member(User('Gilbert', 'Commissaire', "essai@test.com", "azerty", "0"))
+    add_member(User('Jean', '', "essai@test.com", "azerty", "1"))
     list_members()
     modify_member(3, name="Jean-Robert", fullname="lampadaire", user="apothicaire")
     list_members()

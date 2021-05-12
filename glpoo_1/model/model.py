@@ -88,8 +88,8 @@ class Evenement_bdd(Base):
 Base.metadata.create_all(engine)
 
 
-def add_member(membre):
-    add_user = Member_bdd(name=membre.name, fullname=membre.fullname, user=membre.user, password=membre.password, status=membre.status)
+def add_member(membre,statut):
+    add_user = Member_bdd(name=membre.name, fullname=membre.fullname, user=membre.user, password=membre.password, status=statut)
     session.add(add_user)
     session.commit()
     # on récupère l'id de l'évènement dans la base de données
@@ -148,8 +148,13 @@ def modify_membre_licence(ida,id_licence=None,statut=None):
          if statut :
              mod.statut=statut
      except :
-         print("")
+         print("cette colonne n'existe pas")
 
+def del_member_licence(ida) :
+    try :
+        session.delete(session.query(Member_licence).filter_by(id=ida).one())
+    except :
+        print("cet colonne n'existe pas")
 def add_licence(licence):
     try:
         session.query(Club_bdd).filter_by(id=licence.id_club).one()
@@ -253,26 +258,26 @@ def add_event(evenement):
     # on récupère l'id de l'évènement dans la base de données
     evenement.id = session.query(Evenement_bdd).order_by(Evenement_bdd.id.desc()).first()
 
+
 def del_club(ida):
     try:
-        club_to_delete=session.query(Club_bdd).filter_by(id=ida).one()#on récupère le club à supprimer
-        licences_to_delete=session.query(Licence_bdd).filter_by(id_club=ida)# on récupère les licenses lié au club
-        events_to_delete=session.query(Evenement_bdd).filter_by(id_club=ida)# on récupère les evenements lié au club
-        try :
-            for licence in licences_to_delete: #pour chaque licence
+        club_to_delete = session.query(Club_bdd).filter_by(id=ida).one()  # on récupère le club à supprimer
+        licences_to_delete = session.query(Licence_bdd).filter_by(id_club=ida)  # on récupère les licenses lié au club
+        events_to_delete = session.query(Evenement_bdd).filter_by(id_club=ida)  # on récupère les evenements lié au club
+        try:
+            for licence in licences_to_delete:  # pour chaque licence
                 del_licence(licence.id)
         except :
-            pass
-        try :
-            for event in events_to_delete :# pour chaque evenement
-                session.delete(event) # on le supprime
-
+            print("ERREUR: aucune licence supprimée")
+        try:
+            for event in events_to_delete:  # pour chaque evenement
+                session.delete(event)  # on le supprime
         except :
-            pass
-        session.delete(club_to_delete)#on supprime le club
+            print("ERREUR: aucune evenement supprimée")
+        session.delete(club_to_delete)  # on supprime le club
         session.commit()
     except:
         print("le club n'existe pas")
 
 
-    #TODO supprimer les licences associées au club, evenements, membres
+#TODO supprimer les licences associées au club, evenements, membres
