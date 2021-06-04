@@ -31,13 +31,6 @@ if __name__ == '__main__':
     del_licence(1)
     modify_licence(2, name="licence du pétanqueur ultime", prix=100, nb_seances=0, avantage="plus de séance que du vin")
     list_licences()
-    add_event(Evenement(1,"les picolos sont de sortie","Bar Laval","12/05/2021","18h00"))
-    add_event(Evenement(1, "les picolos ", "Bar Laval", "12/05/2021", "18h00"))
-    modify_event(1,"les picolos sont encore de sortie","Bar Laval","21/05/2021","18h00")
-    list_event()
-    del_event(1)
-    list_event()
-
 
 
 

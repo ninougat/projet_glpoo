@@ -9,7 +9,6 @@ class Club:
         self.chef = id_chef
         self.membres_bureau = []
         self.membres = []
-        self.calendrier_evenements = []
 
     def changer_nom(self, nom):
         self.nom = nom
