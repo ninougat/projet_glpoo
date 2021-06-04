@@ -78,7 +78,7 @@ def generateNouveauClub():
     return page
 
 
-def generateNouveaulicence(id):
+def generateAjouterlicence():
     page = Page("Ajouter licence")
     page.addZoneText(ZoneText(title="Nom", text="", textPos=[0, 30]))
     page.addZoneText(ZoneText(title="Prix", text="", textPos=[0, 90]))
