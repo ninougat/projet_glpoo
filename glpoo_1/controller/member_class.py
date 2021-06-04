@@ -4,16 +4,13 @@ from glpoo_1.controller.club_class import *
 
 class User:
 
-    def __init__(self, name, firstname, user, password, clubs=None, id=None):
+    def __init__(self, name, firstname, user, password, id=None):
         self.id = id
         self.name = name
         self.firstname = firstname
         self.user = user
         self.password = password
-        if clubs:
-            self.clubs = clubs
-        else:
-            self.clubs = []
+        self.clubs = []
 
     def modifier_profil(self, name=None, firstname=None, user=None, password=None):
         if name:
@@ -97,3 +94,17 @@ class Admin(User):
         del_member(user.id)
         session.delete(session.query(Member_bdd).filter_by(user=user).one())
         session.commit()
+
+def connexion(pseudo, password):
+    utilisateur = search_member(pseudo)
+    compte = None
+    if utilisateur and utilisateur[0] == password:
+        if utilisateur[1] == "user":
+            compte = User(utilisateur[2], utilisateur[3], utilisateur[4], utilisateur[5])
+            compte.clubs = list_clubs_by_member(compte.id)
+        else:
+            compte = Admin(utilisateur[2], utilisateur[3], utilisateur[4], utilisateur[5])
+
+    return compte
+
+
