@@ -297,7 +297,6 @@ def add_club(club):
     try:
         session.query(Member_bdd).filter_by(id=club.chef).one()  # on vérifie que l'ID passé en paramètre existe
         add_user = Club_bdd(nom=club.nom, adresse=club.adresse, description=club.description, chef=club.chef)
-
         session.add(add_user)
         session.commit()
         # on récupère l'id du club dans la base de données
