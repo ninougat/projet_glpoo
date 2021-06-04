@@ -130,10 +130,11 @@ def modify_member(ida, name=None, firstname=None, user=None, password=None):
 
 
 def add_member_licence(id_member,id_licence,statut):
+    print(id_licence + " this is a trap")
     try :
         member=session.query(Member_bdd).filter_by(id=id_member).one()
         try :
-            print(id_licence+" this is a trap")
+
             licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
             if statut<0 or statut>2:
                 print("Le statut du membre est incorrect")
