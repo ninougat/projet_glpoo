@@ -71,11 +71,10 @@ def vue():
                         button.mouseInButton(True)
                     for zone in page.zoneTexts:
                         zone.clickIn()
-                if current == "Mes clubs" or current == "Clubs":
-                    if event.button == 4:
-                        page.ScrollUp()
-                    if event.button == 5:
-                        page.ScrollDown(screen.get_height())
+                if event.button == 4:
+                    page.ScrollUp()
+                if event.button == 5:
+                    page.ScrollDown(screen.get_height())
             if event.type == pg.MOUSEBUTTONUP:
                 if event.button == 1:
                     for idx, button in enumerate(page.buttons):
@@ -116,6 +115,12 @@ def vue():
                             elif current == "Clubs":
                                 current = str(page.links[str(idx)].id)
                                 page = generateClubPage(page.links[str(idx)])
+                            elif page.title[:5] == "club ":
+                                if button.content == "S'inscrire":
+                                    for c in clubs:
+                                        if str(c[0].id) == current:
+                                            c[1] = 1
+                                            break
                             else:
                                 pass
 

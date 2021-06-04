@@ -41,9 +41,30 @@ def generateClubs(clubs):
 
 
 def generateClubPage(club):
-    page = Page(club.nom)
+    page = Page("club " + club.nom)
 
-    page.addButton(Button([320, 50], [0, 30], text=club.description))
+    type_membre = 0
+
+    if type_membre < 2:
+        page.addText(Text(content="Adresse : " + club.adresse, textSize=[320, 50], textPos=[0, 30]))
+        page.addText(Text(content=club.description, textSize=[320, 50], textPos=[0, 90]))
+
+    if type_membre > 1:
+        page.addZoneText(ZoneText(title="Adresse", text=club.adresse, textSize=[320, 50], textPos=[0, 30]))
+        page.addZoneText(ZoneText(title="", text=club.description, textSize=[320, 50], textPos=[0, 90]))
+
+    if type_membre == 0:
+        page.addButton(Button([320, 50], [0, 150], text="S'inscrire"))
+
+    if type_membre > 0:
+        page.addButton(Button([320, 50], [0, 150], text="Se desinscrire"))
+
+    if type_membre > 1:
+        page.addButton(Button([320, 50], [0, 210], text="Afficher tous les membres"))
+
+    if type_membre == 3:
+        page.addButton(Button([320, 50], [0, 270], text="Afficher le bureau"))
+        page.addButton(Button([320, 50], [0, 330], text="Supprimer le club"))
 
     return page
 

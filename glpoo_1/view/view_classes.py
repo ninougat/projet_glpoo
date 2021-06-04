@@ -89,6 +89,8 @@ class ZoneText:
             pg.draw.rect(screen, [52, 189, 52], pg.Rect(self.pos, self.size))
 
             img_title = font.render(self.title + " :", True, [0, 0, 0])
+            if self.title == "":
+                img_title = font.render(self.title, True, [0, 0, 0])
             rect_title = img_title.get_rect()
             rect_title.topleft = [self.pos[0], self.pos[1] + self.size[1] / 2 - rect_title.height / 2]
             screen.blit(img_title, rect_title)
@@ -151,6 +153,11 @@ class Page:
                     canScroll = True
                     break
         if not canScroll:
+            for text in self.texts:
+                if text.pos[1] - 30 < 0:
+                    canScroll = True
+                    break
+        if not canScroll:
             return
 
         for button in self.buttons:
@@ -170,6 +177,11 @@ class Page:
                     canScroll = True
                     break
         if not canScroll:
+            for text in self.texts:
+                if text.pos[1] + text.size[1] + 10 > screenHeight:
+                    canScroll = True
+                    break
+        if not canScroll:
             return
 
         for button in self.buttons:
@@ -181,7 +193,7 @@ class Page:
         for zone in self.zoneTexts:
             if zone.title == name:
                 return zone.content
-        return None
+        return ""
 
     def afficher(self, screen, font):
         screen.fill([255, 255, 255])
