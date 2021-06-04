@@ -3,10 +3,10 @@ from model.model import *
 
 class User:
 
-    def __init__(self, name, fullname, user, password, clubs=None, id=None):
+    def __init__(self, name, firstname, user, password, clubs=None, id=None):
         self.id = id
         self.name = name
-        self.fullname = fullname
+        self.firstname = firstname
         self.user = user
         self.password = password
         if clubs:
@@ -14,16 +14,16 @@ class User:
         else:
             self.clubs = []
 
-    def modifier_profil(self, name=None, fullname=None, user=None, password=None):
+    def modifier_profil(self, name=None, firstname=None, user=None, password=None):
         if name:
             self.name = name
-        if fullname:
-            self.fullname = fullname
+        if firstname:
+            self.firstname = firstname
         if user:
             self.user = user
         if password:
             self.password = password
-        modify_member(self.id, name=name, fullname=fullname, user=user, password=password)
+        modify_member(self.id, name=name, fullname=firstname, user=user, password=password)
 
     def inscription(self, club):
         self.clubs.append(club.id)
@@ -41,12 +41,12 @@ class User:
         del_member(self.id)# on supprime le membbre via son ID
 
     def creer_club(self, nom,adresse,description):
-        clu=Club(nom,adresse,description,self.id)#on créé une classe club
+        club=Club(nom,adresse,description,self.id)#on créé une classe club
         add_club(club);#on l'ajoute à la BDD
 
 class Membre(User):
-    def __init__(self, name, fullname, user, password, type, licence):
-        User.__init__(self, name=name, fullname=fullname, user=user, password=password)
+    def __init__(self, name,  firstname, user, password, type, licence):
+        User.__init__(self, name=name,  firstname=firstname, user=user, password=password)
         self.type = type
         self.licence = licence
 
@@ -54,22 +54,37 @@ class Membre(User):
         self.licence=n_licence# on remplace l'ancienen licence par la nouvelle
 
     def modifier_club(self,club,nom=None, adresse=None, chef=None, description=None):
+
         modify_club(club.id,nom=nom,adresse=adresse,chef=chef,description=description)#On modifie le club en fonction des infos founi par les parametres
 
-    def modifier_license(self,licence,name=None, prix=None, nb_seances=None, avantage=None):
-        modify_licence(ida=licence.id,name=name,prix=prix,nb_seances=nb_seances,avantage=avantage)
+    def modifier_licence(self,licence,name=None, prix=None, nb_seances=None, avantage=None):
+        if self.type>0:
+            modify_licence(ida=licence.id,name=name,prix=prix,nb_seances=nb_seances,avantage=avantage)
 
     def lister_membres(self):
-        pass
+        club= get_club_by_licence(self.licence)
+        return list_members_by_club(club.id)
+
 
     def desinscrire_membre(self, membre):
-        pass
+        if self.type > membre.type:
 
-    def promouvoir(self, membre):
-        modify_membre_licence(id_licence=membre.licence, statut=1,id_member=membre.id)
+            del_member_licence(id_member=membre.id,id_licence=membre.licence)
+
+    def promouvoir(self, membre,club):
+        if membre.type==0 and self.type>0 :
+            modify_membre_licence(id_licence=membre.licence, statut=1,id_member=membre.id)
+        elif membre.type==1 and self.type==2:
+            modify_membre_licence(id_licence=membre.licence, statut=2, id_member=membre.id)
+            modify_membre_licence(id_licence=self.licence, statut=1, id_member=self.id)
+            modify_club(club.id,chef=membre.id)
+            self.type=1
 
     def supprimer_Club(self,club):
-        del_club(club.id)
+        if self.type==2:
+            club=get_club_by_licence(self.licence)
+            if club:
+                del_club(club.id)
 
 
 class Admin(User):
@@ -78,6 +93,6 @@ class Admin(User):
         del_club(club.id)
 
     def supprimer_utilisateur(self, user):
-        del_Member(user.id)
+        del_member(user.id)
         session.delete(session.query(Member_bdd).filter_by(user=user).one())
         session.commit()
