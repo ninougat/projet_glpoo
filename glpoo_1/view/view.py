@@ -1,6 +1,8 @@
+from view_classes import *
 from utils import *
-from glpoo_1.controller.club_class import *
-from glpoo_1.controller.member_class import *
+from controller.club_class import *
+from controller.member_class import *
+from controller.licence_class import *
 
 
 def vue():
@@ -14,15 +16,15 @@ def vue():
     util = User("Quentin", "PAJON", "Quentin", "12345", [], 1)
 
     clubs = []
-    c = Club("Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", util.id, 0)
+    c = Club("Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", util.id, id=0)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 3)
 
-    c = Club("Club Bureau", "Adresse Bureau", "Ceci est un club dont vous etes membre du bureau", 1)
+    c = Club("Club Bureau", "Adresse Bureau", "Ceci est un club dont vous etes membre du bureau", 1, id=1)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 2)
 
-    c = Club("Club Membre", "Adresse Membre", "Ceci est un club dont vous etes un membre", 1, 2)
+    c = Club("Club Membre", "Adresse Membre", "Ceci est un club dont vous etes un membre", 1, id=2)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 1)
 
