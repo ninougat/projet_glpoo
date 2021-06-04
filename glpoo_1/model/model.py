@@ -139,7 +139,7 @@ def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
          if id_licence:
              mod.id_licence = id_licence
          if statut:
-             mod.statut=statut
+            mod.statut=statut
             mod= session.query(Member_licence).filter_by(id=ida).one()
          if mod:
              if id_licence :
