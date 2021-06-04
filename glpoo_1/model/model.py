@@ -91,7 +91,7 @@ def search_member(pseudo=None,name=None,firstname=None):
         member=None
         if pseudo:
             member=session.query(Member_bdd).filter_by(user=pseudo).one()
-        elif name and firsname :
+        elif name and firstname :
             member = session.query(Member_bdd).filter_by(name=name,firstname=firstname).one()
         if member:
             return member.password,member.status,member.name,member.firstname,member.user,member.id
