@@ -130,18 +130,20 @@ def modify_member(ida, name=None, firstname=None, user=None, password=None):
 
 
 def add_member_licence(id_member,id_licence,statut):
-    member=session.query(Member_bdd).filter_by(id=id_member).one()
-    licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
-    if member==None or licence==None:
-        print("le membre ou la licence est incorrect")
-    elif statut<0 or statut>2  :
-        print("Le statut du membre est incorrect")
-    else:
+    try :
+        member=session.query(Member_bdd).filter_by(id=id_member).one()
+        licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
+        if member==None or licence==None:
+            print("le membre ou la licence est incorrect")
+        elif statut<0 or statut>2  :
+            print("Le statut du membre est incorrect")
+        else:
 
-        add_ml=Member_licence(id_member=id_member,id_licence=id_licence,statut=statut)
-        session.add(add_ml)
-        session.commit()
-
+            add_ml=Member_licence(id_member=id_member,id_licence=id_licence,statut=statut)
+            session.add(add_ml)
+            session.commit()
+    except:
+        print("le membre ou la license n'existe pas")
 
 def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
      try:
@@ -256,6 +258,7 @@ def list_licences_by_club(id_club):
 def create_club(club,licence):
     add_club(club)
     add_licence(licence)
+    print(licence.id+ "la licence qui marcge")
     add_member_licence(club.chef,licence.id,2)
 
 
