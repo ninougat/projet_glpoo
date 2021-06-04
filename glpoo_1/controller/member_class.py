@@ -92,8 +92,6 @@ class Admin(User):
 
     def supprimer_utilisateur(self, user):
         del_member(user.id)
-        session.delete(session.query(Member_bdd).filter_by(user=user).one())
-        session.commit()
 
 def connexion(pseudo, password):
     utilisateur = search_member(pseudo)

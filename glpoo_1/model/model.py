@@ -220,7 +220,7 @@ def get_club_by_licence(id_licence):
             try:
                 club = session.query(Club_bdd).filter_by(id=licence.id_club).one()
                 if club:
-                    return club.id
+                    return club
             except:
                 print("club incorrect")
     except :
@@ -305,8 +305,9 @@ def add_club(club):
 
 
 def list_clubs():
-    for club in session.query(Club_bdd):
-        print(club)
+
+    clubs=session.query(Club_bdd)
+    return clubs
 
 
 def modify_club(ida, nom=None, adresse=None, chef=None, description=None):

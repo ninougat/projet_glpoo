@@ -1,4 +1,4 @@
-from controller.member_class import *
+from glpoo_1.controller.member_class import *
 
 class Club:
     def __init__(self, nom, adresse, description, id_chef, id=None):
