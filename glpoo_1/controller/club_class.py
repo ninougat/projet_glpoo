@@ -37,38 +37,21 @@ class Club:
 
     def rechercher_membre(self, name, fullname):
 
-        licenses = session.query(Licence_bdd).filter_by(id=self.id)  # on récupère toute les licences du clubs
-        for i in licenses:  # pour chaque licence du club
-            mem_lic = session.query(Member_licence).filter_by(
-                id_licence=i.id)  # on récupère la table intermédiaire entre membre et licence
-            for j in mem_lic:  # pour chaque ligne de la table
-                mem = None
-                mem = session.query(Member_bdd).filter_by(id=j.id, name=name, fullname=fullname)  # on récupère le membre
-                if mem:
-                    return Membre(mem.name, mem.firstname, mem.user, mem.password, j.statut, j.id)
-        return None
+        membre=search_member(name=name,fullname=fullname)
+        return membre
+
 
     def afficher_membres(self):
-        liste_membres = []
-        licenses = session.query(Licence_bdd).filter_by(id=self.id)  # on récupère toutes les licences du club
-        for i in licenses:  # pour chaque licence du club
-            mem_lic = session.query(Member_licence).filter_by(id_licence=i.id)  # on récupère la table intermédiaire entre membre et licence
-            for j in mem_lic:  # pour chaque ligne de la table
-                mem = session.query(Member_bdd).filter_by(id=j.id)  # on récupère le membre
-                liste_membres.append((mem.name, mem.firstname, j.statut))
-                print(mem.name, mem.firstname, j.statut)  # et on l'affiche
-        return liste_membres
+        membres=list_members_by_club(self.id)
+        return membres
 
     def ajouter_membre(self, membre):
         self.membres.append(membre.id)
         membre.clubs.append(self.id)
 
     def supprimer_membre(self, membre):
-        for i in range(len(self.membres)):
-            if self.membres[i] == membre:
-                self.membres.pop(i)
-        session.delete(session.query(Member_licence).filter_by(user=self.id).one()) # on supprime la liaison entre l'utilisateur et la license dans la base de données
-        session.commit()
+        del_member_licence_by_club(membre,self.id)
+
 
     def afficher_informations(self):
         print(f"nom : ${self.nom}")

@@ -86,10 +86,17 @@ def list_members():
     for member in session.query(Member_bdd):
         print(member)
 
-def search_member(pseudo):
+def search_member(pseudo=None,name=None,firsname=None):
     try :
-        member=session.query(Member_bdd).filter_by(user=pseudo).one()
-        return member.password, member.status, member.name, member.firstname, member.user, member.id
+        member=None
+        if pseudo:
+            member=session.query(Member_bdd).filter_by(user=pseudo).one()
+        elif name and firsname :
+            member = session.query(Member_bdd).filter_by(name=name,firsname=firsname).one()
+        if member:
+            return member.password,member.status,member.name,member.firsname,member.user,member.id
+        else :
+            return None
 
     except :
         print("le membre n'existe pas")
@@ -213,15 +220,27 @@ def get_club_by_licence(id_licence):
             try:
                 club = session.query(Club_bdd).filter_by(id=licence.id_club).one()
                 if club:
-                    return club.id
+                    return club
             except:
                 print("club incorrect")
     except :
         print("licence incorrect")
     return None
+
+
+def del_member_licence_by_club(id_member, id_club):
+    licences_member=list_licences_by_member(id_member)
+    licences_clubs=list_licences_by_club(id_club)
+    for licence_m in licences_member :
+        for licence_c in licences_clubs :
+            if licence_m == licence_c :
+                del_member_licence(id_member,licence_m)
+
+
 def list_licences_by_member(id_member):
     licences=session.query(Member_licence).filter_by(id_member=id_member)
     return licences
+
 
 def list_clubs_by_member(id_member):
     licences=list_licences_by_member(id_member)
@@ -229,14 +248,18 @@ def list_clubs_by_member(id_member):
     for licence in licences :
         clubs.append(get_club_by_licence(licence.id))
     return clubs
+
+
 def list_licences_by_club(id_club):
     licence=session.query(Licence_bdd).filter_by(id_club=id_club)
     return licence
+
 
 def create_club(club,licence):
     add_club(club)
     add_licence(licence)
     add_member_licence(club.chef,licence.id,2)
+
 
 def list_members_by_club(id_club):
     licences=list_licences_by_club(id_club)
@@ -282,8 +305,9 @@ def add_club(club):
 
 
 def list_clubs():
-    for club in session.query(Club_bdd):
-        print(club)
+
+    clubs=session.query(Club_bdd)
+    return clubs
 
 
 def modify_club(ida, nom=None, adresse=None, chef=None, description=None):
