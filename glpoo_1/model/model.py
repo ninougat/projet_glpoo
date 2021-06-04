@@ -258,7 +258,7 @@ def list_licences_by_club(id_club):
 def create_club(club,licence):
     add_club(club)
     add_licence(licence)
-    print(licence.id)
+    print(licence.id+ "la licence qui marcge")
     add_member_licence(club.chef,licence.id,2)
 
 
