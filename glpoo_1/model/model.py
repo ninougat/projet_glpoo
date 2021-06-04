@@ -89,7 +89,7 @@ def list_members():
 def search_member(pseudo):
     try :
         member=session.query(Member_bdd).filter_by(user=pseudo).one()
-        return member.password,member.status,member.id,member.name,member.fullname,member.user
+        return member.password,member.status,member.name,member.fullname,member.user,member.id
 
     except :
         print("le membre n'existe pas")
