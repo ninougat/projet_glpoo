@@ -130,6 +130,7 @@ def add_member_licence(id_member,id_licence,statut):
 
 def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
      try:
+         mod=None
          if id_licence and id_member:
             mod = session.query(Member_licence).filter_by(id_licence=id_licence,id_member=id_member).one()
          elif ida:
@@ -139,6 +140,14 @@ def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
              mod.id_licence = id_licence
          if statut:
              mod.statut=statut
+            mod= session.query(Member_licence).filter_by(id=ida).one()
+         if mod:
+             if id_licence :
+                 mod.id_licence=id_licence
+             if statut :
+                 mod.statut=statut
+         else :
+             print("cette colonne n'existe pas")
      except :
          print("cette colonne n'existe pas")
 
@@ -188,13 +197,12 @@ def del_licence(ida):
 
 
 def get_club_by_licence(id_licence):
-    licence = session.query(Licence_bdd).filter_by(id=ida).one()
+    licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
     if licence:
         club = session.query(Club_bdd).filter_by(id=licence.id_club).one()
         if club:
             return club
     return None
-
 
 def list_licences_by_club(id_club):
     licence=session.query(Licence_bdd).filter_by(id_club=id_club)
@@ -202,12 +210,12 @@ def list_licences_by_club(id_club):
 
 
 def list_members_by_club(id_club):
-    licences = list_licence_by_club(id_club)
-    members = []
-    for licence in licences:
-        members_by_licence = list_members_by_licence(licence.id)
+    licences=list_licences_by_club(id_club)
+    members=[]
+    for licence in licences :
+        members_by_licence=list_members_by_licence(licence.id)
         for member in members_by_licence :
-            members.push(member)
+            members.append(member)
     return members
 
 

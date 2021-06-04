@@ -1,4 +1,5 @@
 from glpoo_1.model.model import *
+from glpoo_1.controller.club_class import *
 
 
 class User:
@@ -42,7 +43,7 @@ class User:
 
     def creer_club(self, nom,adresse,description):
         club=Club(nom,adresse,description,self.id)#on créé une classe club
-        add_club(club);#on l'ajoute à la BDD
+        add_club(club)#on l'ajoute à la BDD
 
 class Membre(User):
     def __init__(self, name,  firstname, user, password, type, licence):
