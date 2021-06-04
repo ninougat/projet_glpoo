@@ -106,4 +106,8 @@ def connexion(pseudo, password):
             compte = Admin(utilisateur[2], utilisateur[3], utilisateur[4], utilisateur[0], utilisateur[5])
     return compte
 
+def nouveau_membre(nom, prenom, pseudo, mot_de_passe):
+    membre = User(nom, prenom, pseudo, mot_de_passe)
+    add_member(membre, "user")
+
 
