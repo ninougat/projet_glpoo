@@ -41,6 +41,7 @@ class User:
     def creer_club(self, nom,adresse,description):
         club=Club(nom,adresse,description,self.id)#on créé une classe club
         add_club(club)#on l'ajoute à la BDD
+        return club
 
 class Membre(User):
     def __init__(self, name,  firstname, user, password, type, licence):
