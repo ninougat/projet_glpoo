@@ -79,7 +79,7 @@ def add_member(membre,statut):
     session.add(add_user)
     session.commit()
     # on récupère l'id du membre dans la base de données
-    membre.id = session.query(Member_bdd).order_by(Member_bdd.id.desc()).first()
+    membre.id = (session.query(Member_bdd).order_by(Member_bdd.id.desc()).first()).id
 
 
 def list_members():
@@ -187,7 +187,7 @@ def add_licence(licence):
         session.add(add_licenc)
         session.commit()
         # on récupère l'id de la licence dans la base de données
-        licence.id = session.query(Licence_bdd).order_by(Licence_bdd.id.desc()).first()
+        licence.id = (session.query(Licence_bdd).order_by(Licence_bdd.id.desc()).first()).id
     except:
         print(f"Le club {licence.id_club} n'existe pas")
 
@@ -301,7 +301,7 @@ def add_club(club):
         session.add(add_user)
         session.commit()
         # on récupère l'id du club dans la base de données
-        club.id = session.query(Club_bdd).order_by(Club_bdd.id.desc()).first()
+        club.id = (session.query(Club_bdd).order_by(Club_bdd.id.desc()).first()).id
     except:
         print("Le chef n'existe pas")
 
