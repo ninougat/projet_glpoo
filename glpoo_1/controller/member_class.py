@@ -125,9 +125,4 @@ def nouveau_membre(nom, prenom, pseudo, mot_de_passe):
     add_member(membre, "user")
     return membre
 
-def creer_club(id_membre, nom, adresse, description):
-    club = Club(nom, adresse, description, id_membre)  # on créé une classe club
-    add_club(club)  # on l'ajoute à la BDD
-    return club
-
 
