@@ -35,9 +35,9 @@ class Club:
         self.description = input("Entrez la nouvelle description")
         modify_club(self.id, description=self.description)
 
-    def rechercher_membre(self, name, fullname):
+    def rechercher_membre(self, name, firstname):
 
-        membre=search_member(name=name,fullname=fullname)
+        membre=search_member(name=name, firstname=firstname)
         return membre
 
 

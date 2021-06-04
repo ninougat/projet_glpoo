@@ -11,7 +11,7 @@ if __name__ == '__main__':
     add_member(User('Gilbert', 'Commissaire', "essai@test.com", "azerty"),0)
     add_member(User('Jean', 'sansnom', "essai@test.com", "azerty"),0)
     list_members()
-    modify_member(3, name="Jean-Robert", fullname="lampadaire", user="apothicaire")
+    modify_member(3, name="Jean-Robert", firstname="lampadaire", user="apothicaire")
     list_members()"""
 
     add_club(Club('club de pétanque du Roussilon',"Languedoc-Roussillon","Pétanque et Languedoc que du bon",1))

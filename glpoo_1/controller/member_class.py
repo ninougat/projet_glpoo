@@ -1,5 +1,5 @@
-from model.model import *
 from controller.club_class import *
+from model.model import *
 
 
 class User:

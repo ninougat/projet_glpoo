@@ -24,7 +24,7 @@ class Member_bdd(Base):
     # jointure avec une table pour trouver les clubs
 
     def __repr__(self):
-        return "(ID='%s', name='%s', fullname='%s', user='%s',password='%s',status='%s')" % (
+        return "(ID='%s', name='%s', firstname='%s', user='%s',password='%s',status='%s')" % (
             self.id, self.name, self.fullname, self.user, self.password, self.status)
 
 
