@@ -13,7 +13,7 @@ def vue():
     font = pg.font.SysFont(None, 20)
     screen.fill([255, 255, 255])
 
-    util = User("Quentin", "PAJON", "Quentin", "12345", [], 1)
+    util = User("Quentin", "PAJON", "Quentin", "12345", 1)
 
     clubs = []
     c = Club("Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", util.id, id=0)
@@ -121,6 +121,22 @@ def vue():
                                         if str(c[0].id) == current:
                                             c[1] = 1
                                             break
+                                    current = "Accueil"
+                                    page = Accueil
+                                if button.content == "Se desinscrire":
+                                    for c in clubs:
+                                        if str(c[0].id) == current:
+                                            c[1] = 0
+                                            break
+                                    current = "Accueil"
+                                    page = Accueil
+                                if button.content == "Supprimer le club":
+                                    for i, c in enumerate(clubs):
+                                        if str(c[0].id) == current:
+                                            clubs.pop(i)
+                                            break
+                                    current = "Accueil"
+                                    page = Accueil
                             else:
                                 pass
 
