@@ -74,7 +74,6 @@ class Membre(User):
         club= get_club_by_licence(self.licence)
         return list_members_by_club(club.id)
 
-
     def desinscrire_membre(self, membre):
         if self.type > membre.type:
 
