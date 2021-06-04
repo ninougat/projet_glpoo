@@ -41,6 +41,9 @@ class User:
         del_member(self.id)# on supprime le membbre via son ID
 
     def creer_club(self, nom,adresse,description):
+        print(nom)
+        print(adresse)
+        print(description)
         club = Club(nom, adresse, description, self.id)#on créé une classe club
         print(club)
         add_club(club)#on l'ajoute à la BDD
@@ -115,6 +118,7 @@ def connexion(pseudo, password):
         else:
             compte = Admin(utilisateur[2], utilisateur[3], utilisateur[4], utilisateur[0], utilisateur[5])
     return compte
+
 
 def nouveau_membre(nom, prenom, pseudo, mot_de_passe):
     membre = User(nom, prenom, pseudo, mot_de_passe)

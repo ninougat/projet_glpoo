@@ -117,7 +117,7 @@ def vue():
                                         page = Initiale
                             elif current == "Nouveau Membre":
                                 if button.content == "Valider":
-                                    user = User(page.GetZone("Nom"), page.GetZone("Prenom"), page.GetZone("Pseudo"), page.GetZone("Mot de passe"))
+                                    util = nouveau_membre(page.GetZone("Nom"), page.GetZone("Prenom"), page.GetZone("Pseudo"), page.GetZone("Mot de passe"))
                                     current = "Accueil"
                                     page = Accueil
                             elif current == "Profil":
@@ -152,7 +152,7 @@ def vue():
                                     page = Accueil
                             elif current == "Ajouter un Club":
                                 if button.content == "Ajouter licence":
-                                    club = util.creer_club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"))
+                                    club = creer_club(util.id,page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"))
                                     current = "Ajouter licence"
                                     page = generateAjouterlicence(club.id)
                             elif current == "Ajouter licence":
