@@ -134,15 +134,15 @@ def add_member_licence(id_member,id_licence,statut):
         member=session.query(Member_bdd).filter_by(id=id_member).one()
         try :
             licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
-            if member==None or licence==None:
-                print("le membre ou la licence est incorrect")
-            elif statut<0 or statut>2  :
+            if statut<0 or statut>2:
                 print("Le statut du membre est incorrect")
             else:
-
-                add_ml=Member_licence(id_member=id_member,id_licence=id_licence,statut=statut)
-                session.add(add_ml)
-                session.commit()
+                try :
+                    add_ml=Member_licence(id_member=id_member,id_licence=id_licence,statut=statut)
+                    session.add(add_ml)
+                    session.commit()
+                except :
+                    print("erreur de merde")
         except:
             print("la licence n'existe pas")
     except:
@@ -186,7 +186,6 @@ def add_licence(licence):
     try:
         session.query(Club_bdd).filter_by(id=licence.id_club).one()
         add_licenc = Licence_bdd(id_club=licence.id_club, name=licence.name, prix=licence.prix, nb_seances=licence.nb_seances,avantage=licence.avantage)
-
         session.add(add_licenc)
         session.commit()
         # on récupère l'id de la licence dans la base de données
@@ -260,10 +259,10 @@ def list_licences_by_club(id_club):
 
 def create_club(club,licence):
     add_club(club)
-    print(str(club.id) + "le club qui fonctionne")
+    print(str(club.id) + " le club qui fonctionne")
     licence.definir_id_club(club.id)
     add_licence(licence)
-    print(str(licence.id) +"la licence qui marche")
+    print(str(licence.id) +" la licence qui marche")
     add_member_licence(club.chef,licence.id,2)
 
 
