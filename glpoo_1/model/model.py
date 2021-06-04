@@ -25,7 +25,7 @@ class Member_bdd(Base):
 
     def __repr__(self):
         return "(ID='%s', name='%s', firstname='%s', user='%s',password='%s',status='%s')" % (
-            self.id, self.name, self.fullname, self.user, self.password, self.status)
+            self.id, self.name, self.firstname, self.user, self.password, self.status)
 
 
 class Member_licence(Base):  # association entre member et licence
