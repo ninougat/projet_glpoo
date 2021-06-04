@@ -17,7 +17,7 @@ class Member_bdd(Base):
     id = Column(Integer, primary_key=True)
     status = Column(String)  # user ou admin
     name = Column(String)
-    fullname = Column(String)
+    firstname = Column(String)
     user = Column(String)  # nom d'utilisateur
     password = Column(String)
 
@@ -75,7 +75,7 @@ Base.metadata.create_all(engine)
 
 
 def add_member(membre,statut):
-    add_user = Member_bdd(name=membre.name, fullname=membre.fullname, user=membre.user, password=membre.password, status=statut)
+    add_user = Member_bdd(name=membre.name, firstname=membre.firstname, user=membre.user, password=membre.password, status=statut)
     session.add(add_user)
     session.commit()
     # on récupère l'id du membre dans la base de données
@@ -89,7 +89,7 @@ def list_members():
 def search_member(pseudo):
     try :
         member=session.query(Member_bdd).filter_by(user=pseudo).one()
-        return member.password,member.status,member.name,member.fullname,member.user,member.id
+        return member.password, member.status, member.name, member.firstname, member.user, member.id
 
     except :
         print("le membre n'existe pas")
@@ -115,7 +115,7 @@ def modify_member(ida, name=None, fullname=None, user=None, password=None):
         if name:
             mod.name = name
         if fullname:
-            mod.fullname = fullname
+            mod.firstname = fullname
         if user:
             mod.user = user
         if password:
@@ -150,7 +150,7 @@ def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
              mod.id_licence = id_licence
          if statut:
             mod.statut=statut
-            mod= session.query(Member_licence).filter_by(id=ida).one()
+            mod = session.query(Member_licence).filter_by(id=ida).one()
          if mod:
              if id_licence :
                  mod.id_licence=id_licence

@@ -1,5 +1,5 @@
-from model.model import *
-from controller.club_class import *
+from glpoo_1.model.model import *
+from glpoo_1.controller.club_class import *
 
 
 class User:
@@ -95,6 +95,7 @@ class Admin(User):
         session.delete(session.query(Member_bdd).filter_by(user=user).one())
         session.commit()
 
+
 def connexion(pseudo, password):
     utilisateur = search_member(pseudo)
     compte = None
@@ -104,7 +105,6 @@ def connexion(pseudo, password):
             compte.clubs = list_clubs_by_member(compte.id)
         else:
             compte = Admin(utilisateur[2], utilisateur[3], utilisateur[4], utilisateur[5])
-
     return compte
 
 

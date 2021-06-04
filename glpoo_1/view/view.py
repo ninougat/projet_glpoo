@@ -1,8 +1,8 @@
 from view_classes import *
 from utils import *
-from controller.club_class import *
-from controller.member_class import *
-from controller.licence_class import *
+from glpoo_1.controller.club_class import *
+from glpoo_1.controller.member_class import *
+from glpoo_1.controller.licence_class import *
 
 
 def vue():
@@ -12,11 +12,10 @@ def vue():
     pg.display.set_caption("Oui.")
     font = pg.font.SysFont(None, 20)
     screen.fill([255, 255, 255])
-
-    util = User("Quentin", "PAJON", "Quentin", "12345", 1)
-
+    add_member(User("Quentin", "PAJON", "", "", 1), 1)
+    util = User("a", "a", "a", "a", 1)
     clubs = []
-    c = Club("Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", util.id, id=0)
+    c = Club("Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", 1, id=0)
     clubs.append([c, 1])
     # util.ajoutLicence(0, 3)
 
@@ -39,6 +38,7 @@ def vue():
     Accueil.addButton(Button([320, 50], [0, 30], text="Votre profil"))
     Accueil.addButton(Button([320, 50], [0, 90], text="Liste de vos Clubs"))
     Accueil.addButton(Button([320, 50], [0, 150], text="Rechercher des Clubs"))
+    Accueil.addButton(Button([320, 50], [0, 210], text="Ajouter un Club"))
     current = "Initiale"
     page = Initiale
 
@@ -55,10 +55,16 @@ def vue():
                     elif current =="Accueil":
                         current = "Initiale"
                         page = Initiale
+                    elif current == "Connexion":
+                        current = "Initiale"
+                        page = Initiale
+                    elif current == "Nouveau Membre":
+                        current = "Initiale"
+                        page = Initiale
                     else:
                         if current == "Profil":
                             util.name = page.GetZone("Prénom")
-                            util.fullname = page.GetZone("Nom")
+                            util.firstname = page.GetZone("Nom")
                             util.user = page.GetZone("Pseudo")
                         current = "Accueil"
                         page = Accueil
@@ -97,14 +103,21 @@ def vue():
                                 elif button.content == "Rechercher des Clubs":
                                     current = "Clubs"
                                     page = generateClubs(clubs)
+                                elif button.content == "Ajouter un Club":
+                                    current = "Ajouter un Club"
+                                    page = generateNouveauClub()
                             elif current == "Connexion":
                                 if button.content == "Valider":
-
-                                    current = "Accueil"
-                                    page = Accueil
+                                    if connexion(page.GetZone("Identifiant"), page.GetZone("mot de passe")):
+                                        util = connexion(page.GetZone("Identifiant"), page.GetZone("mot de passe"))
+                                        current = "Accueil"
+                                        page = Accueil
+                                    else:
+                                        current = "Initiale"
+                                        page = Initiale
                             elif current == "Nouveau Membre":
                                 if button.content == "Valider":
-                                    user = User(page.GetZone("Nom"), page.GetZone("Prenom"), page.GetZone("Pseudo"), page.GetZone("Mot de passe"))
+                                    user = User(page.GetZone("Nom"), page.GetZone("Prenom"), page.GetZone("Pseudo"), page.GetZone("Pseudo"))
                                     current = "Accueil"
                                     page = Accueil
                             elif current == "Profil":
@@ -137,6 +150,17 @@ def vue():
                                             break
                                     current = "Accueil"
                                     page = Accueil
+                            elif button.content == "Ajouter un Club":
+                                if button.content == "Ajouter licence":
+                                    club = Club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"), 2, id=15)
+                                    current = " Ajouter licence"
+                                    page = generateAjouterlicence(club.id)
+
+                            elif current == "Ajouter licence":
+                                if button.content == "Valider":
+                                    current = "Accueil"
+                                    page = Accueil
+
                             else:
                                 pass
 

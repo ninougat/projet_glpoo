@@ -2,7 +2,6 @@
 from controller.member_class import *
 from controller.club_class import *
 from controller.licence_class import *
-from controller.evenement_class import *
 from glpoo_1.model.model import *
 
 if __name__ == '__main__':

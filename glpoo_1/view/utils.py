@@ -1,7 +1,7 @@
 from view_classes import *
-from controller.club_class import *
-from controller.member_class import *
-from controller.licence_class import *
+from glpoo_1.controller.club_class import *
+from glpoo_1.controller.member_class import *
+from glpoo_1.controller.licence_class import *
 
 
 def generateProfile(user):
@@ -69,10 +69,29 @@ def generateClubPage(club):
     return page
 
 
+def generateNouveauClub():
+    page = Page("Ajouter un Club")
+    page.addZoneText(ZoneText(title="Nom", text="", textPos=[0, 30]))
+    page.addZoneText(ZoneText(title="Adresse", text="", textPos=[0, 90]))
+    page.addZoneText(ZoneText(title="Description", text="", textPos=[0, 150]))
+    page.addButton(Button([320, 50], [0, 210], text="Ajouter licence"))
+    return page
+
+
+def generateNouveaulicence(id):
+    page = Page("Ajouter licence")
+    page.addZoneText(ZoneText(title="Nom", text="", textPos=[0, 30]))
+    page.addZoneText(ZoneText(title="Prix", text="", textPos=[0, 90]))
+    page.addZoneText(ZoneText(title="Nombre de sceances", text="", textPos=[0, 150]))
+    page.addZoneText(ZoneText(title="Description", text="", textPos=[0, 210]))
+    page.addButton(Button([320, 50], [0, 270], text="Valider"))
+    return page
+
+
 def generateConnexion():
     Connection = Page("Connexion")
     Connection.addZoneText(ZoneText(title="Identifiant", text="", textPos=[0, 30]))
-    Connection.addZoneText(ZoneText(title="mots de passe", text="", textPos=[0, 90]))
+    Connection.addZoneText(ZoneText(title="mot de passe", text="", textPos=[0, 90]))
     Connection.addButton(Button([320, 50], [0, 150], text="Valider"))
     return Connection
 

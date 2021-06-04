@@ -1,4 +1,5 @@
-from controller.member_class import *
+from glpoo_1.controller.member_class import *
+
 
 class Club:
     def __init__(self, nom, adresse, description, id_chef, id=None):
@@ -44,7 +45,7 @@ class Club:
                 mem = None
                 mem = session.query(Member_bdd).filter_by(id=j.id, name=name, fullname=fullname)  # on récupère le membre
                 if mem:
-                    return Membre(mem.name, mem.fullname, mem.user, mem.password, j.statut, j.id)
+                    return Membre(mem.name, mem.firstname, mem.user, mem.password, j.statut, j.id)
         return None
 
     def afficher_membres(self):
@@ -54,8 +55,8 @@ class Club:
             mem_lic = session.query(Member_licence).filter_by(id_licence=i.id)  # on récupère la table intermédiaire entre membre et licence
             for j in mem_lic:  # pour chaque ligne de la table
                 mem = session.query(Member_bdd).filter_by(id=j.id)  # on récupère le membre
-                liste_membres.append((mem.name, mem.fullname, j.statut))
-                print(mem.name, mem.fullname, j.statut)  # et on l'affiche
+                liste_membres.append((mem.name, mem.firstname, j.statut))
+                print(mem.name, mem.firstname, j.statut)  # et on l'affiche
         return liste_membres
 
     def ajouter_membre(self, membre):
