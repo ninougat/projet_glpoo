@@ -21,6 +21,8 @@ class Licence:
             self.avantage = avantage
         modify_licence(self.id, name=name, prix=prix, nb_seances=nb_seances, avantage=avantage)
 
+    def definir_id_club(self,id_club):
+        self.id_club=id_club
     def afficher_licence(self):
         print(" "+self.id+"\n")
         print(" " + self.name + "\n")
