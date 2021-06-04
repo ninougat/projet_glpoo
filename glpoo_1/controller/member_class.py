@@ -38,11 +38,11 @@ class User:
         club.afficher_informations()
 
     def supprimer(self):
-        del_member(self.id)
+        del_member(self.id)# on supprime le membbre via son ID
 
-    def creer_club(self, name):
-        pass
-
+    def creer_club(self, nom,adresse,description):
+        clu=Club(nom,adresse,description,self.id)#on créé une classe club
+        add_club(club);#on l'ajoute à la BDD
 
 class Membre(User):
     def __init__(self, name, fullname, user, password, type, licence):
@@ -50,14 +50,14 @@ class Membre(User):
         self.type = type
         self.licence = licence
 
-    def changer_license(self):
-        pass
+    def changer_license(self,n_licence):
+        self.licence=n_licence# on remplace l'ancienen licence par la nouvelle
 
-    def modifier_club(self):
-        pass
+    def modifier_club(self,club,nom=None, adresse=None, chef=None, description=None):
+        modify_club(club.id,nom=nom,adresse=adresse,chef=chef,description=description)#On modifie le club en fonction des infos founi par les parametres
 
-    def modifier_license(self):
-        pass
+    def modifier_license(self,licence,name=None, prix=None, nb_seances=None, avantage=None):
+        modify_licence(ida=licence.id,name=name,prix=prix,nb_seances=nb_seances,avantage=avantage)
 
     def lister_membres(self):
         pass
@@ -66,17 +66,18 @@ class Membre(User):
         pass
 
     def promouvoir(self, membre):
-        pass
+        modify_membre_licence(id_licence=membre.licence, statut=1,id_member=membre.id)
 
-    def supprimer_Club(self):
-        pass
+    def supprimer_Club(self,club):
+        del_club(club.id)
 
 
 class Admin(User):
 
     def supprimer_club(self, club):
-        pass
+        del_club(club.id)
 
     def supprimer_utilisateur(self, user):
+        del_Member(user.id)
         session.delete(session.query(Member_bdd).filter_by(user=user).one())
         session.commit()

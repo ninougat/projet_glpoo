@@ -128,9 +128,13 @@ def add_member_licence(id_member,id_licence,statut):
         session.commit()
 
 
-def modify_membre_licence(ida,id_licence=None,statut=None):
+def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
      try:
-         mod= session.query(Member_licence).filter_by(id=ida).one()
+         if id_licence and id_member:
+            mod=session.query(Member_licence).filter_by(id_licence=id_licence,id_member=id_member).one()
+         elif ida:
+            mod= session.query(Member_licence).filter_by(id=ida).one()
+
          if id_licence :
              mod.id_licence=id_licence
          if statut :
@@ -246,5 +250,3 @@ def del_club(ida):
     except:
         print(f"le club ${ida} n'existe pas ")
 
-
-#TODO supprimer les licences associées au club, membres
