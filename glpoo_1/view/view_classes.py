@@ -102,11 +102,32 @@ class ZoneText:
             screen.blit(img, rect)
 
 
+class Text:
+    text = ""
+    size = [320, 50]
+    pos = [0, 0]
+
+    def __init__(self, content="", textSize=None, textPos=None):
+        self.text = content
+        if textSize:
+            self.size = textSize
+        if textPos:
+            self.pos = textPos
+
+    def afficher(self, screen, font):
+        if (self.pos[0] < screen.get_width() or self.pos[0] + self.size[0] > 0) and (self.pos[1] < screen.get_height() or self.pos[1] + self.size[1] > 30):
+            img = font.render(self.text, True, [0, 0, 0])
+            rect = img.get_rect()
+            rect.topleft = [self.pos[0] + self.size[0] / 2 - rect.width / 2, self.pos[1] + self.size[1] / 2 - rect.height / 2]
+            screen.blit(img, rect)
+
+
 class Page:
     def __init__(self, title):
         self.title = title
         self.buttons = []
         self.zoneTexts = []
+        self.texts = []
         self.links = {}
 
     def addButton(self, button):
@@ -114,6 +135,9 @@ class Page:
 
     def addZoneText(self, zonetext):
         self.zoneTexts.append(zonetext)
+
+    def addText(self, text):
+        self.texts.append(text)
 
     def ScrollUp(self):
         canScroll = False
@@ -166,6 +190,8 @@ class Page:
             zone.afficher(screen, font)
         for boutton in self.buttons:
             boutton.afficher(screen, font)
+        for text in self.texts:
+            text.afficher(screen, font)
 
         pg.draw.rect(screen, [128, 64, 255], pg.Rect(0, 0, screen.get_width(), 20))
         img = font.render(self.title, True, [0, 0, 0])
