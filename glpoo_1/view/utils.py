@@ -8,7 +8,7 @@ def generateProfile(user):
     profil = Page("Profil")
 
     profil.addZoneText(ZoneText(title="Prénom", text=user.name, textSize=[320, 50], textPos=[0, 25]))
-    profil.addZoneText(ZoneText(title="Nom", text=user.fullname, textSize=[320, 50], textPos=[0, 80]))
+    profil.addZoneText(ZoneText(title="Nom", text=user.firstname, textSize=[320, 50], textPos=[0, 80]))
     profil.addZoneText(ZoneText(title="Pseudo", text=user.user, textSize=[320, 50], textPos=[0, 135]))
     profil.addZoneText(ZoneText(title="Mot de passe", text=user.password, textSize=[320, 50], textPos=[0, 190]))
     return profil
@@ -43,7 +43,7 @@ def generateClubs(clubs):
 def generateClubPage(club):
     page = Page("club " + club.nom)
 
-    type_membre = 0
+    type_membre = 3
 
     if type_membre < 2:
         page.addText(Text(content="Adresse : " + club.adresse, textSize=[320, 50], textPos=[0, 30]))
@@ -85,3 +85,15 @@ def generateNouveauMembre():
     Nouveau.addZoneText(ZoneText(title="Mot de passe", text="", textSize=[320, 40], textPos=[0, 148]))
     Nouveau.addButton(Button([320, 40], [0, 190], text="Valider"))
     return Nouveau
+
+
+def generateMemberList():
+    member = Page("Membres")
+
+    return member
+
+
+def generateBureauList():
+    bureau = Page("Bureau")
+
+    return bureau
