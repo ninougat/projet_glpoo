@@ -1,7 +1,7 @@
 from view_classes import *
-from glpoo_1.controller.club_class import *
-from glpoo_1.controller.member_class import *
-from glpoo_1.controller.licence_class import *
+from controller.club_class import *
+from controller.member_class import *
+from controller.licence_class import *
 
 
 def generateProfile(user):

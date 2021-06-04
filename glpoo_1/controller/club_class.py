@@ -1,4 +1,4 @@
-from glpoo_1.controller.member_class import *
+from controller.member_class import *
 
 
 class Club:
