@@ -25,9 +25,9 @@ class User:
             self.password = password
         modify_member(self.id, name=name, firstname=firstname, user=user, password=password)
 
-    def inscription(self, club):
-        self.clubs.append(club.id)
-        club.ajouter_membre(self.id)
+    def inscription(self, club,id_licence):
+        self.clubs.append(club)
+        club.ajouter_membre(self.id,id_licence)
 
     def desinscription(self, club):
         if club.id in self.clubs:
