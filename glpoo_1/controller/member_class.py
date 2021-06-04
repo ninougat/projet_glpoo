@@ -41,7 +41,8 @@ class User:
         del_member(self.id)# on supprime le membbre via son ID
 
     def creer_club(self, nom,adresse,description):
-        club=Club(nom,adresse,description,self.id)#on créé une classe club
+        club = Club(nom, adresse, description, self.id)#on créé une classe club
+        print(club)
         add_club(club)#on l'ajoute à la BDD
         return club
 
@@ -72,7 +73,6 @@ class Membre(User):
     def lister_membres(self):
         club= get_club_by_licence(self.licence)
         return list_members_by_club(club.id)
-
 
     def desinscrire_membre(self, membre):
         if self.type > membre.type:
