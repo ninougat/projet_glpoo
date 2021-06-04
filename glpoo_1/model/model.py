@@ -132,18 +132,21 @@ def modify_member(ida, name=None, firstname=None, user=None, password=None):
 def add_member_licence(id_member,id_licence,statut):
     try :
         member=session.query(Member_bdd).filter_by(id=id_member).one()
-        licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
-        if member==None or licence==None:
-            print("le membre ou la licence est incorrect")
-        elif statut<0 or statut>2  :
-            print("Le statut du membre est incorrect")
-        else:
+        try :
+            licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
+            if member==None or licence==None:
+                print("le membre ou la licence est incorrect")
+            elif statut<0 or statut>2  :
+                print("Le statut du membre est incorrect")
+            else:
 
-            add_ml=Member_licence(id_member=id_member,id_licence=id_licence,statut=statut)
-            session.add(add_ml)
-            session.commit()
+                add_ml=Member_licence(id_member=id_member,id_licence=id_licence,statut=statut)
+                session.add(add_ml)
+                session.commit()
+        except:
+            print("la licence n'existe pas")
     except:
-        print("le membre ou la license n'existe pas")
+        print("le membre n'existe pas")
 
 def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
      try:
