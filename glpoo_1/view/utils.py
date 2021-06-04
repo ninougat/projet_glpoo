@@ -78,13 +78,14 @@ def generateNouveauClub():
     return page
 
 
-def generateAjouterlicence():
+def generateAjouterlicence(id):
     page = Page("Ajouter licence")
-    page.addZoneText(ZoneText(title="Nom", text="", textPos=[0, 30]))
-    page.addZoneText(ZoneText(title="Prix", text="", textPos=[0, 90]))
-    page.addZoneText(ZoneText(title="Nombre de sceances", text="", textPos=[0, 150]))
-    page.addZoneText(ZoneText(title="Description", text="", textPos=[0, 210]))
-    page.addButton(Button([320, 50], [0, 270], text="Valider"))
+    page.addZoneText(ZoneText(title="ID", text=str(id),  textPos=[0, 30]))
+    page.addZoneText(ZoneText(title="Nom", text="", textPos=[0, 90]))
+    page.addZoneText(ZoneText(title="Prix", text="", textPos=[0, 150]))
+    page.addZoneText(ZoneText(title="Nombre de sceances", text="", textPos=[0, 210]))
+    page.addZoneText(ZoneText(title="Description", text="", textPos=[0, 270]))
+    page.addButton(Button([320, 50], [0, 330], text="Valider"))
     return page
 
 

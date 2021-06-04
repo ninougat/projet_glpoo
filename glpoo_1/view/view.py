@@ -15,6 +15,7 @@ def vue():
     add_member(User("Quentin", "PAJON", "Quentin", "12345", 1), "user")
     add_member(User("", "", "", "", 1), 1)
     util = User("a", "a", "a", "a", 1)
+    club = Club("", "", "", 1, id=0)
     clubs = []
     c = Club("Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", 1, id=0)
     clubs.append([c, 1])
@@ -64,9 +65,7 @@ def vue():
                         page = Initiale
                     else:
                         if current == "Profil":
-                            util.name = page.GetZone("Prénom")
-                            util.firstname = page.GetZone("Nom")
-                            util.user = page.GetZone("Pseudo")
+                            util.modifier_profil(page.GetZone("Prénom"),page.GetZone("Nom"), page.GetZone("Pseudo"), page.GetZone("Mot de passe"))
                         current = "Accueil"
                         page = Accueil
                 for text in page.zoneTexts:
@@ -118,7 +117,7 @@ def vue():
                                         page = Initiale
                             elif current == "Nouveau Membre":
                                 if button.content == "Valider":
-                                    user = User(page.GetZone("Nom"), page.GetZone("Prenom"), page.GetZone("Pseudo"), page.GetZone("Pseudo"))
+                                    user = User(page.GetZone("Nom"), page.GetZone("Prenom"), page.GetZone("Pseudo"), page.GetZone("Mot de passe"))
                                     current = "Accueil"
                                     page = Accueil
                             elif current == "Profil":
@@ -153,12 +152,13 @@ def vue():
                                     page = Accueil
                             elif current == "Ajouter un Club":
                                 if button.content == "Ajouter licence":
-                                    club = Club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"), 2, id=15)
+                                    club = util.creer_club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"))
                                     current = "Ajouter licence"
-                                    page = generateAjouterlicence()
+                                    page = generateAjouterlicence(club.id)
                             elif current == "Ajouter licence":
-                                page = generateAjouterlicence()
+                                page = generateAjouterlicence(club.id)
                                 if button.content == "Valider":
+                                    creer_License(page.GetZone("ID"), page.GetZone("Nom"), page.GetZone("Prix"), page.GetZone("Nombre de sceances"), page.GetZone("Description"))
                                     current = "Accueil"
                                     page = Accueil
 
