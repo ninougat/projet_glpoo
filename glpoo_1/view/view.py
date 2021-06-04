@@ -12,7 +12,8 @@ def vue():
     pg.display.set_caption("Oui.")
     font = pg.font.SysFont(None, 20)
     screen.fill([255, 255, 255])
-    add_member(User("Quentin", "PAJON", "", "", 1), 1)
+    add_member(User("Quentin", "PAJON", "Quentin", "12345", 1), 1)
+    add_member(User("", "", "", "", 1), 1)
     util = User("a", "a", "a", "a", 1)
     clubs = []
     c = Club("Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", 1, id=0)
@@ -52,7 +53,7 @@ def vue():
                 if event.key == pg.K_ESCAPE:
                     if current == "Initiale":
                         run = 0
-                    elif current =="Accueil":
+                    elif current == "Accueil":
                         current = "Initiale"
                         page = Initiale
                     elif current == "Connexion":

@@ -86,15 +86,15 @@ def list_members():
     for member in session.query(Member_bdd):
         print(member)
 
-def search_member(pseudo=None,name=None,firsname=None):
+def search_member(pseudo=None,name=None,firstname=None):
     try :
         member=None
         if pseudo:
             member=session.query(Member_bdd).filter_by(user=pseudo).one()
         elif name and firsname :
-            member = session.query(Member_bdd).filter_by(name=name,firsname=firsname).one()
+            member = session.query(Member_bdd).filter_by(name=name,firstname=firstname).one()
         if member:
-            return member.password,member.status,member.name,member.firsname,member.user,member.id
+            return member.password,member.status,member.name,member.firstname,member.user,member.id
         else :
             return None
 
@@ -116,13 +116,13 @@ def del_member(ida):
         print("le membre n'existe pas")
 
 
-def modify_member(ida, name=None, fullname=None, user=None, password=None):
+def modify_member(ida, name=None, firstname=None, user=None, password=None):
     try:
         mod = session.query(Member_bdd).filter_by(id=ida).one()
         if name:
             mod.name = name
-        if fullname:
-            mod.firstname = fullname
+        if firstname:
+            mod.firstname = firstname
         if user:
             mod.user = user
         if password:

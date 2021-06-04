@@ -97,12 +97,17 @@ class Admin(User):
 def connexion(pseudo, password):
     utilisateur = search_member(pseudo)
     compte = None
+    print(pseudo)
+    print(password)
+    print(utilisateur)
     if utilisateur and utilisateur[0] == password:
+        print("1")
         if utilisateur[1] == "user":
             compte = User(utilisateur[2], utilisateur[3], utilisateur[4], utilisateur[5])
             compte.clubs = list_clubs_by_member(compte.id)
         else:
             compte = Admin(utilisateur[2], utilisateur[3], utilisateur[4], utilisateur[5])
+    print(compte.user)
     return compte
 
 
