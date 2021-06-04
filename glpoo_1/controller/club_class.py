@@ -45,9 +45,11 @@ class Club:
         membres=list_members_by_club(self.id)
         return membres
 
-    def ajouter_membre(self, membre):
-        self.membres.append(membre.id)
-        membre.clubs.append(self.id)
+    def ajouter_membre(self, id_membre,id_licence):
+        self.membres.append(id_membre)
+        add_member_licence(id_membre,id_licence,0)
+
+
 
     def supprimer_membre(self, membre):
         del_member_licence_by_club(membre,self.id)
