@@ -102,8 +102,6 @@ def search_member(pseudo=None,name=None,firstname=None):
         print("le membre n'existe pas")
         return None
 
-
-
 def del_member(ida):
     member_to_delete = session.query(Member_bdd).filter_by(id=ida).one()  # on récupère le membre à supprimer
     try:

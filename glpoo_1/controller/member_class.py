@@ -11,6 +11,8 @@ class User:
         self.user = user
         self.password = password
         self.clubs = []
+        if id :
+            self.recuperer_club()
 
     def modifier_profil(self, name=None, firstname=None, user=None, password=None):
         if name:
@@ -41,6 +43,13 @@ class User:
     def creer_club(self, nom,adresse,description):
         club=Club(nom,adresse,description,self.id)#on créé une classe club
         add_club(club)#on l'ajoute à la BDD
+
+    def recuperer_club(self):
+        clubs=list_clubs_by_member(self.id)
+        for club in clubs :
+            self.clubs.append(Club(club.nom,club.adresse,club.chef,club.description))
+
+
 
 class Membre(User):
     def __init__(self, name,  firstname, user, password, type, licence):
