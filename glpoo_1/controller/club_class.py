@@ -1,5 +1,5 @@
-from controller.evenement_class import *
-from controller.member_class import *
+from glpoo_1.controller.evenement_class import *
+from glpoo_1.controller.member_class import *
 
 
 class Club:
@@ -17,8 +17,13 @@ class Club:
         self.nom = nom
         modify_club(self.id, nom=nom)
 
+    def affiher_nom(self):
+        print(self.nom)
+        return self.nom
+
     def afficher_adresse(self):
         print(self.adresse)
+        return self.adresse
 
     def changer_adresse(self, adresse):
         self.adresse = adresse
@@ -26,6 +31,7 @@ class Club:
 
     def afficher_description(self):
         print(self.description)
+        return self.description
 
     def changer_description(self):
         self.description = input("Entrez la nouvelle description")
@@ -41,16 +47,19 @@ class Club:
                 mem = None
                 mem = session.query(Member_bdd).filter_by(id=j.id, name=name, fullname=fullname)  # on récupère le membre
                 if mem:
-                    return Membre(mem.id, mem.name, mem.fullname, mem.user, mem.password, j.statut, j.id)
+                    return Membre(mem.name, mem.fullname, mem.user, mem.password, j.statut, j.id)
         return None
 
     def afficher_membres(self):
-        licenses = session.query(Licence_bdd).filter_by(id=self.id)  # on récupère toute les licences du club
+        liste_membres = []
+        licenses = session.query(Licence_bdd).filter_by(id=self.id)  # on récupère toutes les licences du club
         for i in licenses:  # pour chaque licence du club
             mem_lic = session.query(Member_licence).filter_by(id_licence=i.id)  # on récupère la table intermédiaire entre membre et licence
             for j in mem_lic:  # pour chaque ligne de la table
                 mem = session.query(Member_bdd).filter_by(id=j.id)  # on récupère le membre
+                liste_membres.append((mem.name, mem.fullname, j.statut))
                 print(mem.name, mem.fullname, j.statut)  # et on l'affiche
+        return liste_membres
 
     def ajouter_membre(self, membre):
         self.membres.append(membre.id)
@@ -63,23 +72,8 @@ class Club:
         session.delete(session.query(Member_licence).filter_by(user=self.id).one()) # on supprime la liaison entre l'utilisateur et la license dans la base de données
         session.commit()
 
-    def afficher_evenements(self):
-        for evenement in self.calendrier_evenements:
-            evenement.afficher_evenement()
-
-    def ajouter_evenement(self, id_club):
-        evenement = Evenement(id_club=id_club)
-        print("Entrez la description de l'événement :")
-        evenement.nom = input("Nom :")
-        evenement.lieu = input("Lieu :")
-        evenement.date = input("Date (jj/mm/aaaa) :")
-        evenement.horraire = input("Horraire (HHhMM) :")
-        self.calendrier_evenements.append(evenement)
-        # on ajoute l'évènement dans la base de données
-        add_event(evenement)
-        print(f"L'énévement {evenement.nom} a bien été ajouté au calendrier.")
-
     def afficher_informations(self):
         print(f"nom : ${self.nom}")
         print(f"adresse : ${self.adresse}")
         print(f"description : ${self.description}")
+        return self.nom, self.adresse, self.description
