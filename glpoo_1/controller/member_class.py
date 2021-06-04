@@ -1,5 +1,5 @@
-from model.model import *
 from controller.club_class import *
+from model.model import *
 
 
 class User:
@@ -21,7 +21,7 @@ class User:
             self.user = user
         if password:
             self.password = password
-        modify_member(self.id, name=name, fullname=firstname, user=user, password=password)
+        modify_member(self.id, name=name, firstname=firstname, user=user, password=password)
 
     def inscription(self, club):
         self.clubs.append(club.id)
