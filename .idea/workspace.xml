@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec34c641-ef11-4f6c-9bf2-0094244cac9b" name="Default Changelist" comment="ajout de la liste des clubs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/glpoo_1/controller/club_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/glpoo_1/controller/club_class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/glpoo_1/model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/glpoo_1/model/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/glpoo_1/controller/member_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/glpoo_1/controller/member_class.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622817691954</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="ajout de la liste des clubs">
+      <created>1622818785275</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1622818785275</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

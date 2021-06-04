@@ -1,5 +1,5 @@
-from model.model import *
-from controller.club_class import *
+from glpoo_1.model.model import *
+from glpoo_1.controller.club_class import *
 
 
 class User:
