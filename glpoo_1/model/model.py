@@ -142,7 +142,7 @@ def add_member_licence(id_member,id_licence,statut):
                     session.add(add_ml)
                     session.commit()
                 except :
-                    print("erreur de merde")
+                    print("erreur lros de l'initialisattion de la ligne de la bdd")
         except:
             print("la licence n'existe pas")
     except:
@@ -184,7 +184,7 @@ def del_member_licence(ida=None,id_member=None,id_licence=None) :
 
 def add_licence(licence):
     try:
-        session.query(Club_bdd).filter_by(id=licence.id_club).one()
+        session.query(Club_bdd).filter_by(id=licence.id_club).one()# si le club n'existe pas cela génrè une erreur
         add_licenc = Licence_bdd(id_club=licence.id_club, name=licence.name, prix=licence.prix, nb_seances=licence.nb_seances,avantage=licence.avantage)
         session.add(add_licenc)
         session.commit()
@@ -263,6 +263,7 @@ def create_club(club,licence):
     licence.definir_id_club(club.id)
     add_licence(licence)
     print(str(licence.id) +" la licence qui marche")
+    list_licences()
     add_member_licence(club.chef,licence.id,2)
 
 
