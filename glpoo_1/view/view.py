@@ -12,7 +12,7 @@ def vue():
     pg.display.set_caption("Oui.")
     font = pg.font.SysFont(None, 20)
     screen.fill([255, 255, 255])
-    add_member(User("Quentin", "PAJON", "Quentin", "12345", 1), 1)
+    add_member(User("Quentin", "PAJON", "Quentin", "12345", 1), "user")
     add_member(User("", "", "", "", 1), 1)
     util = User("a", "a", "a", "a", 1)
     clubs = []
@@ -151,13 +151,13 @@ def vue():
                                             break
                                     current = "Accueil"
                                     page = Accueil
-                            elif button.content == "Ajouter un Club":
+                            elif current == "Ajouter un Club":
                                 if button.content == "Ajouter licence":
                                     club = Club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"), 2, id=15)
-                                    current = " Ajouter licence"
-                                    page = generateAjouterlicence(club.id)
-
+                                    current = "Ajouter licence"
+                                    page = generateAjouterlicence()
                             elif current == "Ajouter licence":
+                                page = generateAjouterlicence()
                                 if button.content == "Valider":
                                     current = "Accueil"
                                     page = Accueil
