@@ -211,9 +211,18 @@ def get_club_by_licence(id_licence):
     if licence:
         club = session.query(Club_bdd).filter_by(id=licence.id_club).one()
         if club:
-            return club
+            return club.id
     return None
+def list_licences_by_member(id_member):
+    licences=session.query(Member_licence).filter_by(id_member=id_member)
+    return licences
 
+def list_clubs_by_member(id_member):
+    licences=list_licences_by_member(id_member)
+    clubs=[]
+    for licence in licences :
+        clubs.append(get_club_by_licence(licence.id))
+    return clubs
 def list_licences_by_club(id_club):
     licence=session.query(Licence_bdd).filter_by(id_club=id_club)
     return licence
@@ -236,6 +245,7 @@ def list_members_by_club(id_club):
 def list_members_by_licence(id_licence):
     members= session.query(Member_licence).filter_by(id_licence=id_licence)
     return members
+
 
 def modify_licence(ida, name=None, prix=None, nb_seances=None, avantage=None):
     try:
