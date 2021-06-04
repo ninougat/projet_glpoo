@@ -7,8 +7,6 @@
     <list default="true" id="ec34c641-ef11-4f6c-9bf2-0094244cac9b" name="Default Changelist" comment="correction des petites erreurs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/glpoo_1/controller/club_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/glpoo_1/controller/club_class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/glpoo_1/controller/licence_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/glpoo_1/controller/licence_class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/glpoo_1/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/glpoo_1/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/glpoo_1/model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/glpoo_1/model/model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622815078351</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="correction des petites erreurs">
+      <created>1622816494939</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1622816494939</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
