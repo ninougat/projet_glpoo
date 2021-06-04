@@ -257,10 +257,10 @@ def list_licences_by_club(id_club):
 
 def create_club(club,licence):
     add_club(club)
-
+    print(str(club.id) + "le club qui fonctionne")
     licence.definir_id_club(club.id)
     add_licence(licence)
-
+    print(str(licence.id) +"la licence qui marche")
     add_member_licence(club.chef,licence.id,2)
 
 
