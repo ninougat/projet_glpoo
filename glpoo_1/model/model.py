@@ -207,11 +207,17 @@ def del_licence(ida):
 
 
 def get_club_by_licence(id_licence):
-    licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
-    if licence:
-        club = session.query(Club_bdd).filter_by(id=licence.id_club).one()
-        if club:
-            return club.id
+    try :
+        licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
+        if licence:
+            try:
+                club = session.query(Club_bdd).filter_by(id=licence.id_club).one()
+                if club:
+                    return club.id
+            except:
+                print("club incorrect")
+    except :
+        print("licence incorrect")
     return None
 def list_licences_by_member(id_member):
     licences=session.query(Member_licence).filter_by(id_member=id_member)
