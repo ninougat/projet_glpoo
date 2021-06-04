@@ -43,6 +43,7 @@ class User:
     def creer_club(self, nom,adresse,description):
         club=Club(nom,adresse,description,self.id)#on créé une classe club
         add_club(club)#on l'ajoute à la BDD
+        return club
 
     def recuperer_club(self):
         clubs=list_clubs_by_member(self.id)
