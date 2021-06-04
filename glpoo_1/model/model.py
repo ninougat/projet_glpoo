@@ -88,12 +88,12 @@ def list_members():
 
 
 def del_member(ida):
-    member_to_delete=session.query(Member_bdd).filter_by(id=ida).one()# on récupère le membre à supprimer
+    member_to_delete = session.query(Member_bdd).filter_by(id=ida).one()  # on récupère le membre à supprimer
     try:
-        licenses=session.query(Member_licence).filter_by(id_members=ida)# on récupère les licences auquels il était lié
-        for licence in licenses :# pour chacune de ces licences
-            session.delete(licence)# on supprime son abonnement
-        session.delete(member_to_delete)#on supprime le membre
+        licenses = session.query(Member_licence).filter_by(id_members=ida)  # on récupère les licences auquels il était lié
+        for licence in licenses:  # pour chacune de ces licences
+            session.delete(licence)  # on supprime son abonnement
+        session.delete(member_to_delete)  # on supprime le membre
         session.commit()
     except:
         print("le membre n'existe pas")
@@ -131,25 +131,25 @@ def add_member_licence(id_member,id_licence,statut):
 def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
      try:
          if id_licence and id_member:
-            mod=session.query(Member_licence).filter_by(id_licence=id_licence,id_member=id_member).one()
+            mod = session.query(Member_licence).filter_by(id_licence=id_licence,id_member=id_member).one()
          elif ida:
-            mod= session.query(Member_licence).filter_by(id=ida).one()
+            mod = session.query(Member_licence).filter_by(id=ida).one()
 
-         if id_licence :
-             mod.id_licence=id_licence
-         if statut :
+         if id_licence:
+             mod.id_licence = id_licence
+         if statut:
              mod.statut=statut
      except :
          print("cette colonne n'existe pas")
 
 
 def del_member_licence(ida=None,id_member=None,id_licence=None) :
-    try :
-        if ida :
+    try:
+        if ida:
             session.delete(session.query(Member_licence).filter_by(id=ida).one())
-        elif id_licence and id_member :
+        elif id_licence and id_member:
             session.delete(session.query(Member_licence).filter_by(id_licence=id_licence, id_member=id_member).one())
-    except :
+    except:
         print("cette colonne n'existe pas")
 
 
@@ -174,11 +174,11 @@ def list_licences():
 def del_licence(ida):
     try:
         licence_to_delete = session.query(Licence_bdd).filter_by(id=ida).one()
-        members_to_delete=session.query(Member_licence).filter_by(id_licence=ida) # on récupère les membres lié à la license
-        try :
-            for member in members_to_delete : #pour chaque membre
-                session.delete(member)#on le supprime de la table intermédiaire
-        except :
+        members_to_delete = session.query(Member_licence).filter_by(id_licence=ida) # on récupère les membres lié à la license
+        try:
+            for member in members_to_delete:  # pour chaque membre
+                session.delete(member)  # on le supprime de la table intermédiaire
+        except:
             pass
 
         session.delete(licence_to_delete)
@@ -188,12 +188,13 @@ def del_licence(ida):
 
 
 def get_club_by_licence(id_licence):
-    licence=session.query(Licence_bdd).filter_by(id=ida).one()
+    licence = session.query(Licence_bdd).filter_by(id=ida).one()
     if licence:
-        club=session.query(Club_bdd).filter_by(id=licence.id_club).one()
-        if club :
+        club = session.query(Club_bdd).filter_by(id=licence.id_club).one()
+        if club:
             return club
-    return none
+    return None
+
 
 def list_licences_by_club(id_club):
     licence=session.query(Licence_bdd).filter_by(id_club=id_club)
@@ -201,10 +202,10 @@ def list_licences_by_club(id_club):
 
 
 def list_members_by_club(id_club):
-    licences=list_licence_by_club(id_club)
-    members=[]
-    for licence in licences :
-        members_by_licence=list_members_by_licence(licence.id)
+    licences = list_licence_by_club(id_club)
+    members = []
+    for licence in licences:
+        members_by_licence = list_members_by_licence(licence.id)
         for member in members_by_licence :
             members.push(member)
     return members

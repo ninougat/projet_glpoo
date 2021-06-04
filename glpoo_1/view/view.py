@@ -32,13 +32,15 @@ def vue():
         c = Club("Club %d" % i, "Adresse club n°%d" % i, "Ceci est le club n°%d" % i, 1, id=3 + i)
         clubs.append([c, 0])
 
+    Initiale = Page("Initiale")
+    Initiale.addButton(Button([320, 50], [0, 30], text="Connexion"))
+    Initiale.addButton(Button([320, 50], [0, 90], text="Nouveau Membre"))
     Accueil = Page("Accueil")
     Accueil.addButton(Button([320, 50], [0, 30], text="Votre profil"))
     Accueil.addButton(Button([320, 50], [0, 90], text="Liste de vos Clubs"))
     Accueil.addButton(Button([320, 50], [0, 150], text="Rechercher des Clubs"))
-
-    page = Accueil
-    current = "Accueil"
+    current = "Initiale"
+    page = Initiale
 
     run = 1
     while run:
@@ -48,8 +50,11 @@ def vue():
                 run = 0
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    if current == "Accueil":
+                    if current == "Initiale":
                         run = 0
+                    elif current =="Accueil":
+                        current = "Initiale"
+                        page = Initiale
                     else:
                         if current == "Profil":
                             util.name = page.GetZone("Prénom")
@@ -76,12 +81,16 @@ def vue():
                     for idx, button in enumerate(page.buttons):
                         wasPressed = button.mouseInButton(False)
                         if wasPressed:
-                            if current == "Accueil":
+                            if current == "Initiale":
+                                if button.content == "Connexion":
+                                    current = "Connexion"
+                                    page = generateConnexion()
+                                elif button.content == "Nouveau Membre":
+                                    current = "Nouveau Membre"
+                                    page = generateNouveauMembre()
+                            elif current == "Accueil":
                                 if button.content == "Votre profil":
                                     current = "Profil"
-                                    print(util.name)
-                                    print(util.fullname)
-                                    print(util.user)
                                     page = generateProfile(util)
                                 elif button.content == "Liste de vos Clubs":
                                     current = "Mes clubs"
@@ -89,6 +98,16 @@ def vue():
                                 elif button.content == "Rechercher des Clubs":
                                     current = "Clubs"
                                     page = generateClubs(clubs)
+                            elif current == "Connexion":
+                                if button.content == "Valider":
+
+                                    current = "Accueil"
+                                    page = Accueil
+                            elif current == "Nouveau Membre":
+                                if button.content == "Valider":
+                                    user = User(page.GetZone("Nom"), page.GetZone("Prenom"), page.GetZone("Pseudo"), page.GetZone("Mot de passe"))
+                                    current = "Accueil"
+                                    page = Accueil
                             elif current == "Profil":
                                 pass
                             elif current == "Mes clubs":
