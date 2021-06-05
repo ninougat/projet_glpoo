@@ -62,3 +62,9 @@ class Club:
 def creer_club(licence,club):
     create_club(club,licence)
 
+def lister_clubs():
+    clubs = []
+    clubs_bdd = list_clubs()
+    for club_bdd in clubs_bdd:
+        clubs.append(Club(club_bdd.nom, club_bdd.adresse, club_bdd.description, club_bdd.chef, id))
+    return clubs
