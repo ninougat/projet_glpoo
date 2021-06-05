@@ -186,19 +186,20 @@ def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
          print("cette colonne n'existe pas")
 
 
-def del_member_licence(ida=None,id_member=None,id_licence=None) :
+def del_member_licence(ida=None,id_member=None,id_licence=None) :  # ida correspond à l'id de la ligne dans la base de données
     try:
         if ida:
             session.delete(session.query(Member_licence).filter_by(id=ida).one())
         elif id_licence and id_member:
             session.delete(session.query(Member_licence).filter_by(id_licence=id_licence, id_member=id_member).one())
+        session.commit()
     except:
         print("cette colonne n'existe pas")
 
 
 def add_licence(licence):
     try:
-        session.query(Club_bdd).filter_by(id=licence.id_club).one()# si le club n'existe pas cela génrè une erreur
+        session.query(Club_bdd).filter_by(id=licence.id_club).one()# si le club n'existe pas cela génère une erreur
         add_licenc = Licence_bdd(id_club=licence.id_club, name=licence.name, prix=licence.prix, nb_seances=licence.nb_seances,avantage=licence.avantage)
         session.add(add_licenc)
         session.commit()
