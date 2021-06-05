@@ -17,25 +17,8 @@ def vue():
     pg.display.set_caption("Oui.")
     font = pg.font.SysFont(None, 20)
     screen.fill([255, 255, 255])
-    Quentin = User("Quentin", "PAJON", "Quentin1", "12345")
-    Quentin2 = User("Quentin", "PAJON", "Quentin2", "12345")
-    add_member(Quentin, "user")
-    add_member(Quentin2, "user")
-    add_member(User("", "", "", ""), "admin")
-    util = User("a", "a", "a", "a")
     user = None
     list_clubs = []
-
-    add_member(util, "user")
-    c = Club("Club Test", "Adresse", "description", 2)
-    lic = Licence(c.id, "Licence test", 100, 1, "100 balles et un mars")
-    creer_club(lic, c)
-    Quentin.inscription(c, lic.id)
-
-    c = Club("Club 2", "Adresse 2", "description 2", 2)
-    lic = Licence(c.id, "Licence 2", 200, 2, "200 balles et 2 mars")
-    creer_club(lic, c)
-
 
     Initiale = Page("Initiale")
     Initiale.addButton(Button([320, 50], [0, 30], text="Connexion"))
@@ -47,7 +30,6 @@ def vue():
     Accueil.addButton(Button([320, 50], [0, 210], text="Ajouter un Club"))
     current = "Initiale"
     page = Initiale
-
     run = 1
     while run:
         events = pg.event.get()
@@ -158,7 +140,7 @@ def vue():
                                     current = "Accueil"
                                     page = Accueil
                                 elif button.content == "Supprimer le club" and user:
-                                    user.supprimer_Club(club)
+                                    user.supprimer_Club()
                                     current = "Accueil"
                                     page = Accueil
                                 elif button.content == "Voir licence":
@@ -180,7 +162,8 @@ def vue():
                                     page = generatelicencePage(page.links[str(idx)], 0)
                             elif current == "Membres":
                                 current = str(page.links[str(idx)])
-                                page = generateMembrePage(page.links[str(idx)])
+                                user_next = page.links[str(idx)]
+                                page = generateMembrePage(user,page.links[str(idx)])
                             elif page.title[:8] == "licence ":
                                 if button.content == "Changer licence":
                                     current = "change licence"
@@ -193,14 +176,14 @@ def vue():
                                     current = "Accueil"
                                     page = Accueil
                                 elif button.content == "Modifier licence":
-                                    lic.modifier_licence(prix=page.GetZone("Prix"),nb_seances=page.GetZone("nb_seances"),avantage=page.GetZone("Avantages"))
+                                    lic.modifier_licence(prix=page.GetZone("Prix"), nb_seances=page.GetZone("nb_seances"), avantage=page.GetZone("Avantages"))
                             elif page.title[:7] == "Membre ":
                                 if button.content == "Désinscrire":
-                                    user.desinscrire_membre(page.links[str(idx)])
+                                    user.desinscrire_membre(user_next["membre"], club)
                                 elif button.content == "Retrograder":
-                                    user.retrograder(page.links[str(idx)], club)
+                                    user.retrograder(user_next["membre"], club)
                                 elif button.content == "Promouvoir":
-                                    user.promouvoir(page.links[str(idx)], club)
+                                    user.promouvoir(user_next["membre"], club)
                                 current = "Accueil"
                                 page = Accueil
                             elif current == "Ajouter un Club":

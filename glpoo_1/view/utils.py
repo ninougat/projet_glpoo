@@ -116,12 +116,11 @@ def generatelicencePage(licence, type_membre):
 
 def generateAjouterlicence(id):
     page = Page("Ajouter licence")
-    page.addZoneText(ZoneText(title="ID", text=str(id),  textPos=[0, 30]))
-    page.addZoneText(ZoneText(title="Nom", text="", textPos=[0, 90]))
-    page.addZoneText(ZoneText(title="Prix", text="", textPos=[0, 150]))
-    page.addZoneText(ZoneText(title="Nombre de seances", text="", textPos=[0, 210]))
-    page.addZoneText(ZoneText(title="Description", text="", textPos=[0, 270]))
-    page.addButton(Button([320, 50], [0, 330], text="Valider"))
+    page.addZoneText(ZoneText(title="Nom", text="", textPos=[0, 30]))
+    page.addZoneText(ZoneText(title="Prix", text="", textPos=[0, 90]))
+    page.addZoneText(ZoneText(title="Nombre de seances", text="", textPos=[0, 150]))
+    page.addZoneText(ZoneText(title="Description", text="", textPos=[0, 210]))
+    page.addButton(Button([320, 50], [0, 270], text="Valider"))
     return page
 
 
@@ -149,36 +148,41 @@ def generateMemberList(membres):
     print(membres)
     for membre in membres:
         print(membre)
-        print(membre["nom"])
-        liste.addButton(Button([320, 50], [0, 30 + 60 * idx], text=membre["nom"]))
+        print(membre["membre"].name)
+        liste.addButton(Button([320, 50], [0, 30 + 60 * idx], text=membre["membre"].name))
         liste.links[str(idx)] = membre
         idx += 1
     return liste
 
 
-def generateMembrePage(membre):
-    Nouveau = Page("Membre "+membre["nom"] +str(membre["statut"]))
-    if membre["statut"] == 0:
-        Nouveau.addText(Text(content="Nom" + membre["nom"], textSize=[320, 40], textPos=[0, 22]))
-        Nouveau.addText(Text(content="Prenom" + membre["prenom"], textSize=[320, 40], textPos=[0, 64]))
-        Nouveau.addText(Text(content="Pseudo" + membre["pseudo"], textSize=[320, 40], textPos=[0, 106]))
-        Nouveau.addButton(Button([160, 40], [0, 148], text="Désinscrire"))
-        Nouveau.addButton(Button([160, 40], [160, 148], text="Promouvoir"))
-    if membre["statut"] == 1:
-        Nouveau.addText(Text(content="Nom" + membre["nom"], textSize=[320, 40], textPos=[0, 22]))
-        Nouveau.addText(Text(content="Prenom" + membre["prenom"], textSize=[320, 40], textPos=[0, 64]))
-        Nouveau.addText(Text(content="Pseudo" + membre["pseudo"], textSize=[320, 40], textPos=[0, 106]))
-        Nouveau.addText(Text(content="licence"+membre["nom_licence"], textSize=[320, 40], textPos=[0, 148]))
+def generateMembrePage(membre1, membre):
+    Nouveau = Page("Membre "+membre["membre"].name +" "+str(membre["statut"]))
+    if membre["statut"] == 0 and membre1.type > 0:
+        Nouveau.addText(Text(content="Nom : " + membre["membre"].name, textSize=[320, 40], textPos=[0, 22]))
+        Nouveau.addText(Text(content="Prenom : " + membre["membre"].firstname, textSize=[320, 40], textPos=[0, 64]))
+        Nouveau.addText(Text(content="Pseudo : " + membre["membre"].user, textSize=[320, 40], textPos=[0, 106]))
+        Nouveau.addText(Text(content="licence : " + membre["licence"], textSize=[320, 40], textPos=[0, 148]))
+        Nouveau.addButton(Button([160, 40], [0, 190], text="Désinscrire"))
+        Nouveau.addButton(Button([160, 40], [160, 190], text="Promouvoir"))
+    elif membre["statut"] == 1 and membre1.type > 1:
+        Nouveau.addText(Text(content="Nom : " + membre["membre"].name, textSize=[320, 40], textPos=[0, 22]))
+        Nouveau.addText(Text(content="Prenom : " + membre["membre"].firstname, textSize=[320, 40], textPos=[0, 64]))
+        Nouveau.addText(Text(content="Pseudo : " + membre["membre"].user, textSize=[320, 40], textPos=[0, 106]))
+        Nouveau.addText(Text(content="licence : "+membre["licence"], textSize=[320, 40], textPos=[0, 148]))
         Nouveau.addButton(Button([100, 40], [0, 190], text="Désinscrire"))
         Nouveau.addButton(Button([100, 40], [105, 190], text="Retrograder"))
         Nouveau.addButton(Button([100, 40], [210, 190], text="Promouvoir"))
-    if membre["statut"] == 2:
-        Nouveau.addText(Text(content="Nom" + membre["nom"], textSize=[320, 40], textPos=[0, 22]))
-        Nouveau.addText(Text(content="Prenom" + membre["prenom"], textSize=[320, 40], textPos=[0, 64]))
-        Nouveau.addText(Text(content="Pseudo" + membre["pseudo"], textSize=[320, 40], textPos=[0, 106]))
-        Nouveau.addText(Text(content="licence" + membre["nom_licence"], textSize=[320, 40], textPos=[0, 148]))
+    elif membre["statut"] == 2 and membre1.type == 2:
+        Nouveau.addText(Text(content="Nom : " + membre["membre"].name, textSize=[320, 40], textPos=[0, 22]))
+        Nouveau.addText(Text(content="Prenom : " + membre["membre"].firstname, textSize=[320, 40], textPos=[0, 64]))
+        Nouveau.addText(Text(content="Pseudo : " + membre["membre"].user, textSize=[320, 40], textPos=[0, 106]))
+        Nouveau.addText(Text(content="licence : " + membre["licence"], textSize=[320, 40], textPos=[0, 148]))
         Nouveau.addButton(Button([160, 40], [0, 190], text="Désinscrire"))
         Nouveau.addButton(Button([160, 40], [160, 190], text="Retrograder"))
+    else:
+        Nouveau.addText(Text(content="Nom : " + membre["membre"].name, textSize=[320, 40], textPos=[0, 22]))
+        Nouveau.addText(Text(content="Prenom : " + membre["membre"].firstname, textSize=[320, 40], textPos=[0, 64]))
+        Nouveau.addText(Text(content="Pseudo : " + membre["membre"].user, textSize=[320, 40], textPos=[0, 106]))
     return Nouveau
 
 def generateBureauList():
