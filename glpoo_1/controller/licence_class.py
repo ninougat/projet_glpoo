@@ -36,7 +36,8 @@ class Licence:
         del_licence(self.id)
 
 
-def creer_Licence(id_club, name, prix, nb_seance, avantage):
+def creer_Licence(id_club, name, prix, nb_seance, avantage, util, club):
     licence = Licence(id_club, name, prix, nb_seance, avantage)
     add_licence(licence)
+    util.inscription(club, licence.id)
     return licence

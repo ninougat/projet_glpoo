@@ -1,6 +1,5 @@
-
 from model.model import *
-from licence_class import *
+
 
 class User:
 

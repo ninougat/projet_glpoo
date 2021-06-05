@@ -98,7 +98,7 @@ def vue():
                                     page = generateMesClubs(util.clubs)
                                 elif button.content == "Rechercher des Clubs":
                                     current = "Clubs"
-                                    page = generateClubs(util.clubs)############################# club non inscrit
+                                    page = generateClubs(lister_clubs())  ############################# club non inscrit
                                 elif button.content == "Ajouter un Club":
                                     current = "Ajouter un Club"
                                     page = generateNouveauClub()
@@ -127,6 +127,7 @@ def vue():
                                 current = str(page.links[str(idx)].id)
                                 page = generateClubPage(page.links[str(idx)])
                             elif page.title[:5] == "club ":
+                                user = connexion_club(util, club)
                                 if button.content == "S'inscrire":
                                     for c in util.clubs:################################## club non inscrit
                                         if str(c[0].id) == current:
@@ -154,16 +155,40 @@ def vue():
                                     current = "Ajouter licence"
                                     page = generateAjouterlicence(club.id)
                                 elif button.content == "Voir licence":
-                                    current = "Voir licence"
-                                    page = generatelicencePage(page.links[str(idx)])
+                                    current = "Mes licences"
+                                    page = generateMesLicences(lister_licences_club(club.id))
+                            elif current == "Mes licences":
+                                lic = page.links[str(idx)]
+                                current = str(page.links[str(idx)].id)
+                                print(page.links[str(idx)].avantage)
+                                page = generatelicencePage(page.links[str(idx)])
+                            elif page.title[:8] == "licence ":
+                                if button.content == "Changer licence":
+                                    current = "change licence"
+                                    page = generateMesLicences(lister_licences_club(club.id))
+                                elif button.content == "Ajouter licence":
+                                    current = "Ajouter licence"
+                                    page = generateAjouterlicence(club.id)
+                                elif button.content == "Supprimer licence":
+                                    lic.supprimer_licence()
+                                    current = "Accueil"
+                                    page = Accueil
+                                elif button.content == "Modifier licence":
+                                    lic.modifier_licence(prix=page.GetZone("Prix"),nb_seances=page.GetZone("nb_seances"),avantage=page.GetZone("Avantages"))
                             elif current == "Ajouter un Club":
                                 if button.content == "Ajouter licence":
                                     club = cre_club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"), util.id)
                                     current = "Ajouter licence"
                                     page = generateAjouterlicence(club.id)
+                            elif current == "change licences":
+                                lic = page.links[str(idx)]
+                                current = str(page.links[str(idx)].id)
+                                page = generatelicencePage(page.links[str(idx)])
+                                user.changer_license(lic)
                             elif current == "Ajouter licence":
                                 if button.content == "Valider":
-                                    licence = creer_Licence(club.id, page.GetZone("Nom"), int(page.GetZone("Prix")), int(page.GetZone("Nombre de seances")), page.GetZone("Description"))
+                                    licence = creer_Licence(club.id, page.GetZone("Nom"), int(page.GetZone("Prix")), int(page.GetZone("Nombre de seances")), page.GetZone("Description"), util, club)
+                                    print(licence.avantage)
                                     current = "Accueil"
                                     page = Accueil
 

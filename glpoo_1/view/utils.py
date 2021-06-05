@@ -26,6 +26,7 @@ def generateMesClubs(clubs):
     return mesClubs
 
 
+
 def generateClubs(clubs):
     liste = Page("Clubs")
 
@@ -69,18 +70,39 @@ def generateClubPage(club):
     return page
 
 
+def generateNouveauClub():
+    page = Page("Ajouter un Club")
+    page.addZoneText(ZoneText(title="Nom", text="", textPos=[0, 30]))
+    page.addZoneText(ZoneText(title="Adresse", text="", textPos=[0, 90]))
+    page.addZoneText(ZoneText(title="Description", text="", textPos=[0, 150]))
+    page.addButton(Button([320, 50], [0, 210], text="Ajouter licence"))
+    return page
+
+
+def generateMesLicences(licences):
+    mesLicences = Page("Mes licences")
+
+    idx = 0
+    for licence in licences:
+        mesLicences.addButton(Button([320, 50], [0, 30 + 60 * idx], text=licence.name))
+        mesLicences.links[str(idx)] = licence
+        idx += 1
+
+    return mesLicences
+
+
 def generatelicencePage(licence):
-    page = Page("licence " + licence.nom)
+    page = Page("licence " + licence.name)
 
     type_membre = 3
 
     if type_membre < 2:
-        page.addText(Text(content="Prix : "+licence.prix, textSize=[320, 50], textPos=[0, 30]))
-        page.addText(Text(content="nb_seances : "+licence.nb_seances, textSize=[320, 50], textPos=[0, 90]))
+        page.addText(Text(content="Prix : "+str(licence.prix), textSize=[320, 50], textPos=[0, 30]))
+        page.addText(Text(content="nb_seances : "+str(licence.nb_seances), textSize=[320, 50], textPos=[0, 90]))
         page.addText(Text(content="Avantages : "+licence.avantage, textSize=[320, 50], textPos=[0, 150]))
     if type_membre > 1:
-        page.addZoneText(ZoneText(title="Prix", text=licence.prix, textSize=[320, 50], textPos=[0, 30]))
-        page.addZoneText(ZoneText(title="nb_seances", text=licence.nb_seances, textSize=[320, 50], textPos=[0, 90]))
+        page.addZoneText(ZoneText(title="Prix", text=str(licence.prix), textSize=[320, 50], textPos=[0, 30]))
+        page.addZoneText(ZoneText(title="nb_seances", text=str(licence.nb_seances), textSize=[320, 50], textPos=[0, 90]))
         page.addZoneText(ZoneText(title="Avantages", text=licence.avantage, textSize=[320, 50], textPos=[0, 150]))
 
     if type_membre > 0:
@@ -93,13 +115,7 @@ def generatelicencePage(licence):
 
     return page
 
-def generateNouveauClub():
-    page = Page("Ajouter un Club")
-    page.addZoneText(ZoneText(title="Nom", text="", textPos=[0, 30]))
-    page.addZoneText(ZoneText(title="Adresse", text="", textPos=[0, 90]))
-    page.addZoneText(ZoneText(title="Description", text="", textPos=[0, 150]))
-    page.addButton(Button([320, 50], [0, 210], text="Ajouter licence"))
-    return page
+
 
 def generateAjouterlicence(id):
     page = Page("Ajouter licence")
