@@ -39,5 +39,6 @@ class Licence:
 def creer_Licence(id_club, name, prix, nb_seance, avantage, util, club):
     licence = Licence(id_club, name, prix, nb_seance, avantage)
     add_licence(licence)
-    util.inscription(club, licence.id)
+    if club not in util.clubs:
+        util.inscription(club, licence.id)
     return licence
