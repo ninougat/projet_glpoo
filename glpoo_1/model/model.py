@@ -248,7 +248,7 @@ def list_licences_by_member(id_member):
 def list_clubs_by_member(id_member):
     licences=list_licences_by_member(id_member)
     clubs=[]
-    for licence in licences :
+    for licence in licences:
         clubs.append(get_club_by_licence(licence.id))
     return clubs
 

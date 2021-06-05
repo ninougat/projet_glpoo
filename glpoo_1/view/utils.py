@@ -18,11 +18,10 @@ def generateMesClubs(clubs):
     mesClubs = Page("Mes clubs")
 
     idx = 0
-    for club, isInscrit in clubs:
-        if isInscrit:
-            mesClubs.addButton(Button([320, 50], [0, 30 + 60 * idx], text=club.nom))
-            mesClubs.links[str(idx)] = club
-            idx += 1
+    for club in clubs:
+        mesClubs.addButton(Button([320, 50], [0, 30 + 60 * idx], text=club.nom))
+        mesClubs.links[str(idx)] = club
+        idx += 1
 
     return mesClubs
 
@@ -31,11 +30,10 @@ def generateClubs(clubs):
     liste = Page("Clubs")
 
     idx = 0
-    for club, isInscrit in clubs:
-        if not isInscrit:
-            liste.addButton(Button([320, 50], [0, 30 + 60 * idx], text=club.nom))
-            liste.links[str(idx)] = club
-            idx += 1
+    for club in clubs:
+        liste.addButton(Button([320, 50], [0, 30 + 60 * idx], text=club.nom))
+        liste.links[str(idx)] = club
+        idx += 1
 
     return liste
 
