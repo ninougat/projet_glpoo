@@ -31,10 +31,10 @@ class Member_bdd(Base):
 class Member_licence(Base):  # association entre member et licence
     __tablename__ = 'members_licence'
     id = Column(Integer, primary_key=True)
-    id_licence = Column(Integer, ForeignKey('licences.id'))
-    licence = relationship("Licence_bdd")
-    id_member = Column(Integer, ForeignKey('members.id'))
-    member = relationship("Member_bdd")  # creer relation entre cette table et la table membre
+    id_licence = Column(Integer)
+
+    id_member = Column(Integer)
+
     statut = Column(Integer)  # membre(0), bureau(1),chef(2)
 
     # jointure avec une table pour trouver les clubs
@@ -90,7 +90,6 @@ def search_member(pseudo=None,name=None,firstname=None):
     try :
         member=None
         if pseudo:
-            list_members()
             member=session.query(Member_bdd).filter_by(user=pseudo).one()
         elif name and firstname :
             member = session.query(Member_bdd).filter_by(name=name,firstname=firstname).one()
@@ -200,7 +199,9 @@ def list_licences():
     for licence in session.query(Licence_bdd):
         print(licence)
 
-
+def list_member_licence():
+    for member_licence in session.query(Member_licence):
+        print(member_licence)
 def del_licence(ida):
     try:
         licence_to_delete = session.query(Licence_bdd).filter_by(id=ida).one()
@@ -241,15 +242,16 @@ def del_member_licence_by_club(id_member, id_club):
 
 
 def list_licences_by_member(id_member):
-    licences=session.query(Member_licence).filter_by(id_member=id_member)
-    return licences
+
+    member_licences=session.query(Member_licence).filter_by(id_member=id_member)
+    return member_licences
 
 
 def list_clubs_by_member(id_member):
-    licences=list_licences_by_member(id_member)
+    member_licences=list_licences_by_member(id_member)
     clubs=[]
-    for licence in licences :
-        clubs.append(get_club_by_licence(licence.id))
+    for member_licence in member_licences :
+        clubs.append(get_club_by_licence(member_licence.id_licence))
     return clubs
 
 
