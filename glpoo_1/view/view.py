@@ -15,7 +15,7 @@ def vue():
 
     Quentin = User("Quentin", "PAJON", "Quentin", "12345", 1)
     add_member(Quentin, "user")
-    add_member(User("", "", "", "", 1), 1)
+    add_member(User("", "", "", "", 1), "admin")
     util = User("a", "a", "a", "a", 1)
 
     c = Club("Club Test", "Adresse", "description", 2)
