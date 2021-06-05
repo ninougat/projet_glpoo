@@ -238,7 +238,7 @@ def get_licence_by_club_and_member(id_member,id_club):
     for licence_m in licences_member:
         for licence_c in licences_clubs:
             if licence_m.id_licence == licence_c.id:
-                return licence_m
+                return licence_c
 
 def del_member_licence_by_club(id_member, id_club):
     licences_member=list_licences_by_member(id_member)
