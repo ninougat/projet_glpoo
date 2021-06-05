@@ -11,7 +11,7 @@ class User:
         self.user = user
         self.password = password
         self.clubs = []
-        if id:
+        if id :
             self.recuperer_club()
 
     def modifier_profil(self, name=None, firstname=None, user=None, password=None):
@@ -47,8 +47,9 @@ class User:
 
     def recuperer_club(self):
         clubs=list_clubs_by_member(self.id)
-        for club in clubs:
-            self.clubs.append(Club(club.nom,club.adresse,club.chef,club.description))
+        if clubs :
+            for club in clubs :
+                self.clubs.append(Club(club.nom,club.adresse,club.chef,club.description))
 
 
 
