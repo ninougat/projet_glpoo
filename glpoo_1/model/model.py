@@ -86,7 +86,7 @@ def list_members():
     for member in session.query(Member_bdd):
         print(member)
 
-def search_member(pseudo=None,name=None,firstname=None):
+def search_member(pseudo=None,name=None,firstname=None,id=None):
     try :
         member=None
         if pseudo:
@@ -94,6 +94,9 @@ def search_member(pseudo=None,name=None,firstname=None):
             member=session.query(Member_bdd).filter_by(user=pseudo).one()
         elif name and firstname :
             member = session.query(Member_bdd).filter_by(name=name,firstname=firstname).one()
+        elif id:
+            member = session.query(Member_bdd).filter_by(id=id).one()
+            return member.name,member.firstname,member.user
 
         return member.password,member.status,member.name,member.firstname,member.user,member.id
 
@@ -101,6 +104,8 @@ def search_member(pseudo=None,name=None,firstname=None):
     except :
         print("le membre n'existe pas")
         return None
+
+
 
 def del_member(ida):
     member_to_delete = session.query(Member_bdd).filter_by(id=ida).one()  # on récupère le membre à supprimer

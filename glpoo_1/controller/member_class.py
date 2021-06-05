@@ -60,7 +60,6 @@ class Membre(User):
 
     def desinscrire_membre(self, membre):
         if self.type > membre.type:
-
             del_member_licence(id_member=membre.id, id_licence=membre.id_licence)
 
     def promouvoir(self, membre,club):
@@ -71,6 +70,9 @@ class Membre(User):
             modify_membre_licence(id_licence=self.id_licence, statut=1, id_member=self.id)
             modify_club(club.id,chef=membre.id)
             self.type=1
+    def retrograder(self, membre,club):
+        if membre.type == 1 and self.type == 2:
+            modify_membre_licence(id_licence=membre.id_licence, statut=0, id_member=membre.id)
 
     def supprimer_Club(self,club):
         if self.type==2:
