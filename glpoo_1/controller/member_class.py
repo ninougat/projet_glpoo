@@ -1,5 +1,6 @@
 
 from model.model import *
+from licence_class import *
 
 class User:
 
@@ -35,7 +36,7 @@ class User:
         club.afficher_informations()
 
     def supprimer(self):
-        del_member(self.id)# on supprime le membbre via son ID
+        del_member(self.id)# on supprime le membre via son ID
 
 
 class Membre(User):
@@ -48,7 +49,6 @@ class Membre(User):
         self.id_licence=n_licence# on remplace l'ancienen licence par la nouvelle
 
     def modifier_club(self,club,nom=None, adresse=None, chef=None, description=None):
-
         modify_club(club.id,nom=nom,adresse=adresse,chef=chef,description=description)#On modifie le club en fonction des infos founi par les parametres
 
     def modifier_licence(self,licence,name=None, prix=None, nb_seances=None, avantage=None):
@@ -105,5 +105,9 @@ def nouveau_membre(nom, prenom, pseudo, mot_de_passe):
     membre = User(nom, prenom, pseudo, mot_de_passe)
     add_member(membre, "user")
     return membre
+
+def connexion_club(user, club):
+    licence_bdd, statut = get_licence_by_club_and_member(user.id, club.id)
+    return Membre(user.name, user.firstname, user.user, user.password, statut, licence_bdd.id)
 
 
