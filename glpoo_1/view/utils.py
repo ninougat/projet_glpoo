@@ -146,11 +146,43 @@ def generateNouveauMembre():
     return Nouveau
 
 
-def generateMemberList():
-    member = Page("Membres")
+def generateMemberList(membres):
+    liste = Page("Membres")
+    idx = 0
+    print(membres)
+    for membre in membres:
+        print(membre)
+        print(membre["nom"])
+        liste.addButton(Button([320, 50], [0, 30 + 60 * idx], text=membre["nom"]))
+        liste.links[str(idx)] = membre
+        idx += 1
+    return liste
 
-    return member
 
+def generateMembrePage(membre):
+    Nouveau = Page("Membre "+membre["nom"] +str(membre["statut"]))
+    if membre["statut"] == 0:
+        Nouveau.addText(Text(content="Nom" + membre["nom"], textSize=[320, 40], textPos=[0, 22]))
+        Nouveau.addText(Text(content="Prenom" + membre["prenom"], textSize=[320, 40], textPos=[0, 64]))
+        Nouveau.addText(Text(content="Pseudo" + membre["pseudo"], textSize=[320, 40], textPos=[0, 106]))
+        Nouveau.addButton(Button([160, 40], [0, 148], text="Désinscrire"))
+        Nouveau.addButton(Button([160, 40], [160, 148], text="Promouvoir"))
+    if membre["statut"] == 1:
+        Nouveau.addText(Text(content="Nom" + membre["nom"], textSize=[320, 40], textPos=[0, 22]))
+        Nouveau.addText(Text(content="Prenom" + membre["prenom"], textSize=[320, 40], textPos=[0, 64]))
+        Nouveau.addText(Text(content="Pseudo" + membre["pseudo"], textSize=[320, 40], textPos=[0, 106]))
+        Nouveau.addText(Text(content="licence"+membre["nom_licence"], textSize=[320, 40], textPos=[0, 148]))
+        Nouveau.addButton(Button([100, 40], [0, 190], text="Désinscrire"))
+        Nouveau.addButton(Button([100, 40], [105, 190], text="Retrograder"))
+        Nouveau.addButton(Button([100, 40], [210, 190], text="Promouvoir"))
+    if membre["statut"] == 2:
+        Nouveau.addText(Text(content="Nom" + membre["nom"], textSize=[320, 40], textPos=[0, 22]))
+        Nouveau.addText(Text(content="Prenom" + membre["prenom"], textSize=[320, 40], textPos=[0, 64]))
+        Nouveau.addText(Text(content="Pseudo" + membre["pseudo"], textSize=[320, 40], textPos=[0, 106]))
+        Nouveau.addText(Text(content="licence" + membre["nom_licence"], textSize=[320, 40], textPos=[0, 148]))
+        Nouveau.addButton(Button([160, 40], [0, 190], text="Désinscrire"))
+        Nouveau.addButton(Button([160, 40], [160, 190], text="Retrograder"))
+    return Nouveau
 
 def generateBureauList():
     bureau = Page("Bureau")
