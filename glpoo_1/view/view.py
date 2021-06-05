@@ -5,6 +5,11 @@ from controller.member_class import *
 from controller.licence_class import *
 
 
+def connexion_user(pseudo,password):
+    user=connexion(pseudo,password)
+    if user is User :
+        recup_club(user)
+
 def vue():
     pg.init()
     size = width, height = 320, 240

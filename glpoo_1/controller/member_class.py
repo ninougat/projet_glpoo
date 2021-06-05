@@ -1,6 +1,5 @@
-from controller.club_class import *
-from model.model import *
 
+from model.model import *
 
 class User:
 
@@ -11,8 +10,6 @@ class User:
         self.user = user
         self.password = password
         self.clubs = []
-        if id :
-            self.recuperer_club()
 
     def modifier_profil(self, name=None, firstname=None, user=None, password=None):
         if name:
@@ -39,18 +36,6 @@ class User:
 
     def supprimer(self):
         del_member(self.id)# on supprime le membbre via son ID
-
-    def creer_club(self, nom,adresse,description):
-        club = Club(nom, adresse, description, self.id)#on créé une classe club
-        add_club(club)#on l'ajoute à la BDD
-        return club
-
-    def recuperer_club(self):
-        clubs=list_clubs_by_member(self.id)
-        if clubs :
-            for club in clubs :
-                self.clubs.append(Club(club.nom,club.adresse,club.chef,club.description))
-
 
 
 class Membre(User):
@@ -108,7 +93,6 @@ def connexion(pseudo, password):
     utilisateur = search_member(pseudo)
     compte = None
     if utilisateur and utilisateur[0] == password:
-        print("1")
         if utilisateur[1] == "user":
             compte = User(utilisateur[2], utilisateur[3], utilisateur[4], utilisateur[0], utilisateur[5])
             compte.clubs = list_clubs_by_member(compte.id)
