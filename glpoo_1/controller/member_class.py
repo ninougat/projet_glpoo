@@ -41,11 +41,7 @@ class User:
         del_member(self.id)# on supprime le membbre via son ID
 
     def creer_club(self, nom,adresse,description):
-        print(nom)
-        print(adresse)
-        print(description)
         club = Club(nom, adresse, description, self.id)#on créé une classe club
-        print(club)
         add_club(club)#on l'ajoute à la BDD
         return club
 

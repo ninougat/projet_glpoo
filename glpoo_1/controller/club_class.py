@@ -49,11 +49,8 @@ class Club:
         self.membres.append(id_membre)
         add_member_licence(id_membre,id_licence,0)
 
-
-
     def supprimer_membre(self, membre):
         del_member_licence_by_club(membre,self.id)
-
 
     def afficher_informations(self):
         print(f"nom : ${self.nom}")
