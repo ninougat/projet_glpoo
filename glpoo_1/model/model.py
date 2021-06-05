@@ -223,8 +223,8 @@ def get_club_by_licence(id_licence):
         if licence:
             try:
                 club = session.query(Club_bdd).filter_by(id=licence.id_club).one()
-                if club:
-                    return club
+                return club
+
             except:
                 print("club incorrect")
     except :

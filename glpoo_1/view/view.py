@@ -32,9 +32,7 @@ def vue():
     for i in range(10):
         c = Club("Club %d" % i, "Adresse club n°%d" % i, "Ceci est le club n°%d" % i, 1, id=3 + i)
         clubs.append([c, 0])
-    add_club(club)
-    licence = creer_Licence(1,"pauvre",1,1,"aucun")
-    add_member_licence(1,1,0)
+    util.creer_club("test","tes","te")
 
 
     Initiale = Page("Initiale")
