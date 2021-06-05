@@ -161,7 +161,6 @@ def vue():
 
                                     current = "Accueil"
                                     page = Accueil
-                                elif button.content == "Ajouter licence" and user:
                                 elif button.content == "Voir licence":
                                     current = "Mes licences"
                                     page = generateMesLicences(lister_licences_club(club.id))
