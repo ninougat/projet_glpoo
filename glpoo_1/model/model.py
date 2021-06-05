@@ -170,18 +170,13 @@ def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
          elif ida:
             mod = session.query(Member_licence).filter_by(id=ida).one()
 
-         if id_licence:
-             mod.id_licence = id_licence
+         if id_licence and not id_member:
+            mod.id_licence = id_licence
          if statut:
-            mod.statut=statut
-            mod = session.query(Member_licence).filter_by(id=ida).one()
-         if mod:
-             if id_licence :
-                 mod.id_licence=id_licence
-             if statut :
-                 mod.statut=statut
-         else :
-             print("cette colonne n'existe pas")
+            mod.statut = statut
+
+         session.commit()
+
      except :
          print("cette colonne n'existe pas")
 
@@ -216,6 +211,7 @@ def list_licences():
 def list_member_licence():
     for member_licence in session.query(Member_licence):
         print(member_licence)
+
 def del_licence(ida):
     try:
         licence_to_delete = session.query(Licence_bdd).filter_by(id=ida).one()

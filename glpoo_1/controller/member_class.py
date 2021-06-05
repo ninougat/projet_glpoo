@@ -45,7 +45,9 @@ class Membre(User):
         self.id_licence = licence
 
     def changer_license(self,n_licence):
-        self.id_licence=n_licence# on remplace l'ancienen licence par la nouvelle
+        licence, statut = get_licence_by_club_and_member(self.id, self.id_licence)
+        self.id_licence=n_licence# on remplace l'ancienne licence par la nouvelle
+        modify_membre_licence(ida=licence.id, id_licence=n_licence)
 
     def modifier_club(self,club,nom=None, adresse=None, chef=None, description=None):
         modify_club(club.id,nom=nom,adresse=adresse,chef=chef,description=description)#On modifie le club en fonction des infos founi par les parametres
