@@ -45,7 +45,9 @@ class Club:
         membres = []
         membres_bdd=list_members_by_club(self.id)
         for membre_bdd in membres_bdd:
-            membres.append(User(membre_bdd.name, membre_bdd.firstname, membre_bdd.user, membre_bdd.password, membre_bdd.id))
+            membre = search_member(id=membre_bdd.id_member)
+            licence = search_licence(membre_bdd.id_licence)
+            membres.append({"nom": membre[0], "prenom": membre[1], "pseudo": membre[2], "nom_licence": licence[0], "statut": membre_bdd.statut})
         return membres
 
     def ajouter_membre(self, id_membre,id_licence):
