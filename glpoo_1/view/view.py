@@ -8,7 +8,7 @@ from controller.licence_class import *
 def connexion_user(pseudo,password):
     user=connexion(pseudo,password)
     if isinstance(user, User) :
-        recup_club(user)
+        return recup_club(user)
 
 def vue():
     pg.init()
@@ -17,19 +17,20 @@ def vue():
     pg.display.set_caption("Oui.")
     font = pg.font.SysFont(None, 20)
     screen.fill([255, 255, 255])
-    Quentin = User("Quentin", "PAJON", "Quentin1", "12345", 2)
-    Quentin2 = User("Quentin", "PAJON", "Quentin2", "12345", 1)
+    Quentin = User("Quentin", "PAJON", "Quentin1", "12345")
+    Quentin2 = User("Quentin", "PAJON", "Quentin2", "12345")
     add_member(Quentin, "user")
-    add_member(User("", "", "", "", 1), "admin")
-    util = User("a", "a", "a", "a", 1)
+    add_member(Quentin2, "user")
+    add_member(User("", "", "", ""), "admin")
+    util = User("a", "a", "a", "a")
     user = None
+    list_clubs = []
 
     add_member(util, "user")
     c = Club("Club Test", "Adresse", "description", 2)
     lic = Licence(c.id, "Licence test", 100, 1, "100 balles et un mars")
     creer_club(lic, c)
     Quentin.inscription(c, lic.id)
-    Quentin2.inscription(c, lic.id)
 
     c = Club("Club 2", "Adresse 2", "description 2", 2)
     lic = Licence(c.id, "Licence 2", 200, 2, "200 balles et 2 mars")
@@ -105,8 +106,8 @@ def vue():
                                     page = generateProfile(util)
                                 elif button.content == "Liste de vos Clubs":
                                     current = "Mes clubs"
-                                    recup_club(util)
-                                    page = generateMesClubs(util.clubs)
+                                    list_clubs = recup_club(util)
+                                    page = generateMesClubs(list_clubs)
                                 elif button.content == "Rechercher des Clubs":
                                     current = "Clubs"
                                     page = generateClubs(lister_clubs())  ############################# club non inscrit
@@ -117,7 +118,7 @@ def vue():
                                 if button.content == "Valider":
                                     if connexion(page.GetZone("Identifiant"), page.GetZone("mot de passe")):
                                         util = connexion(page.GetZone("Identifiant"), page.GetZone("mot de passe"))
-                                        recup_club(util)
+                                        list_clubs = recup_club(util)
                                         current = "Accueil"
                                         page = Accueil
                                     else:
@@ -135,7 +136,7 @@ def vue():
                                 club = page.links[str(idx)]
                                 user = connexion_club(util, club)
                                 if user:
-                                    recup_club(user)
+                                    list_clubs = recup_club(user)
                                     page = generateClubPage(page.links[str(idx)], 1 + user.type)
                                 else:
                                     page = generateClubPage(page.links[str(idx)], 0)
@@ -144,21 +145,21 @@ def vue():
                                 club = page.links[str(idx)]
                                 user = connexion_club(util, club)
                                 if user:
-                                    recup_club(user)
+                                    list_clubs = recup_club(user)
                                     page = generateClubPage(page.links[str(idx)], 1 + user.type)
                                 else:
                                     page = generateClubPage(page.links[str(idx)], 0)
                             elif page.title[:5] == "club ":
                                 if button.content == "S'inscrire":
-                                    util.inscription(club, 0)#####
+                                    util.inscription(club, 0)##### gerer la licence
                                     current = "Accueil"
                                     page = Accueil
-                                if button.content == "Se desinscrire" and user:
+                                elif button.content == "Se desinscrire" and user:
                                     user.desinscription(club)
                                     current = "Accueil"
                                     page = Accueil
-                                if button.content == "Supprimer le club" and user:
-
+                                elif button.content == "Supprimer le club" and user:
+                                    #########################################
                                     current = "Accueil"
                                     page = Accueil
                                 elif button.content == "Voir licence":
@@ -219,7 +220,6 @@ def vue():
                                     print(licence.avantage)
                                     current = "Accueil"
                                     page = Accueil
-
                             else:
                                 pass
 

@@ -53,8 +53,10 @@ def generateClubPage(club, type_membre):
     if type_membre == 0:
         page.addButton(Button([320, 50], [0, 150], text="S'inscrire"))
 
-    if type_membre > 0:
+    if 0 < type_membre < 3:
         page.addButton(Button([320, 50], [0, 150], text="Se desinscrire"))
+
+    if type_membre > 0:
         page.addButton(Button([320, 50], [0, 210], text="Voir licence"))
 
     if type_membre > 1:
@@ -62,8 +64,8 @@ def generateClubPage(club, type_membre):
         page.addButton(Button([320, 50], [0, 330], text="Ajouter licence"))
 
     if type_membre == 3:
-        page.addButton(Button([320, 50], [0, 390], text="Afficher le bureau"))
-        page.addButton(Button([320, 50], [0, 450], text="Supprimer le club"))
+        page.addButton(Button([320, 50], [0, 150], text="Afficher le bureau"))
+        page.addButton(Button([320, 50], [0, 390], text="Supprimer le club"))
 
     return page
 
