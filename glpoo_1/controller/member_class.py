@@ -65,18 +65,20 @@ class Membre(User):
         if self.type > statut:
             del_member_licence(id_member=membre.id, id_licence=membre.id_licence)
 
-    def promouvoir(self, membre, statut, club):
+    def promouvoir(self, membre, club):
+        licence, statut = get_licence_by_club_and_member(membre.id, club.id)
         if statut == 0 and self.type > 0:
-            modify_membre_licence(id_licence=membre.id_licence, statut=1, id_member=membre.id)
+            modify_membre_licence(id_licence=licence.id, statut=1, id_member=membre.id)
         elif statut == 1 and self.type == 2:
-            modify_membre_licence(id_licence=membre.id_licence, statut=2, id_member=membre.id)
+            modify_membre_licence(id_licence=licence.id, statut=2, id_member=membre.id)
             modify_membre_licence(id_licence=self.id_licence, statut=1, id_member=self.id)
             modify_club(club.id, chef=membre.id)
             self.type = 1
 
-    def retrograder(self, membre, statut):
+    def retrograder(self, membre, club):
+        licence, statut = get_licence_by_club_and_member(membre.id, club.id)
         if statut == 1 and self.type == 2:
-            modify_membre_licence(id_licence=membre.id_licence, statut=0, id_member=membre.id)
+            modify_membre_licence(id_licence=licence.id, statut=0, id_member=membre.id)
 
     def supprimer_Club(self):
         if self.type == 2:
