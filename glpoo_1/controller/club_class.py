@@ -1,6 +1,7 @@
 from controller.member_class import *
 from controller.licence_class import *
 
+
 class Club:
     def __init__(self, nom, adresse, description, id_chef, id=None):
         self.id = id
@@ -39,7 +40,6 @@ class Club:
 
         membre=search_member(name=name, firstname=firstname)
         return membre
-
 
     def afficher_membres(self):
         membres = []
