@@ -93,10 +93,8 @@ def search_member(pseudo=None,name=None,firstname=None):
             member=session.query(Member_bdd).filter_by(user=pseudo).one()
         elif name and firstname :
             member = session.query(Member_bdd).filter_by(name=name,firstname=firstname).one()
-        if member:
             return member.password,member.status,member.name,member.firstname,member.user,member.id
-        else :
-            return None
+
 
     except :
         print("le membre n'existe pas")
@@ -224,7 +222,6 @@ def get_club_by_licence(id_licence):
             try:
                 club = session.query(Club_bdd).filter_by(id=licence.id_club).one()
                 return club
-
             except:
                 print("club incorrect")
     except :
