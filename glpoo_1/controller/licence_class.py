@@ -39,6 +39,7 @@ class Licence:
 def creer_Licence(id_club, name, prix, nb_seance, avantage, util, club):
     licence = Licence(id_club, name, prix, nb_seance, avantage)
     add_licence(licence)
-    if id_club not in util.clubs:
-        util.inscription(club, licence.id)
+    if id_club not in util.clubs:             # si on vient de créer le club (si il n'est pas dans notre liste de clubs)
+        util.inscription(club, licence.id)    # on s'y inscrit
+        modify_membre_licence(id_licence=licence.id, id_member=util.id, statut=3)   # on se nomme chef
     return licence
