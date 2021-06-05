@@ -232,13 +232,20 @@ def get_club_by_licence(id_licence):
         print("licence incorrect")
     return None
 
+def get_licence_by_club_and_member(id_member,id_club):
+    licences_member = list_licences_by_member(id_member)
+    licences_clubs = list_licences_by_club(id_club)
+    for licence_m in licences_member:
+        for licence_c in licences_clubs:
+            if licence_m.id_licence == licence_c.id:
+                return licence_m
 
 def del_member_licence_by_club(id_member, id_club):
     licences_member=list_licences_by_member(id_member)
     licences_clubs=list_licences_by_club(id_club)
     for licence_m in licences_member :
         for licence_c in licences_clubs :
-            if licence_m == licence_c :
+            if licence_m.id_licence == licence_c.id :
                 del_member_licence(id_member,licence_m)
 
 
