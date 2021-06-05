@@ -77,6 +77,7 @@ class Membre(User):
     def supprimer_Club(self,club):
         if self.type==2:
             club=get_club_by_licence(self.id_licence)
+
             if club:
                 del_club(club.id)
 
