@@ -61,9 +61,10 @@ class Membre(User):
         club = get_club_by_licence(self.id_licence)
         return list_members_by_club(club.id)
 
-    def desinscrire_membre(self, membre, statut):
+    def desinscrire_membre(self, membre, club):
+        licence, statut = get_licence_by_club_and_member(membre.id, club.id)
         if self.type > statut:
-            del_member_licence(id_member=membre.id, id_licence=membre.id_licence)
+            del_member_licence(id_member=membre.id, id_licence=licence.id)
 
     def promouvoir(self, membre, club):
         licence, statut = get_licence_by_club_and_member(membre.id, club.id)
