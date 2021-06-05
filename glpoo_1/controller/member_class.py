@@ -42,10 +42,10 @@ class Membre(User):
     def __init__(self, name,  firstname, user, password, type, licence):
         User.__init__(self, name=name,  firstname=firstname, user=user, password=password)
         self.type = type
-        self.licence = licence
+        self.id_licence = licence
 
     def changer_license(self,n_licence):
-        self.licence=n_licence# on remplace l'ancienen licence par la nouvelle
+        self.id_licence=n_licence# on remplace l'ancienen licence par la nouvelle
 
     def modifier_club(self,club,nom=None, adresse=None, chef=None, description=None):
 
@@ -56,26 +56,26 @@ class Membre(User):
             modify_licence(ida=licence.id,name=name,prix=prix,nb_seances=nb_seances,avantage=avantage)
 
     def lister_membres(self):
-        club= get_club_by_licence(self.licence)
+        club= get_club_by_licence(self.id_licence)
         return list_members_by_club(club.id)
 
     def desinscrire_membre(self, membre):
         if self.type > membre.type:
 
-            del_member_licence(id_member=membre.id,id_licence=membre.licence)
+            del_member_licence(id_member=membre.id, id_licence=membre.id_licence)
 
     def promouvoir(self, membre,club):
         if membre.type==0 and self.type>0 :
-            modify_membre_licence(id_licence=membre.licence, statut=1,id_member=membre.id)
+            modify_membre_licence(id_licence=membre.id_licence, statut=1, id_member=membre.id)
         elif membre.type==1 and self.type==2:
-            modify_membre_licence(id_licence=membre.licence, statut=2, id_member=membre.id)
-            modify_membre_licence(id_licence=self.licence, statut=1, id_member=self.id)
+            modify_membre_licence(id_licence=membre.id_licence, statut=2, id_member=membre.id)
+            modify_membre_licence(id_licence=self.id_licence, statut=1, id_member=self.id)
             modify_club(club.id,chef=membre.id)
             self.type=1
 
     def supprimer_Club(self,club):
         if self.type==2:
-            club=get_club_by_licence(self.licence)
+            club=get_club_by_licence(self.id_licence)
             if club:
                 del_club(club.id)
 

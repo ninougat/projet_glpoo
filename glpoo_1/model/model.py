@@ -240,6 +240,7 @@ def get_licence_by_club_and_member(id_member,id_club):
             if licence_m.id_licence == licence_c.id:
                 return licence_c,licence_m.statut
 
+
 def del_member_licence_by_club(id_member, id_club):
     licences_member=list_licences_by_member(id_member)
     licences_clubs=list_licences_by_club(id_club)
@@ -250,10 +251,8 @@ def del_member_licence_by_club(id_member, id_club):
 
 
 def list_licences_by_member(id_member):
-
     member_licences=session.query(Member_licence).filter_by(id_member=id_member)
     return member_licences
-
 
 def list_clubs_by_member(id_member):
     member_licences=list_licences_by_member(id_member)
