@@ -81,10 +81,11 @@ def lister_clubs():
 
 
 def recup_club(util):
+    club_ret = []
     if util.id:
         clubs=list_clubs_by_member(util.id)
         util.clubs=[]
-        club_ret=[]
+
         if clubs:
             for club in clubs:
                 club_ret.append(Club(club.nom,club.adresse,club.description,club.chef,id=club.id))
