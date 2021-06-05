@@ -19,9 +19,9 @@ def vue():
     util = User("a", "a", "a", "a", 1)
 
     c = Club("Club Test", "Adresse", "description", 2)
-    l = Licence(c.id, "License test", 100, 2, "100 balles et un mars")
-    creer_club(l, c)
-    Quentin.inscription(c, l.id)
+    lic = Licence(c.id, "License test", 100, 2, "100 balles et un mars")
+    creer_club(lic, c)
+    Quentin.inscription(c, lic.id)
 
 
     Initiale = Page("Initiale")
@@ -34,6 +34,7 @@ def vue():
     Accueil.addButton(Button([320, 50], [0, 210], text="Ajouter un Club"))
     current = "Initiale"
     page = Initiale
+
     run = 1
     while run:
         events = pg.event.get()
@@ -89,10 +90,10 @@ def vue():
                                     page = generateProfile(util)
                                 elif button.content == "Liste de vos Clubs":
                                     current = "Mes clubs"
-                                    page = generateMesClubs(clubs)
+                                    page = generateMesClubs(util.clubs)
                                 elif button.content == "Rechercher des Clubs":
                                     current = "Clubs"
-                                    page = generateClubs(clubs)
+                                    page = generateClubs(util.clubs)############################# club non inscrit
                                 elif button.content == "Ajouter un Club":
                                     current = "Ajouter un Club"
                                     page = generateNouveauClub()
@@ -122,23 +123,25 @@ def vue():
                                 page = generateClubPage(page.links[str(idx)])
                             elif page.title[:5] == "club ":
                                 if button.content == "S'inscrire":
-                                    for c in clubs:
+                                    for c in util.clubs:################################## club non inscrit
                                         if str(c[0].id) == current:
                                             c[1] = 1
                                             break
                                     current = "Accueil"
                                     page = Accueil
                                 if button.content == "Se desinscrire":
-                                    for c in clubs:
+                                    util.recuperer_club()
+                                    for c in util.clubs:
                                         if str(c[0].id) == current:
                                             c[1] = 0
                                             break
                                     current = "Accueil"
                                     page = Accueil
                                 if button.content == "Supprimer le club":
-                                    for i, c in enumerate(clubs):
+                                    util.recuperer_club()
+                                    for i, c in enumerate(util.clubs):
                                         if str(c[0].id) == current:
-                                            clubs.pop(i)
+                                            util.clubs.pop(i)########################## BDD
                                             break
                                     current = "Accueil"
                                     page = Accueil
