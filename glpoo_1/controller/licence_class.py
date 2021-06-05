@@ -37,3 +37,4 @@ class Licence:
 def creer_License(id_club, name, prix, nb_seance, avantage):
     licence = Licence(id_club, name, prix, nb_seance, avantage)
     add_licence(licence)
+    return licence

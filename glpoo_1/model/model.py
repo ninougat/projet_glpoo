@@ -130,11 +130,11 @@ def modify_member(ida, name=None, firstname=None, user=None, password=None):
 
 
 def add_member_licence(id_member,id_licence,statut):
-    print(id_licence + " this is a trap")
+
     try :
         member=session.query(Member_bdd).filter_by(id=id_member).one()
         try :
-
+            list_licences()#a retirer
             licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
             if statut<0 or statut>2:
                 print("Le statut du membre est incorrect")
@@ -261,10 +261,10 @@ def list_licences_by_club(id_club):
 
 def create_club(club,licence):
     add_club(club)
-    print(str(club.id) + " le club qui fonctionne")
+    print(str(club.id) + " le club qui fonctionne")# a retirer
     licence.definir_id_club(club.id)
     add_licence(licence)
-    print(str(licence.id) +" la licence qui marche")
+    print(str(licence.id) +" la licence qui marche")#à retirer
     list_licences()
     add_member_licence(club.chef,licence.id,2)
 
