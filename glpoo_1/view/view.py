@@ -110,7 +110,7 @@ def vue():
                                     page = generateMesClubs(list_clubs)
                                 elif button.content == "Rechercher des Clubs":
                                     current = "Clubs"
-                                    page = generateClubs(lister_clubs())  ############################# club non inscrit
+                                    page = generateClubs(lister_clubs())
                                 elif button.content == "Ajouter un Club":
                                     current = "Ajouter un Club"
                                     page = generateNouveauClub()
@@ -159,7 +159,7 @@ def vue():
                                     current = "Accueil"
                                     page = Accueil
                                 elif button.content == "Supprimer le club" and user:
-                                    #########################################
+                                    user.supprimer_Club(club)
                                     current = "Accueil"
                                     page = Accueil
                                 elif button.content == "Voir licence":
