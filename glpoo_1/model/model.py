@@ -245,26 +245,26 @@ def get_club_by_licence(id_licence):
         print("licence incorrect")
     return None
 
-def get_licence_by_club_and_member(id_member,id_club):
+def get_licence_by_club_and_member(id_member, id_club):
     licences_member = list_licences_by_member(id_member)# member_licence
     licences_clubs = list_licences_by_club(id_club)#licence
     for licence_m in licences_member:
         for licence_c in licences_clubs:
             if licence_m.id_licence == licence_c.id:
-                return licence_c,licence_m.statut
-    return None,None
+                return licence_c, licence_m.statut
+    return None, None
 
 def del_member_licence_by_club(id_member, id_club):
-    licences_member=list_licences_by_member(id_member)
-    licences_clubs=list_licences_by_club(id_club)
-    for licence_m in licences_member :
-        for licence_c in licences_clubs :
-            if licence_m.id_licence == licence_c.id :
-                del_member_licence(id_member,licence_m)
+    licences_member = list_licences_by_member(id_member)
+    licences_clubs = list_licences_by_club(id_club)
+    for licence_m in licences_member:
+        for licence_c in licences_clubs:
+            if licence_m.id_licence == licence_c.id:
+                del_member_licence(id_member=id_member, id_licence=licence_m.id_licence)
 
 
 def list_licences_by_member(id_member):
-    member_licences=session.query(Member_licence).filter_by(id_member=id_member)
+    member_licences = session.query(Member_licence).filter_by(id_member=id_member)
     return member_licences
 
 def list_clubs_by_member(id_member):
