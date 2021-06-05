@@ -79,7 +79,7 @@ def recup_club(util):
         clubs=list_clubs_by_member(util.id)
         if clubs :
             for club in clubs:
-               util.clubs.append(Club(club.nom,club.adresse,club.chef,club.description))
+               util.clubs.append(Club(club.nom,club.adresse,club.description,club.chef))
 def lister_licences_club(id_club):
     licences = []
     licences_bdd = list_licences_by_club(id_club)
