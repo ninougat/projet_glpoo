@@ -109,7 +109,6 @@ def search_licence(id=None):
     try:
         if id:
             licence=session.query(Licence_bdd).filter_by(id=id).one()
-
             return licence.name,licence.prix,licence.nb_seances,licence.avantage
     except:
         print("la licence n'exite pas")
