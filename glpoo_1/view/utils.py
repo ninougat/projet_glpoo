@@ -91,11 +91,8 @@ def generateMesLicences(licences):
     return mesLicences
 
 
-def generatelicencePage(licence):
+def generatelicencePage(licence, type_membre):
     page = Page("licence " + licence.name)
-
-    type_membre = 3
-
     if type_membre < 2:
         page.addText(Text(content="Prix : "+str(licence.prix), textSize=[320, 50], textPos=[0, 30]))
         page.addText(Text(content="nb_seances : "+str(licence.nb_seances), textSize=[320, 50], textPos=[0, 90]))

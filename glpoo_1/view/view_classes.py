@@ -1,6 +1,5 @@
 import pygame as pg
 
-
 class Button:
     content = None
     bg_color = [128, 128, 255]
@@ -80,7 +79,7 @@ class ZoneText:
             self.posCursor = min(len(self.content), self.posCursor + 1)
         elif event.key == pg.K_LEFT:
             self.posCursor = max(0, self.posCursor - 1)
-        elif self.posCursor < self.sizeLimit:
+        elif len(self.content) < self.sizeLimit and event.unicode not in ['', '\t', '\n', '\r']:
             self.content = self.content[:self.posCursor] + event.unicode + self.content[self.posCursor:]
             self.posCursor += 1
 
