@@ -90,6 +90,7 @@ def search_member(pseudo=None,name=None,firstname=None):
     try :
         member=None
         if pseudo:
+            list_members()
             member=session.query(Member_bdd).filter_by(user=pseudo).one()
         elif name and firstname :
             member = session.query(Member_bdd).filter_by(name=name,firstname=firstname).one()

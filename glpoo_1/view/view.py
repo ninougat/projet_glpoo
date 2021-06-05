@@ -15,13 +15,13 @@ def vue():
 
     Quentin = User("Quentin", "PAJON", "Quentin", "12345", 1)
     add_member(Quentin, "user")
-    add_member(User("", "", "", "", 1), 1)
+    add_member(User("", "", "", "", 1), "admin")
     util = User("a", "a", "a", "a", 1)
 
     c = Club("Club Test", "Adresse", "description", 2)
-    l = Licence(c.id, "License test", 100, 2, "100 balles et un mars")
-    creer_club(l, c)
-    Quentin.inscription(c, l.id)
+    lic = Licence(c.id, "License test", 100, 2, "100 balles et un mars")
+    creer_club(lic, c)
+    Quentin.inscription(c, lic.id)
 
 
     Initiale = Page("Initiale")
@@ -34,6 +34,7 @@ def vue():
     Accueil.addButton(Button([320, 50], [0, 210], text="Ajouter un Club"))
     current = "Initiale"
     page = Initiale
+
     run = 1
     while run:
         events = pg.event.get()
@@ -89,10 +90,10 @@ def vue():
                                     page = generateProfile(util)
                                 elif button.content == "Liste de vos Clubs":
                                     current = "Mes clubs"
-                                    page = generateMesClubs(clubs)
+                                    page = generateMesClubs(util.clubs)
                                 elif button.content == "Rechercher des Clubs":
                                     current = "Clubs"
-                                    page = generateClubs(clubs)
+                                    page = generateClubs(util.clubs)############################# club non inscrit
                                 elif button.content == "Ajouter un Club":
                                     current = "Ajouter un Club"
                                     page = generateNouveauClub()
@@ -122,43 +123,42 @@ def vue():
                                 page = generateClubPage(page.links[str(idx)])
                             elif page.title[:5] == "club ":
                                 if button.content == "S'inscrire":
-                                    for c in clubs:
+                                    for c in util.clubs:################################## club non inscrit
                                         if str(c[0].id) == current:
                                             c[1] = 1
                                             break
                                     current = "Accueil"
                                     page = Accueil
                                 if button.content == "Se desinscrire":
-                                    for c in clubs:
+                                    util.recuperer_club()
+                                    for c in util.clubs:
                                         if str(c[0].id) == current:
                                             c[1] = 0
                                             break
                                     current = "Accueil"
                                     page = Accueil
                                 if button.content == "Supprimer le club":
-                                    for i, c in enumerate(clubs):
+                                    util.recuperer_club()
+                                    for i, c in enumerate(util.clubs):
                                         if str(c[0].id) == current:
-                                            clubs.pop(i)
+                                            util.clubs.pop(i)########################## BDD
                                             break
                                     current = "Accueil"
                                     page = Accueil
                                 elif button.content == "Ajouter licence":
-                                    print(club.id)
+                                    current = "Ajouter licence"
                                     page = generateAjouterlicence(club.id)
-                                    if button.content == "Valider":
-                                        licence = creer_Licence(club.id, page.GetZone("Nom"),int(page.GetZone("Prix")), int(page.GetZone("Nombre de sceances")), page.GetZone("Description"))
-                                        current = "Accueil"
-                                        page = Accueil
+                                elif button.content == "Voir licence":
+                                    current = "Voir licence"
+                                    page = generatelicencePage(page.links[str(idx)])
                             elif current == "Ajouter un Club":
                                 if button.content == "Ajouter licence":
-                                    club = util.creer_club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"))
+                                    club = cre_club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"), util.id)
                                     current = "Ajouter licence"
                                     page = generateAjouterlicence(club.id)
                             elif current == "Ajouter licence":
-                                print(club.id)
-                                page = generateAjouterlicence(club.id)
                                 if button.content == "Valider":
-                                    creer_Licence(club.id, page.GetZone("Nom"), int(page.GetZone("Prix")), int(page.GetZone("Nombre de sceances")), page.GetZone("Description"))
+                                    licence = creer_Licence(club.id, page.GetZone("Nom"), int(page.GetZone("Prix")), int(page.GetZone("Nombre de seances")), page.GetZone("Description"))
                                     current = "Accueil"
                                     page = Accueil
 
