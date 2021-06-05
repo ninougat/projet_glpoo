@@ -136,11 +136,7 @@ def vue():
                                     current = "Accueil"
                                     page = Accueil
                                 if button.content == "Se desinscrire":
-                                    util.recuperer_club()
-                                    for c in util.clubs:
-                                        if str(c[0].id) == current:
-                                            c[1] = 0
-                                            break
+                                    user.desinscription(club)
                                     current = "Accueil"
                                     page = Accueil
                                 if button.content == "Supprimer le club":
