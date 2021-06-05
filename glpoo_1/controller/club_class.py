@@ -1,5 +1,5 @@
 from controller.member_class import *
-
+from controller.licence_class import *
 
 class Club:
     def __init__(self, nom, adresse, description, id_chef, id=None):
@@ -74,3 +74,9 @@ def lister_clubs():
         clubs.append(Club(club_bdd.nom, club_bdd.adresse, club_bdd.description, club_bdd.chef, id))
     return clubs
 
+def lister_licences_club(id_club):
+    licences = []
+    licences_bdd = list_licences_by_club(id_club)
+    for licence_bdd in licences_bdd:
+        licences.append(Licence(id_club, licence_bdd.name, licence_bdd.prix, licence_bdd.avantage, licence_bdd.id))
+    return licences
