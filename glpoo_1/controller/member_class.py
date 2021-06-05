@@ -109,6 +109,8 @@ def nouveau_membre(nom, prenom, pseudo, mot_de_passe):
 
 def connexion_club(user, club):
     licence_bdd, statut = get_licence_by_club_and_member(user.id, club.id)
-    return Membre(user.name, user.firstname, user.user, user.password, statut, licence_bdd.id)
+    membre = Membre(user.name, user.firstname, user.user, user.password, statut, licence_bdd.id)
+    membre.clubs = user.clubs.copy()
+    return membre
 
 
