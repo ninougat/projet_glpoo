@@ -164,6 +164,8 @@ class Page:
             button.pos[1] += 10
         for zone in self.zoneTexts:
             zone.pos[1] += 10
+        for zone in self.texts:
+            zone.pos[1] += 10
 
     def ScrollDown(self, screenHeight):
         canScroll = False
@@ -187,6 +189,8 @@ class Page:
         for button in self.buttons:
             button.pos[1] -= 10
         for zone in self.zoneTexts:
+            zone.pos[1] -= 10
+        for zone in self.texts:
             zone.pos[1] -= 10
 
     def GetZone(self, name):

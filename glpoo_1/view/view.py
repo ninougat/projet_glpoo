@@ -22,11 +22,16 @@ def vue():
     add_member(Quentin, "user")
     add_member(User("", "", "", "", 1), "admin")
     util = User("a", "a", "a", "a", 1)
+    user = None
 
     c = Club("Club Test", "Adresse", "description", 2)
-    lic = Licence(c.id, "License test", 100, 2, "100 balles et un mars")
+    lic = Licence(c.id, "Licence test", 100, 1, "100 balles et un mars")
     creer_club(lic, c)
     Quentin.inscription(c, lic.id)
+
+    c = Club("Club 2", "Adresse 2", "description 2", 2)
+    lic = Licence(c.id, "Licence 2", 200, 2, "200 balles et 2 mars")
+    creer_club(lic, c)
 
 
     Initiale = Page("Initiale")
@@ -62,6 +67,9 @@ def vue():
                     else:
                         if current == "Profil":
                             util.modifier_profil(page.GetZone("Prénom"),page.GetZone("Nom"), page.GetZone("Pseudo"), page.GetZone("Mot de passe"))
+                        if page.title[:5] == "club ":
+                            club = None
+                            user = None
                         current = "Accueil"
                         page = Accueil
                 for text in page.zoneTexts:
@@ -95,6 +103,7 @@ def vue():
                                     page = generateProfile(util)
                                 elif button.content == "Liste de vos Clubs":
                                     current = "Mes clubs"
+                                    recup_club(util)
                                     page = generateMesClubs(util.clubs)
                                 elif button.content == "Rechercher des Clubs":
                                     current = "Clubs"
@@ -106,6 +115,7 @@ def vue():
                                 if button.content == "Valider":
                                     if connexion(page.GetZone("Identifiant"), page.GetZone("mot de passe")):
                                         util = connexion(page.GetZone("Identifiant"), page.GetZone("mot de passe"))
+                                        recup_club(util)
                                         current = "Accueil"
                                         page = Accueil
                                     else:
@@ -119,35 +129,37 @@ def vue():
                             elif current == "Profil":
                                 pass
                             elif current == "Mes clubs":
-                                club = page.links[str(idx)]
                                 current = str(page.links[str(idx)].id)
-                                page = generateClubPage(page.links[str(idx)])
-                            elif current == "Clubs":
                                 club = page.links[str(idx)]
-                                current = str(page.links[str(idx)].id)
-                                page = generateClubPage(page.links[str(idx)])
-                            elif page.title[:5] == "club ":
                                 user = connexion_club(util, club)
+                                if user:
+                                    recup_club(user)
+                                    page = generateClubPage(page.links[str(idx)], 1 + user.type)
+                                else:
+                                    page = generateClubPage(page.links[str(idx)], 0)
+                            elif current == "Clubs":
+                                current = str(page.links[str(idx)].id)
+                                club = page.links[str(idx)]
+                                user = connexion_club(util, club)
+                                if user:
+                                    recup_club(user)
+                                    page = generateClubPage(page.links[str(idx)], 1 + user.type)
+                                else:
+                                    page = generateClubPage(page.links[str(idx)], 0)
+                            elif page.title[:5] == "club ":
                                 if button.content == "S'inscrire":
-                                    for c in util.clubs:################################## club non inscrit
-                                        if str(c[0].id) == current:
-                                            c[1] = 1
-                                            break
+                                    util.inscription(club, 0)#####
                                     current = "Accueil"
                                     page = Accueil
-                                if button.content == "Se desinscrire":
+                                if button.content == "Se desinscrire" and user:
                                     user.desinscription(club)
                                     current = "Accueil"
                                     page = Accueil
-                                if button.content == "Supprimer le club":
-                                    util.recuperer_club()
-                                    for i, c in enumerate(util.clubs):
-                                        if str(c[0].id) == current:
-                                            util.clubs.pop(i)########################## BDD
-                                            break
+                                if button.content == "Supprimer le club" and user:
+
                                     current = "Accueil"
                                     page = Accueil
-                                elif button.content == "Ajouter licence":
+                                elif button.content == "Ajouter licence" and user:
                                     current = "Ajouter licence"
                                     page = generateAjouterlicence(club.id)
                                 elif button.content == "Voir licence":
