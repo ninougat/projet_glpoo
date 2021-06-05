@@ -39,10 +39,8 @@ def generateClubs(clubs):
     return liste
 
 
-def generateClubPage(club):
+def generateClubPage(club, type_membre):
     page = Page("club " + club.nom)
-
-    type_membre = 3
 
     if type_membre < 2:
         page.addText(Text(content="Adresse : " + club.adresse, textSize=[320, 50], textPos=[0, 30]))
