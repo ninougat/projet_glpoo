@@ -12,27 +12,16 @@ def vue():
     pg.display.set_caption("Oui.")
     font = pg.font.SysFont(None, 20)
     screen.fill([255, 255, 255])
-    add_member(User("Quentin", "PAJON", "Quentin", "12345", 1), "user")
+
+    Quentin = User("Quentin", "PAJON", "Quentin", "12345", 1)
+    add_member(Quentin, "user")
     add_member(User("", "", "", "", 1), 1)
     util = User("a", "a", "a", "a", 1)
-    club = Club("", "", "", 1, id=0)
-    clubs = []
-    c = Club("Club Chef", "Adresse Chef", "Ceci est un club dont vous etes le chef", 1, id=0)
-    clubs.append([c, 1])
-    # util.ajoutLicence(0, 3)
 
-    c = Club("Club Bureau", "Adresse Bureau", "Ceci est un club dont vous etes membre du bureau", 1, id=1)
-    clubs.append([c, 1])
-    # util.ajoutLicence(0, 2)
-
-    c = Club("Club Membre", "Adresse Membre", "Ceci est un club dont vous etes un membre", 1, id=2)
-    clubs.append([c, 1])
-    # util.ajoutLicence(0, 1)
-
-    for i in range(10):
-        c = Club("Club %d" % i, "Adresse club n°%d" % i, "Ceci est le club n°%d" % i, 1, id=3 + i)
-        clubs.append([c, 0])
-    util.creer_club("test","tes","te")
+    c = Club("Club Test", "Adresse", "description", 2)
+    l = Licence(c.id, "License test", 100, 2, "100 balles et un mars")
+    creer_club(l, c)
+    Quentin.inscription(c, l.id)
 
 
     Initiale = Page("Initiale")
@@ -45,7 +34,6 @@ def vue():
     Accueil.addButton(Button([320, 50], [0, 210], text="Ajouter un Club"))
     current = "Initiale"
     page = Initiale
-
     run = 1
     while run:
         events = pg.event.get()
