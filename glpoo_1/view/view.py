@@ -146,22 +146,19 @@ def vue():
                                     current = "Accueil"
                                     page = Accueil
                                 elif button.content == "Ajouter licence":
-                                    print(club.id)
+                                    current = "Ajouter licence"
                                     page = generateAjouterlicence(club.id)
-                                    if button.content == "Valider":
-                                        licence = creer_Licence(club.id, page.GetZone("Nom"),int(page.GetZone("Prix")), int(page.GetZone("Nombre de sceances")), page.GetZone("Description"))
-                                        current = "Accueil"
-                                        page = Accueil
+                                elif button.content == "Voir licence":
+                                    current = "Voir licence"
+                                    page = generatelicencePage(page.links[str(idx)])
                             elif current == "Ajouter un Club":
                                 if button.content == "Ajouter licence":
-                                    club = util.creer_club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"))
+                                    club = cre_club(page.GetZone("Nom"), page.GetZone("Adresse"), page.GetZone("Description"), util.id)
                                     current = "Ajouter licence"
                                     page = generateAjouterlicence(club.id)
                             elif current == "Ajouter licence":
-                                print(club.id)
-                                page = generateAjouterlicence(club.id)
                                 if button.content == "Valider":
-                                    creer_Licence(club.id, page.GetZone("Nom"), int(page.GetZone("Prix")), int(page.GetZone("Nombre de sceances")), page.GetZone("Description"))
+                                    licence = creer_Licence(club.id, page.GetZone("Nom"), int(page.GetZone("Prix")), int(page.GetZone("Nombre de seances")), page.GetZone("Description"))
                                     current = "Accueil"
                                     page = Accueil
 
