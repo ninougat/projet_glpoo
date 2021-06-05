@@ -37,9 +37,8 @@ class Club:
         modify_club(self.id, description=self.description)
 
     def rechercher_membre(self, name, firstname):
-
         membre=search_member(name=name, firstname=firstname)
-        return membre
+        return User(membre.name, membre.firstname, membre.user, membre.password, membre.id)
 
     def afficher_membres(self):
         membres = []
@@ -47,7 +46,7 @@ class Club:
         for membre_bdd in membres_bdd:
             membre = search_member(id=membre_bdd.id_member)
             licence = search_licence(membre_bdd.id_licence)
-            membres.append({"nom": membre[0], "prenom": membre[1], "pseudo": membre[2], "nom_licence": licence[0], "statut": membre_bdd.statut})
+            membres.append({"membre": User(membre.name, membre.firstname, membre.user, membre.password, membre.id), "licence": licence[0], "statut": membre_bdd.statut})
         return membres
 
     def ajouter_membre(self, id_membre,id_licence):

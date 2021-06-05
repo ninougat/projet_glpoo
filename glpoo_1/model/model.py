@@ -96,9 +96,8 @@ def search_member(pseudo=None,name=None,firstname=None,id=None):
             member = session.query(Member_bdd).filter_by(name=name,firstname=firstname).one()
         elif id:
             member = session.query(Member_bdd).filter_by(id=id).one()
-            return member.name,member.firstname,member.user
 
-        return member.password,member.status,member.name,member.firstname,member.user,member.id
+        return member
 
 
     except :
