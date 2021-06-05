@@ -241,7 +241,8 @@ def get_club_by_licence(id_licence):
         print("licence incorrect")
     return None
 
-def get_licence_by_club_and_member(id_member, id_club):
+
+def get_licence_by_club_and_member(id_member,id_club):
     licences_member = list_licences_by_member(id_member)# member_licence
     licences_clubs = list_licences_by_club(id_club)#licence
     for licence_m in licences_member:
