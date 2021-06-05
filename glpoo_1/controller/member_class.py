@@ -45,7 +45,7 @@ class Membre(User):
         self.id_licence = licence
 
     def changer_license(self,n_licence):
-        id_club = get_club_by_licence(self.id_licence) # on récupère l'id du club
+        id_club = get_club_by_licence(self.id_licence).id # on récupère l'id du club
         licence, statut = get_licence_by_club_and_member(self.id, id_club) # on récupère l'id de la ligne qui associe le membre à sa licence
         self.id_licence=n_licence# on remplace l'ancienne licence par la nouvelle
         modify_membre_licence(ida=licence.id, id_licence=n_licence) # on change la licence dans la BDD
