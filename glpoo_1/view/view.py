@@ -7,7 +7,7 @@ from controller.licence_class import *
 
 def connexion_user(pseudo,password):
     user=connexion(pseudo,password)
-    if user is User :
+    if isinstance(user, User) :
         recup_club(user)
 
 def vue():
