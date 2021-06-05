@@ -42,7 +42,10 @@ class Club:
 
 
     def afficher_membres(self):
-        membres=list_members_by_club(self.id)
+        membres = []
+        membres_bdd=list_members_by_club(self.id)
+        for membre_bdd in membres_bdd:
+            membres.append(User(membre_bdd.name, membre_bdd.firstname, membre_bdd.user, membre_bdd.password, membre_bdd.id))
         return membres
 
     def ajouter_membre(self, id_membre,id_licence):
@@ -82,7 +85,6 @@ def recup_club(util):
         if clubs:
             for club in clubs:
                util.clubs.append(Club(club.nom,club.adresse,club.description,club.chef))
-
 
 
 def lister_licences_club(id_club):
