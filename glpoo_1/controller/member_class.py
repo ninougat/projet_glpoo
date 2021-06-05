@@ -113,6 +113,7 @@ def connexion_club(user, club):
         return None
     membre = Membre(user.name, user.firstname, user.user, user.password, statut, licence_bdd.id)
     membre.clubs = user.clubs.copy()
+    membre.id = user.id
     return membre
 
 
