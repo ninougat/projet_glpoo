@@ -89,14 +89,3 @@ class Membre(User):
             club = get_club_by_licence(self.id_licence)
             if club:
                 del_club(club.id)
-
-
-class Admin(User):
-
-    def supprimer_club(self, club):
-        del_club(club.id)
-
-    def supprimer_utilisateur(self, user):
-        del_member(user.id)
-
-
