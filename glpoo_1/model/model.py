@@ -171,7 +171,7 @@ def modify_membre_licence(ida=None,id_licence=None,statut=None,id_member=None):
 
          if id_licence and not id_member:
             mod.id_licence = id_licence
-         if statut:
+         if statut is not None:
             mod.statut = statut
 
          session.commit()
