@@ -1,1 +1,1 @@
-# projet_glpoo
+# Gestionnaire de Club Sportif (GCS)
