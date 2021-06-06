@@ -40,13 +40,14 @@ class Club:
         membre=search_member(name=name, firstname=firstname)
         return User(membre.name, membre.firstname, membre.user, membre.password, membre.id)
 
-    def afficher_membres(self):
+    def afficher_membres(self, type):
         membres = []
         membres_bdd=list_members_by_club(self.id)
         for membre_bdd in membres_bdd:
-            membre = search_member(id=membre_bdd.id_member)
-            licence = search_licence(membre_bdd.id_licence)
-            membres.append({"membre": User(membre.name, membre.firstname, membre.user, membre.password, membre.id), "licence": licence[0], "statut": membre_bdd.statut})
+            if membre_bdd.statut >= type :
+                membre = search_member(id=membre_bdd.id_member)
+                licence = search_licence(membre_bdd.id_licence)
+                membres.append({"membre": User(membre.name, membre.firstname, membre.user, membre.password, membre.id), "licence": licence[0], "statut": membre_bdd.statut})
         return membres
 
     def ajouter_membre(self, id_membre,id_licence):
