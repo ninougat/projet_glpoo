@@ -31,9 +31,6 @@ class User:
             self.clubs.remove(club.id)
             club.supprimer_membre(self.id)
 
-    def consulter(self, club):
-        club.afficher_informations()
-
     def supprimer(self):
         del_member(self.id)# on supprime le membre via son ID
 
@@ -83,7 +80,7 @@ class Membre(User):
         if statut == 1 and self.type == 2:
             modify_membre_licence(id_licence=licence.id, statut=0, id_member=membre.id)
         elif statut!=1 :
-            print(" la retrogradation n'a pas eu lieu,"+membre.nom+" la cible  n'est pas membre du bureau ou est le chef")
+            print(" la retrogradation n'a pas eu lieu,"+membre.name+" la cible  n'est pas membre du bureau ou est le chef")
         elif self.type!=2 :
             print(" la retrogradation n'a pas eu lieu, vous n'etes pas chef")
 
@@ -101,32 +98,5 @@ class Admin(User):
 
     def supprimer_utilisateur(self, user):
         del_member(user.id)
-
-
-def connexion(pseudo, password):
-    utilisateur = search_member(pseudo)
-    compte = None
-    if utilisateur and utilisateur.password == password:
-        if utilisateur.status == "user":
-            compte = User(utilisateur.name, utilisateur.firstname, utilisateur.user, utilisateur.password, utilisateur.id)
-            compte.clubs = list_clubs_by_member(compte.id)
-        else:
-            compte = Admin(utilisateur.name, utilisateur.firstname, utilisateur.user, utilisateur.password, utilisateur.id)
-    return compte
-
-
-def nouveau_membre(nom, prenom, pseudo, mot_de_passe):
-    membre = User(nom, prenom, pseudo, mot_de_passe)
-    add_member(membre, "user")
-    return membre
-
-def connexion_club(user, club):
-    licence_bdd, statut = get_licence_by_club_and_member(user.id, club.id)
-    if licence_bdd is None or statut is None:
-        return None
-    membre = Membre(user.name, user.firstname, user.user, user.password, statut, licence_bdd.id)
-    membre.clubs = user.clubs.copy()
-    membre.id = user.id
-    return membre
 
 

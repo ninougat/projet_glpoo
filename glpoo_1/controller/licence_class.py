@@ -25,21 +25,7 @@ class Licence:
     def definir_id_club(self,id_club):
         self.id_club=id_club
 
-    def afficher_licence(self):
-        print(" "+self.id+"\n")
-        print(" " + self.name + "\n")
-        print(" " + self.prix + "\n")
-        print(" " + self.nb_seances + "\n")
-        print(" " + self.avantage + "\n")
-
     def supprimer_licence(self):
         del_licence(self.id)
 
 
-def creer_Licence(id_club, name, prix, nb_seance, avantage, util, club):
-    licence = Licence(id_club, name, prix, nb_seance, avantage)
-    add_licence(licence)
-    if id_club not in util.clubs:             # si on vient de créer le club (si il n'est pas dans notre liste de clubs)
-        util.inscription(club, licence.id)    # on s'y inscrit
-        modify_membre_licence(id_licence=licence.id, id_member=util.id, statut=2)   # on se nomme chef
-    return licence

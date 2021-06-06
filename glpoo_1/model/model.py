@@ -2,8 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
+
 
 engine = create_engine('sqlite:///:memory:', echo=True)
 Base = declarative_base()
@@ -82,15 +81,12 @@ def add_member(membre,statut):
     membre.id = (session.query(Member_bdd).order_by(Member_bdd.id.desc()).first()).id
 
 
-def list_members():
-    for member in session.query(Member_bdd):
-        print(member)
+
 
 def search_member(pseudo=None,name=None,firstname=None,id=None):
     try :
         member=None
         if pseudo:
-            list_members()
             member=session.query(Member_bdd).filter_by(user=pseudo).one()
         elif name and firstname :
             member = session.query(Member_bdd).filter_by(name=name,firstname=firstname).one()
@@ -145,7 +141,6 @@ def add_member_licence(id_member,id_licence,statut):
     try :
         member=session.query(Member_bdd).filter_by(id=id_member).one()
         try :
-            list_licences()#a retirer
             licence=session.query(Licence_bdd).filter_by(id=id_licence).one()
             if statut<0 or statut>2:
                 print("Le statut du membre est incorrect")
@@ -203,13 +198,6 @@ def add_licence(licence):
         print(f"Le club {licence.id_club} n'existe pas")
 
 
-def list_licences():
-    for licence in session.query(Licence_bdd):
-        print(licence)
-
-def list_member_licence():
-    for member_licence in session.query(Member_licence):
-        print(member_licence)
 
 def del_licence(ida):
     try:
@@ -278,11 +266,8 @@ def list_licences_by_club(id_club):
 
 def create_club(club,licence):
     add_club(club)
-    print(str(club.id) + " le club qui fonctionne")# a retirer
     licence.definir_id_club(club.id)
     add_licence(licence)
-    print(str(licence.id) +" la licence qui marche")#à retirer
-    list_licences()
     add_member_licence(club.chef,licence.id,2)
 
 
@@ -329,7 +314,6 @@ def add_club(club):
 
 
 def list_clubs():
-
     clubs=session.query(Club_bdd)
     return clubs
 

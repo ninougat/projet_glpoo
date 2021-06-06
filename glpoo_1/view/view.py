@@ -1,8 +1,7 @@
-from view_classes import *
+
 from utils import *
-from controller.club_class import *
-from controller.member_class import *
-from controller.licence_class import *
+
+from controller.controller import *
 
 
 def connexion_user(pseudo,password):
