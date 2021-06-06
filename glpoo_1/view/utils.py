@@ -185,7 +185,13 @@ def generateMembrePage(membre1, membre):
         Nouveau.addText(Text(content="Pseudo : " + membre["membre"].user, textSize=[320, 40], textPos=[0, 106]))
     return Nouveau
 
-def generateBureauList():
+def generateBureauList(membres_bureau):
     bureau = Page("Bureau")
+
+    idx = 0
+    for membre in membres_bureau:
+        bureau.addButton(Button([320, 50], [0, 30 + 60 * idx], text=membre["membre"].name))
+        bureau.links[str(idx)] = membre
+        idx += 1
 
     return bureau

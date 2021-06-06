@@ -148,10 +148,13 @@ def vue():
                                     page = generateMesLicences(lister_licences_club(club.id))
                                 elif button.content == "Afficher tous les membres":
                                     current = "Membres"
-                                    page = generateMemberList(club.afficher_membres())
+                                    page = generateMemberList(club.afficher_membres(0))
                                 elif button.content == "Ajouter licence":
                                     current = "Ajouter licence"
                                     page = generateAjouterlicence(club.id)
+                                elif button.content == "Afficher le bureau":
+                                    current = "Bureau"
+                                    page = generateBureauList(club.afficher_membres(1))
                             elif current == "Mes licences":
                                 lic = page.links[str(idx)]
                                 current = str(page.links[str(idx)].id)
@@ -160,7 +163,7 @@ def vue():
                                     page = generatelicencePage(page.links[str(idx)], 1 + user.type)
                                 else:
                                     page = generatelicencePage(page.links[str(idx)], 0)
-                            elif current == "Membres":
+                            elif current == "Membres" or current == "Bureau":
                                 current = str(page.links[str(idx)])
                                 user_next = page.links[str(idx)]
                                 page = generateMembrePage(user,page.links[str(idx)])
