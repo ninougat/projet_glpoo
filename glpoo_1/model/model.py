@@ -112,7 +112,7 @@ def search_licence(id=None):
 def del_member(ida):
     member_to_delete = session.query(Member_bdd).filter_by(id=ida).one()  # on récupère le membre à supprimer
     try:
-        licenses = session.query(Member_licence).filter_by(id_members=ida)  # on récupère les licences auquels il était lié
+        licenses = session.query(Member_licence).filter_by(id_member=ida)  # on récupère les licences auquels il était lié
         for licence in licenses:  # pour chacune de ces licences
             session.delete(licence)  # on supprime son abonnement
         session.delete(member_to_delete)  # on supprime le membre
