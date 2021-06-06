@@ -1,13 +1,6 @@
-
-from utils import *
-
+from view.utils import *
 from controller.controller import *
 
-
-def connexion_user(pseudo,password):
-    user=connexion(pseudo,password)
-    if isinstance(user, User) :
-        return recup_club(user)
 
 def vue():
     pg.init()
@@ -27,6 +20,7 @@ def vue():
     Accueil.addButton(Button([320, 50], [0, 90], text="Liste de vos Clubs"))
     Accueil.addButton(Button([320, 50], [0, 150], text="Rechercher des Clubs"))
     Accueil.addButton(Button([320, 50], [0, 210], text="Ajouter un Club"))
+    Accueil.addButton(Button([320, 50], [0, 270], text="Supprimer mon compte"))
     current = "Initiale"
     page = Initiale
     run = 1
@@ -95,6 +89,10 @@ def vue():
                                 elif button.content == "Ajouter un Club":
                                     current = "Ajouter un Club"
                                     page = generateNouveauClub()
+                                elif button.content == "Supprimer mon compte":
+                                    util.supprimer()
+                                    current = "Initiale"
+                                    page = Initiale
                             elif current == "Connexion":
                                 if button.content == "Valider":
                                     if connexion(page.GetZone("Identifiant"), page.GetZone("mot de passe")):
@@ -209,18 +207,14 @@ def vue():
                                 page = Accueil
                             elif current == "Ajouter licence":
                                 if button.content == "Valider":
-                                    licence = creer_Licence(club.id, page.GetZone("Nom"), int(page.GetZone("Prix")), int(page.GetZone("Nombre de seances")), page.GetZone("Description"), util, club)
-                                    print(licence.avantage)
-                                    current = "Accueil"
-                                    page = Accueil
-                            else:
-                                pass
-
+                                    if page.GetZone("Prix").isdigit() and page.GetZone("Nombre de seances").isdigit():
+                                        licence = creer_Licence(club.id, page.GetZone("Nom"), int(page.GetZone("Prix")), int(page.GetZone("Nombre de seances")), page.GetZone("Description"), util, club)
+                                        current = "Accueil"
+                                        page = Accueil
+                                    else:
+                                        print("Le prix et le nombre de seances doivent etre des nombres")
         page.afficher(screen, font)
         pg.display.flip()
-
     pg.quit()
 
 
-if __name__ == "__main__":
-    vue()

@@ -1,4 +1,4 @@
-from view_classes import *
+from view.view_classes import *
 
 
 def generateProfile(user):
