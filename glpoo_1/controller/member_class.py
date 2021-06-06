@@ -75,11 +75,17 @@ class Membre(User):
             modify_membre_licence(id_licence=self.id_licence, statut=1, id_member=self.id)
             modify_club(club.id, chef=membre.id)
             self.type = 1
+        else :
+            print(" la promotion n'a pas eu , un des parametres est incorrect")
 
     def retrograder(self, membre, club):
         licence, statut = get_licence_by_club_and_member(membre.id, club.id)
         if statut == 1 and self.type == 2:
             modify_membre_licence(id_licence=licence.id, statut=0, id_member=membre.id)
+        elif statut!=1 :
+            print(" la promotion n'a pas eu , la cible" +membre +" n'est pas membre du bureau")
+        elif self.type!=2 :
+            print(" la promotion n'a pas eu , vous n'etes pas chef")
 
     def supprimer_Club(self):
         if self.type == 2:
